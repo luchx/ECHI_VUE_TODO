@@ -9,7 +9,7 @@
   "author": "Echi",
   "license": "MIT",
   "scripts": {
-    "serve": "cross-env NODE_ENV=development webpack-dev-server --inline --progress --colors --watch",
+    "serve": "cross-env NODE_ENV=development webpack-dev-server --watch",
     "build": "webpack"
   },
   "dependencies": {
