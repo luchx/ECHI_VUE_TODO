@@ -2,10 +2,19 @@
   "name": "echi_vue_todo",
   "version": "1.0.0",
   "private": true,
+  "description": "使用 vue-next 开发的便签项目~",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luchx/ECHI_VUE_TODO.git"
+  },
+  "keywords": [
+    "todo"
+  ],
+  "author": "Echi",
+  "license": "MIT",
   "main": "src/main.js",
   "scripts": {
     "serve": "cross-env NODE_ENV=development webpack-dev-server --progress --colors --watch",
-    "build": "webpack --mode production"
   },
   "dependencies": {
     "vue": "^2.6.11",
@@ -15,14 +24,16 @@
   "devDependencies": {
     "@babel/core": "^7.10.3",
     "@babel/preset-env": "^7.10.3",
-    "babel-core": "^6.26.3",
+    "autoprefixer": "^9.8.1",
     "babel-loader": "8.0.0-beta.0",
     "clean-webpack-plugin": "^3.0.0",
     "cross-env": "^7.0.2",
     "css-loader": "^3.6.0",
+    "file-loader": "^6.0.0",
     "html-webpack-plugin": "^4.3.0",
     "less": "^3.11.3",
     "less-loader": "^6.1.1",
+    "mini-css-extract-plugin": "^0.9.0",
     "postcss-loader": "^3.0.0",
     "style-loader": "^1.2.1",
     "ts-loader": "^7.0.5",
@@ -33,10 +44,5 @@
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0"
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not dead"
-  ]
+  }
 }

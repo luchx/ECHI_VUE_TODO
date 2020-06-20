@@ -1,13 +1,13 @@
 const webpack = require('webpack');
+const path = require('path');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const path = require('path');
-
-let mode = process.env.NODE_ENV == "development" ? "development" : "production";
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
-    mode,
+    mode: process.env.NODE_ENV,
+    devtool: 'inline-source-map',
     entry: path.resolve(__dirname, 'src/main.js'),
     output: {
         filename: "[name].[hash].bundle.js",
@@ -24,7 +24,6 @@ module.exports = {
         // 将 `.ts` 添加为一个可解析的扩展名。
         extensions: ['.ts', '.js', '.vue'],
         alias: {
-            'vue$': 'vue/dist/vue.esm.js',
             '@': path.join(__dirname, "src"),
         }
     },
@@ -32,7 +31,9 @@ module.exports = {
         rules: [
             {
                 test: /\.vue$/,
-                loader: 'vue-loader'
+                exclude: /node_modules/,
+                loader: 'vue-loader',
+                include: path.join(__dirname, 'src'),
             },
             {
                 test: /\.(ts|tsx)$/,
@@ -45,12 +46,14 @@ module.exports = {
                 exclude: file => (
                     /node_modules/.test(file) &&
                     !/\.vue\.js/.test(file)
-                )
+                ),
             },
             {
                 test: /\.css$/,
                 use: [
-                    'vue-style-loader',
+                    process.env.NODE_ENV !== 'production'
+                        ? 'vue-style-loader'
+                        : MiniCssExtractPlugin.loader,
                     {
                         loader: 'css-loader',
                         options: { importLoaders: 1 }
@@ -63,7 +66,8 @@ module.exports = {
                 use: [
                     'vue-style-loader',
                     'css-loader',
-                    'less-loader'
+                    'less-loader',
+                    'postcss-loader'
                 ]
             },
             {
@@ -79,9 +83,12 @@ module.exports = {
         ]
     },
     plugins: [
+        new VueLoaderPlugin(),
         new webpack.HashedModuleIdsPlugin(),
         new webpack.ProgressPlugin(),
-        new VueLoaderPlugin(),
+        new MiniCssExtractPlugin({
+            filename: 'style.css'
+        }),
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             title: 'Hello World app',

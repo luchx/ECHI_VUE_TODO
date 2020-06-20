@@ -15,13 +15,6 @@ const routes = [
       title: '购物车'
     }
   },
-  {
-    name: 'vant-cart',
-    component: () => import('./view/vant-cart'),
-    meta: {
-      title: '商品详情'
-    }
-  }
 ];
 
 // add route path
