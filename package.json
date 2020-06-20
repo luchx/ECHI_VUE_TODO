@@ -10,7 +10,7 @@
   "license": "MIT",
   "scripts": {
     "serve": "cross-env NODE_ENV=development webpack-dev-server --watch",
-    "build": "webpack"
+    "build": "webpack --progress --hide-modules"
   },
   "dependencies": {
     "vue": "^2.6.11",

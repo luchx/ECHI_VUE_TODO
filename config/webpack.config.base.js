@@ -6,19 +6,11 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
-	mode: process.env.NODE_ENV,
 	devtool: 'inline-source-map',
 	entry: path.resolve(__dirname, 'src/main.ts'),
 	output: {
 		filename: "[name].[hash].js",
 		path: path.resolve(__dirname, 'dist'),
-	},
-	devServer: {
-		contentBase: path.join(__dirname, "dist"),
-		historyApiFallback: true,
-		compress: true,
-		port: 9000,
-		open: true,
 	},
 	resolve: {
 		// 将 `.ts` 添加为一个可解析的扩展名。
