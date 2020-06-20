@@ -2,8 +2,10 @@
   "name": "echi_vue_todo",
   "version": "1.0.0",
   "private": true,
+  "main": "src/main.js",
   "scripts": {
-    "serve": "webpack-dev-server --watch"
+    "serve": "cross-env NODE_ENV=development webpack-dev-server --progress --colors --watch",
+    "build": "webpack --mode production"
   },
   "dependencies": {
     "vue": "^2.6.11",
@@ -11,8 +13,12 @@
     "vuex": "^3.4.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.10.3",
+    "@babel/preset-env": "^7.10.3",
     "babel-core": "^6.26.3",
-    "babel-loader": "^8.1.0",
+    "babel-loader": "8.0.0-beta.0",
+    "clean-webpack-plugin": "^3.0.0",
+    "cross-env": "^7.0.2",
     "css-loader": "^3.6.0",
     "html-webpack-plugin": "^4.3.0",
     "less": "^3.11.3",

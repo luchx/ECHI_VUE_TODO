@@ -1,30 +1,31 @@
 const webpack = require('webpack');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const path = require('path');
 
-module.default = {
-    // entry: , //输入文件
-    entry: "main.js",
+let mode = process.env.NODE_ENV == "development" ? "development" : "production";
+
+module.exports = {
+    mode,
+    entry: path.resolve(__dirname, 'src/main.js'),
     output: {
-        filename: "bundle.js", //输出文件
-        path: path.join(__dirname, 'dist'), //输出路径
-        chunkFilename: '[id].chunk.js'
+        filename: "[name].[hash].bundle.js",
+        path: path.resolve(__dirname, 'dist'),
     },
     devServer: {
-        port: 8000,
-        host: '0.0.0.0',
-        overlay: {
-            errors: true
-        },
-        // open:true  //每次都打开一个网页
-        hot: true //只渲染一个组件
+        contentBase: path.join(__dirname, "dist"),
+        historyApiFallback: true,
+        compress: true,
+        port: 9000,
+        open: true,
     },
     resolve: {
         // 将 `.ts` 添加为一个可解析的扩展名。
-        extensions: ['.ts', '.js'],
+        extensions: ['.ts', '.js', '.vue'],
         alias: {
             'vue$': 'vue/dist/vue.esm.js',
+            '@': path.join(__dirname, "src"),
         }
     },
     module: {
@@ -34,12 +35,12 @@ module.default = {
                 loader: 'vue-loader'
             },
             {
-                test: /\.ts$/,
+                test: /\.(ts|tsx)$/,
                 loader: 'ts-loader',
                 options: { appendTsSuffixTo: [/\.vue$/] }
             },
             {
-                test: /\.js?$/,
+                test: /\.(js|jsx)$/,
                 loader: 'babel-loader',
                 exclude: file => (
                     /node_modules/.test(file) &&
@@ -77,11 +78,16 @@ module.default = {
             },
         ]
     },
-    plugin: [
-        // new webpack.HashedModuleIdsPlugin(),
+    plugins: [
+        new webpack.HashedModuleIdsPlugin(),
+        new webpack.ProgressPlugin(),
         new VueLoaderPlugin(),
+        new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
+            title: 'Hello World app',
             template: path.resolve(__dirname, 'public/index.html'),
+            favicon: path.resolve(__dirname, 'public/favicon.ico'),      //图标
+            filename: 'index.html',       //指定输出路径和文件名
         }),
     ]
 }
