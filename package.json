@@ -3,18 +3,14 @@
   "version": "1.0.0",
   "private": true,
   "description": "使用 vue-next 开发的便签项目~",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/luchx/ECHI_VUE_TODO.git"
-  },
   "keywords": [
     "todo"
   ],
   "author": "Echi",
   "license": "MIT",
-  "main": "src/main.js",
   "scripts": {
-    "serve": "cross-env NODE_ENV=development webpack-dev-server --progress --colors --watch",
+    "serve": "cross-env NODE_ENV=development webpack-dev-server --inline --progress --colors --watch",
+    "build": "webpack"
   },
   "dependencies": {
     "vue": "^2.6.11",

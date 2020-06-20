@@ -1,28 +1,26 @@
 import Vue from 'vue';
-import Router from 'vue-router';
+import Router, {
+  RouteConfig,
+} from 'vue-router';
 
 Vue.use(Router);
 
-const routes = [
+const routes: RouteConfig[] = [
   {
     path: '*',
     redirect: '/cart'
   },
   {
+    path: '/cart',
     name: 'cart',
-    component: () => import('./view/cart'),
+    component: () => import('@/view/cart/index.vue'),
     meta: {
       title: '购物车'
     }
   },
 ];
 
-// add route path
-routes.forEach(route => {
-  route.path = route.path || '/' + (route.name || '');
-});
-
-const router = new Router({ routes });
+const router: Router = new Router({ routes });
 
 router.beforeEach((to, from, next) => {
   const title = to.meta && to.meta.title;
@@ -32,6 +30,4 @@ router.beforeEach((to, from, next) => {
   next();
 });
 
-export {
-  router
-};
+export default router;
