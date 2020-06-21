@@ -1,8 +1,10 @@
 const merge = require('webpack-merge');
 const webpack = require('webpack');
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const baseConfig = require('./webpack.config.base');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const StyleLintPlugin = require('stylelint-webpack-plugin')
+
 
 function resolve(dir) {
 	return path.join(__dirname, '..', dir)
@@ -18,10 +20,13 @@ module.exports = merge(baseConfig, {
 	},
 	plugins: [
 		new webpack.DefinePlugin({
-      'process.env': {
+			'process.env': {
 				NODE_ENV: JSON.stringify('development')
 			}
-    }),
+		}),
+		new StyleLintPlugin({
+			files: ['src/**/*.vue', 'src/assets/style/*.l?(e|c)ss']
+		}),
 		new HtmlWebpackPlugin({
 			title: 'Hello World app',
 			template: resolve('public/index.html'),
