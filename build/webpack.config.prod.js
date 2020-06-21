@@ -12,10 +12,14 @@ function resolve(dir) {
 
 module.exports = merge(baseConfig, {
 	mode: 'production',
+	output: {
+		filename: "[name].[hash].js",
+		path: resolve('dist/js'),
+	},
 	plugins: [
 		new webpack.DefinePlugin({
       'process.env': {
-				NODE_ENV: '"production"'
+				NODE_ENV: JSON.stringify('production')
 			}
     }),
 		new MiniCssExtractPlugin({

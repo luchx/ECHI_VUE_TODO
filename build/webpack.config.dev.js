@@ -2,8 +2,6 @@ const merge = require('webpack-merge');
 const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const baseConfig = require('./webpack.config.base');
 
 function resolve(dir) {
@@ -21,13 +19,9 @@ module.exports = merge(baseConfig, {
 	plugins: [
 		new webpack.DefinePlugin({
       'process.env': {
-				NODE_ENV: '"development"'
+				NODE_ENV: JSON.stringify('development')
 			}
     }),
-		new MiniCssExtractPlugin({
-			filename: 'style.css'
-		}),
-		new CleanWebpackPlugin(),
 		new HtmlWebpackPlugin({
 			title: 'Hello World app',
 			template: resolve('public/index.html'),

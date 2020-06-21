@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 function resolve(dir) {
 	return path.join(__dirname, '..', dir)
@@ -9,10 +10,6 @@ function resolve(dir) {
 module.exports = {
 	devtool: 'inline-source-map',
 	entry: resolve('src/main.ts'),
-	output: {
-		filename: "[name].[hash].js",
-		path: resolve('dist'),
-	},
 	resolve: {
 		// 将 `.ts` 添加为一个可解析的扩展名。
 		extensions: ['.ts', '.js', '.vue'],
@@ -73,6 +70,14 @@ module.exports = {
 					}
 				}]
 			},
+			{
+        test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+        loader: 'url-loader',
+        options: {
+          limit: 10000,
+          name: '[name].[hash:7].[ext]'
+        }
+      }
 		]
 	},
 	plugins: [
