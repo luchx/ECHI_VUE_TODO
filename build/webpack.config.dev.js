@@ -25,7 +25,10 @@ module.exports = merge(baseConfig, {
 			}
 		}),
 		new StyleLintPlugin({
-			files: ['src/**/*.vue', 'src/assets/style/*.l?(e|c)ss']
+			files: ['src/**/*.vue', 'src/assets/style/*.l?(e|c)ss'],
+			failOnError: false,
+			cache: true,
+			fix: true,
 		}),
 		new HtmlWebpackPlugin({
 			title: 'Hello World app',
