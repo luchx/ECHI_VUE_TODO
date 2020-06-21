@@ -13,8 +13,9 @@ function resolve(dir) {
 module.exports = merge(baseConfig, {
 	mode: 'production',
 	output: {
-		filename: "[name].[hash].js",
-		path: resolve('dist/js'),
+		filename: "js/[name].[hash].js",
+		path: resolve('dist'),
+		publicPath: '/',
 	},
 	plugins: [
 		new webpack.DefinePlugin({
@@ -23,7 +24,7 @@ module.exports = merge(baseConfig, {
 			}
     }),
 		new MiniCssExtractPlugin({
-			filename: 'style.css'
+			filename: 'css/style.css'
 		}),
 		new CleanWebpackPlugin(),
 		new HtmlWebpackPlugin({

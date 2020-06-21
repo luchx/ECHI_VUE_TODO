@@ -66,18 +66,19 @@ module.exports = {
 					loader: 'url-loader',
 					options: {
 						limit: 1024,
-						name: '[name]-[hash].[ext]'
+						name: 'image/[name]-[hash].[ext]'
 					}
 				}]
 			},
 			{
-        test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
-        loader: 'url-loader',
-        options: {
-          limit: 10000,
-          name: '[name].[hash:7].[ext]'
-        }
-      }
+				test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+				loader: 'url-loader',
+				options: {
+					limit: 10000,
+					outputPath: '/font/',//输入文件目录
+					name: 'font/[name].[hash:7].[ext]'
+				}
+			}
 		]
 	},
 	plugins: [
