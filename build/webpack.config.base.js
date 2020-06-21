@@ -1,30 +1,23 @@
 const webpack = require('webpack');
 const path = require('path');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
+function resolve(dir) {
+	return path.join(__dirname, '..', dir)
+}
 
 module.exports = {
-	mode: process.env.NODE_ENV,
 	devtool: 'inline-source-map',
-	entry: path.resolve(__dirname, 'src/main.ts'),
+	entry: resolve('src/main.ts'),
 	output: {
 		filename: "[name].[hash].js",
-		path: path.resolve(__dirname, 'dist'),
-	},
-	devServer: {
-		contentBase: path.join(__dirname, "dist"),
-		historyApiFallback: true,
-		compress: true,
-		port: 9000,
-		open: true,
+		path: resolve('dist'),
 	},
 	resolve: {
 		// 将 `.ts` 添加为一个可解析的扩展名。
-		extensions: ['*', '.ts', '.js', '.vue', '.json', '.less', '.css'],
+		extensions: ['.ts', '.js', '.vue'],
 		alias: {
-			'@': path.join(__dirname, "src"),
+			'@': resolve('src'),
 		}
 	},
 	module: {
@@ -33,7 +26,7 @@ module.exports = {
 				test: /\.vue$/,
 				exclude: /node_modules/,
 				loader: 'vue-loader',
-				include: path.join(__dirname, 'src'),
+				include: resolve('src'),
 			},
 			{
 				test: /\.(ts|tsx)$/,
@@ -86,15 +79,5 @@ module.exports = {
 		new VueLoaderPlugin(),
 		new webpack.HashedModuleIdsPlugin(),
 		new webpack.ProgressPlugin(),
-		new MiniCssExtractPlugin({
-			filename: 'style.css'
-		}),
-		new CleanWebpackPlugin(),
-		new HtmlWebpackPlugin({
-			title: 'Hello World app',
-			template: path.resolve(__dirname, 'public/index.html'),
-			favicon: path.resolve(__dirname, 'public/favicon.ico'),      //图标
-			filename: 'index.html',       //指定输出路径和文件名
-		}),
 	]
 }
