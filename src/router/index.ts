@@ -7,15 +7,11 @@ Vue.use(Router);
 
 const routes: RouteConfig[] = [
   {
-    path: '*',
-    redirect: '/cart'
-  },
-  {
-    path: '/cart',
-    name: 'cart',
-    component: () => import('@/view/cart/index.vue'),
+    path: '/',
+    name: 'hello',
+    component: () => import('@/view/hello/index.vue'),
     meta: {
-      title: '购物车'
+      title: '第一个页面'
     }
   },
 ];

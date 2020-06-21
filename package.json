@@ -9,8 +9,8 @@
   "author": "Echi",
   "license": "MIT",
   "scripts": {
-    "serve": "cross-env NODE_ENV=development webpack-dev-server --open --hot --config build/webpack.config.dev.js",
-    "build": "cross-env NODE_ENV=production webpack --config build/webpack.config.prod.js"
+    "serve": "webpack-dev-server --open --hot --config build/webpack.config.dev.js",
+    "build": "webpack --config build/webpack.config.prod.js"
   },
   "dependencies": {
     "@vue/composition-api": "^0.6.5",
