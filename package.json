@@ -11,7 +11,10 @@
   "scripts": {
     "serve": "webpack-dev-server --open --hot --config build/webpack.config.dev.js",
     "build": "webpack --config build/webpack.config.prod.js",
-    "lint:style": "stylelint src/**/*.{css,less} --fix"
+    "lint:style": "stylelint src/**/*.{css,less} --fix",
+    "lint-fix": "eslint --fix --ext .ts. .js, .vue ./src",
+    "lint": "eslint --ext .ts. .js, .vue ./src",
+    "precommit": "npm run lint-fix"
   },
   "husky": {
     "hooks": {
@@ -39,6 +42,16 @@
     "clean-webpack-plugin": "^3.0.0",
     "cross-env": "^7.0.2",
     "css-loader": "^3.6.0",
+    "eslint": "^6.8.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-friendly-formatter": "^4.0.1",
+    "eslint-loader": "^3.0.3",
+    "eslint-plugin-html": "^4.0.6",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-node": "^8.0.0",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "eslint-plugin-vue": "^6.2.1",
     "file-loader": "^6.0.0",
     "html-webpack-plugin": "^4.3.0",
     "husky": "^4.2.5",

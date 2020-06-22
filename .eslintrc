@@ -1,0 +1,52 @@
+{
+  "root": true,
+  "parserOptions": {
+    "sourceType": "module"
+  },
+  "extends": [
+    // https://github.com/vuejs/eslint-plugin-vue#bulb-rules
+    // "plugin:vue/recommended",
+    "plugin:vue/essential"
+  ],
+  "rules": {
+    "no-ternary": 0, //禁止使用三目运算符
+    "no-nested-ternary": 0, //禁止使用嵌套的三目运算
+    "eqeqeq": 0,
+    "no-debugger": "off",
+    // Only allow `console.log` in development
+    "no-console": "off",
+    "vue/component-name-in-template-casing": [
+      "error",
+      "kebab-case",
+      {
+        "ignores": []
+      }
+    ],
+    "vue/singleline-html-element-content-newline": "off",
+    "vue/no-spaces-around-equal-signs-in-attribute": "off",
+    "vue/multiline-html-element-content-newline": "off",
+    "vue/script-indent": ["off", null],
+    "vue/no-unused-components": ["off"],
+    "vue/require-default-prop": ["off"],
+    "vue/no-parsing-error": 0,
+    "vue/no-use-v-if-with-v-for": 0,
+    "vue/no-v-html": 0,
+    // semi: [2, "always"],
+    "no-unused-vars": "error",
+    "no-undef": 0,
+    "prefer-promise-reject-errors": 0,
+    "no-multi-str": 0,
+    "no-useless-escape": 0,
+    "no-unreachable": 0,
+    "one-var": 0,
+    "camelcase": 0,
+    "vue/max-attributes-per-line": 0,
+    "attr-lowercase": 0,
+    "vue/html-closing-bracket-newline": 0,
+    "vue/html-indent": 0,
+    "vue/html-self-closing": 0
+  },
+  "env": {
+    "browser": true
+  }
+}
