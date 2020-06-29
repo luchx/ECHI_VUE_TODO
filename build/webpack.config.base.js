@@ -63,8 +63,8 @@ module.exports = {
         use: [
           "vue-style-loader",
           "css-loader",
-          "less-loader",
           "postcss-loader",
+          "less-loader",
         ],
       },
       {
