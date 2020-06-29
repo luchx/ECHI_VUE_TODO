@@ -4,7 +4,11 @@ import router from "@/router";
 
 import VueCompositionApi from "@vue/composition-api";
 
-console.log(process.env.NODE_ENV);
+// 注册全局的组件
+import components from "@/components";
+Object.keys(components).forEach((key) => {
+  Vue.component(key, components[key]);
+});
 
 Vue.use(VueCompositionApi);
 

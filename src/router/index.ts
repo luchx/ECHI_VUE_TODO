@@ -8,8 +8,8 @@ Vue.use(Router);
 const routes: RouteConfig[] = [
   {
     path: '/',
-    name: 'hello',
-    component: () => import('@/view/hello/index.vue'),
+    name: 'todo',
+    component: () => import('@/view/todo/index.vue'),
     meta: {
       title: '第一个页面'
     }

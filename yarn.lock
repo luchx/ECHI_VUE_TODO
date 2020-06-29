@@ -999,6 +999,11 @@
     "@types/unist" "*"
     "@types/vfile-message" "*"
 
+"@types/webpack-env@^1.15.2":
+  version "1.15.2"
+  resolved "https://registry.npm.taobao.org/@types/webpack-env/download/@types/webpack-env-1.15.2.tgz?cache=0&sync_timestamp=1588202205779&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fwebpack-env%2Fdownload%2F%40types%2Fwebpack-env-1.15.2.tgz#927997342bb9f4a5185a86e6579a0a18afc33b0a"
+  integrity sha1-knmXNCu59KUYWobmV5oKGK/DOwo=
+
 "@types/webpack-sources@*":
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/@types/webpack-sources/-/webpack-sources-1.4.0.tgz#e58f1f05f87d39a5c64cf85705bdbdbb94d4d57e"

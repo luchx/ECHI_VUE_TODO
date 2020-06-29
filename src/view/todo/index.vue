@@ -1,14 +1,14 @@
 <template>
-  <button @click="increment">
-    Count is: {{ state.count }}, double is: {{ state.double }}
-  </button>
+  <EContainer>
+sadad
+  </EContainer>
 </template>
 
 <script>
   import { reactive, computed } from '@vue/composition-api'
 
   export default {
-    name: 'Hello',
+    name: 'Todo',
     setup() {
       const state = reactive({
         count: 0,
