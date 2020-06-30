@@ -4,19 +4,17 @@
     "module": "esnext",
     "strict": true,
     "jsx": "preserve",
-    "noImplicitAny": true,
     "importHelpers": true,
-    "strictFunctionTypes": false,
     "moduleResolution": "node",
-    "experimentalDecorators": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "strictPropertyInitialization": false,
     "sourceMap": true,
     "baseUrl": ".",
+    "types": [
+      "webpack-env"
+    ],
     "paths": {
       "@/*": [
-        "*",
         "src/*"
       ]
     },
@@ -31,11 +29,8 @@
     "src/**/*.ts",
     "src/**/*.tsx",
     "src/**/*.vue",
-    "src/**/*.js",
-    "src/**/*.jsx",
-    "src/**/*.vue",
-    "types/shims-tsx.d.ts",
-    "types/shims-vue.d.ts",
+    "tests/**/*.ts",
+    "tests/**/*.tsx"
   ],
   "exclude": [
     "node_modules"

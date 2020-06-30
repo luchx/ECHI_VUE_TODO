@@ -1,29 +1,30 @@
-import Vue from 'vue';
-import Router, {
-  RouteConfig,
-} from 'vue-router';
+import Vue from "vue";
+import VueRouter, { RouteConfig } from "vue-router";
+import Home from "@/views/Home.vue";
 
-Vue.use(Router);
+Vue.use(VueRouter);
 
-const routes: RouteConfig[] = [
+const routes: Array<RouteConfig> = [
   {
-    path: '/',
-    name: 'todo',
-    component: () => import('@/view/todo/index.vue'),
-    meta: {
-      title: '第一个页面'
-    }
+    path: "/",
+    name: "Home",
+    component: Home
   },
+  {
+    path: "/about",
+    name: "About",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(/* webpackChunkName: "about" */ "@/views/About.vue")
+  }
 ];
 
-const router: Router = new Router({ routes });
-
-router.beforeEach((to, from, next) => {
-  const title = to.meta && to.meta.title;
-  if (title) {
-    document.title = title;
-  }
-  next();
+const router = new VueRouter({
+  mode: "history",
+  base: process.env.BASE_URL,
+  routes
 });
 
 export default router;

@@ -1,83 +1,38 @@
 {
-  "name": "echi_vue_todo",
-  "version": "1.0.0",
+  "name": "echi_todo",
+  "version": "0.1.0",
   "private": true,
-  "description": "使用 vue-next 开发的便签项目~",
-  "keywords": [
-    "todo"
-  ],
-  "author": "Echi",
-  "license": "MIT",
   "scripts": {
-    "serve": "webpack-dev-server --open --hot --config build/webpack.config.dev.js",
-    "build": "webpack --config build/webpack.config.prod.js",
-    "lint:style": "stylelint src/**/*.{css,less} --fix",
-    "lint-fix": "eslint --fix --ext .ts. .js, .vue ./src",
-    "lint": "eslint --ext .ts. .js, .vue ./src",
-    "precommit": "npm run lint-fix"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.{css,less}": [
-      "stylelint --fix --max-warnings 0"
-    ]
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@vue/composition-api": "^0.6.5",
     "core-js": "^3.6.5",
+    "register-service-worker": "^1.7.1",
     "vue": "^2.6.11",
-    "vue-router": "^3.3.4",
+    "vue-router": "^3.2.0",
     "vuex": "^3.4.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.10.3",
-    "@babel/preset-env": "^7.10.3",
-    "@types/webpack-env": "^1.15.2",
-    "@vue/cli-plugin-babel": "^4.4.4",
-    "autoprefixer": "^9.8.1",
-    "babel-loader": "8.0.0-beta.0",
-    "babel-plugin-transform-remove-console": "^6.9.4",
-    "clean-webpack-plugin": "^3.0.0",
-    "cross-env": "^7.0.2",
-    "css-loader": "^3.6.0",
-    "eslint": "^6.8.0",
-    "eslint-config-standard": "^12.0.0",
-    "eslint-friendly-formatter": "^4.0.1",
-    "eslint-loader": "^3.0.3",
-    "eslint-plugin-html": "^4.0.6",
-    "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-node": "^8.0.0",
-    "eslint-plugin-promise": "^4.0.1",
-    "eslint-plugin-standard": "^4.0.0",
-    "eslint-plugin-vue": "^6.2.1",
-    "file-loader": "^6.0.0",
-    "html-webpack-plugin": "^4.3.0",
-    "husky": "^4.2.5",
-    "less": "^3.11.3",
-    "less-loader": "^6.1.1",
-    "lint-staged": "^10.2.11",
-    "mini-css-extract-plugin": "^0.9.0",
-    "postcss-loader": "^3.0.0",
-    "postcss-pxtorem": "^5.1.1",
-    "shelljs": "^0.8.4",
-    "style-loader": "^1.2.1",
-    "stylelint": "^13.6.1",
-    "stylelint-config-prettier": "^8.0.2",
-    "stylelint-config-rational-order": "^0.1.2",
-    "stylelint-config-standard": "^20.0.0",
-    "stylelint-webpack-plugin": "^2.1.0",
-    "ts-loader": "^7.0.5",
-    "typescript": "^3.9.5",
-    "url-loader": "^4.1.0",
-    "vue-loader": "^15.9.2",
-    "vue-template-compiler": "^2.6.11",
-    "webpack": "^4.43.0",
-    "webpack-cli": "^3.3.12",
-    "webpack-dev-server": "^3.11.0",
-    "webpack-merge": "^4.2.2"
+    "@typescript-eslint/eslint-plugin": "^2.33.0",
+    "@typescript-eslint/parser": "^2.33.0",
+    "@vue/cli-plugin-babel": "~4.4.0",
+    "@vue/cli-plugin-eslint": "~4.4.0",
+    "@vue/cli-plugin-pwa": "~4.4.0",
+    "@vue/cli-plugin-router": "~4.4.0",
+    "@vue/cli-plugin-typescript": "~4.4.0",
+    "@vue/cli-plugin-vuex": "~4.4.0",
+    "@vue/cli-service": "~4.4.0",
+    "@vue/eslint-config-prettier": "^6.0.0",
+    "@vue/eslint-config-typescript": "^5.0.2",
+    "eslint": "^6.7.2",
+    "eslint-plugin-prettier": "^3.1.3",
+    "eslint-plugin-vue": "^6.2.2",
+    "less": "^3.0.4",
+    "less-loader": "^5.0.0",
+    "prettier": "^1.19.1",
+    "typescript": "~3.9.3",
+    "vue-template-compiler": "^2.6.11"
   }
 }

@@ -1,19 +1,13 @@
 import Vue from "vue";
-import App from "@/App.vue";
-import router from "@/router";
+import App from "./App.vue";
+import "./registerServiceWorker";
+import router from "./router";
+import store from "./store";
 
-import VueCompositionApi from "@vue/composition-api";
-
-// 注册全局的组件
-import components from "@/components";
-Object.keys(components).forEach((key) => {
-  Vue.component(key, components[key]);
-});
-
-Vue.use(VueCompositionApi);
+Vue.config.productionTip = false;
 
 new Vue({
   router,
-  el: "#app",
+  store,
   render: h => h(App)
-});
+}).$mount("#app");
