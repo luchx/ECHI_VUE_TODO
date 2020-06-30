@@ -1,15 +1,22 @@
+const path = require("path");
+
+function resolve(dir) {
+  return path.join(__dirname, dir);
+}
+
 module.exports = {
   configureWebpack: {
     resolve: {
       alias: {
-        vue$: "vue/dist/vue.esm.js",
-        "@styles": "@/assets/styles",
-        "@img": "@/assets/img"
+        "@": resolve("src"),
+        "@styles": resolve("@/assets/styles"),
+        "@img": resolve("@/assets/img")
       }
     }
   },
   devServer: {
     port: "9000",
+    open: true,
     historyApiFallback: true,
     disableHostCheck: true,
     headers: {
