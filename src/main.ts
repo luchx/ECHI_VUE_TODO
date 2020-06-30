@@ -6,7 +6,7 @@ import store from "@/store";
 import components from "@/components";
 
 // 注册全局的组件
-Object.keys(components).forEach((key) => {
+Object.keys(components).forEach(key => {
   Vue.component(key, components[key]);
 });
 
