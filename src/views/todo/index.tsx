@@ -1,7 +1,7 @@
 import "./index.less";
 
 import Vue from 'vue'
-import EContainer from '@/components/container';
+import EContainer from '@/views/components/container';
 
 export default Vue.extend({
   name: "Todo",
