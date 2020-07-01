@@ -3,12 +3,7 @@ import App from "@/App.vue";
 import "@/registerServiceWorker";
 import router from "@/router";
 import store from "@/store";
-import components from "@/components";
-
-// 注册全局的组件
-Object.keys(components).forEach(key => {
-  Vue.component(key, components[key]);
-});
+import "normalize.css";
 
 Vue.config.productionTip = false;
 

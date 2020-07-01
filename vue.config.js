@@ -10,7 +10,7 @@ module.exports = {
       alias: {
         "@": resolve("src"),
         "@styles": resolve("@/assets/styles"),
-        "@img": resolve("@/assets/img")
+        "@img": resolve("@/assets/image")
       }
     }
   },
