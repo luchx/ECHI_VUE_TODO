@@ -9,6 +9,7 @@
     "lint": "vue-cli-service lint --fix"
   },
   "dependencies": {
+    "amfe-flexible": "^2.2.1",
     "core-js": "^3.6.5",
     "normalize.css": "^8.0.1",
     "register-service-worker": "^1.7.1",
@@ -33,6 +34,7 @@
     "eslint-plugin-vue": "^6.2.2",
     "less": "^3.0.4",
     "less-loader": "^5.0.0",
+    "postcss-pxtorem": "^5.1.1",
     "prettier": "^1.19.1",
     "typescript": "~3.9.3",
     "vue-template-compiler": "^2.6.11"
