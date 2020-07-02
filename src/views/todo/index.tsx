@@ -1,5 +1,4 @@
 import "./index.less";
-
 import Vue from "vue";
 import EContainer from "@/views/components/container";
 import EHeader from "@/views/components/header";
@@ -11,9 +10,7 @@ export default Vue.extend({
   render() {
     return (
       <EContainer>
-        <EHeader>
-          <i class="iconfont">&#xe60f;</i>
-        </EHeader>
+        <EHeader title="aaa" type="menu" />
         <EContent>sada</EContent>
         <EFooter>sada</EFooter>
       </EContainer>

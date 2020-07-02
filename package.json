@@ -2,6 +2,7 @@
   "name": "echi_todo",
   "version": "0.1.0",
   "private": true,
+  "types": "types/index.d.ts",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
@@ -10,6 +11,7 @@
   },
   "dependencies": {
     "amfe-flexible": "^2.2.1",
+    "classnames": "^2.2.6",
     "core-js": "^3.6.5",
     "lib-flexible": "^0.3.2",
     "normalize.css": "^8.0.1",
@@ -19,6 +21,7 @@
     "vuex": "^3.4.0"
   },
   "devDependencies": {
+    "@types/classnames": "^2.2.10",
     "@typescript-eslint/eslint-plugin": "^2.33.0",
     "@typescript-eslint/parser": "^2.33.0",
     "@vue/cli-plugin-babel": "~4.4.0",
