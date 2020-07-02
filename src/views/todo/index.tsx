@@ -11,7 +11,9 @@ export default Vue.extend({
   render() {
     return (
       <EContainer>
-        <EHeader>sada</EHeader>
+        <EHeader>
+          <i class="iconfont">&#xe60f;</i>
+        </EHeader>
         <EContent>sada</EContent>
         <EFooter>sada</EFooter>
       </EContainer>

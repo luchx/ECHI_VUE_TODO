@@ -5,6 +5,7 @@ import router from "@/router";
 import store from "@/store";
 import "lib-flexible";
 import "normalize.css";
+import "@/assets/styles/global.less";
 
 Vue.config.productionTip = false;
 
