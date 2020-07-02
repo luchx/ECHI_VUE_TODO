@@ -12,9 +12,13 @@ module.exports = {
       postcss: {
         plugins: [
           require("postcss-pxtorem")({
-            rootValue: 37.5, // 换算的基数
-            // selectorBlackList: ["weui", "mu"], // 忽略转换正则匹配项
-            propList: ["*"]
+            rootValue: 37.5,
+            unitPrecision: 7,
+            propList: ["*", "!font*"],
+            selectorBlackList: ["ignore"],
+            replace: true,
+            mediaQuery: false,
+            minPixelValue: 0
           })
         ]
       },
