@@ -11,14 +11,9 @@ module.exports = {
     loaderOptions: {
       postcss: {
         plugins: [
-          require("postcss-pxtorem")({
-            rootValue: 37.5,
-            unitPrecision: 7,
-            propList: ["*", "!font*"],
-            selectorBlackList: ["ignore"],
-            replace: true,
-            mediaQuery: false,
-            minPixelValue: 0
+          require("postcss-px2rem")({
+            remUnit: 37.5
+            // baseDpr: 2
           })
         ]
       },
