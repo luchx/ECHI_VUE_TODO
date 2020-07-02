@@ -5,13 +5,17 @@ function resolve(dir) {
 }
 
 module.exports = {
+  lintOnSave: true,
   css: {
     requireModuleExtension: false,
     loaderOptions: {
       // 给 less-loader 传递 Less.js 相关选项
       less: {
-        globalVars: {
-          primary: "#fff"
+        // globalVars: {
+        //   primary: "#fff"
+        // },
+        modifyVars: {
+          hack: `true; @import '${resolve("src/assets/styles/theme.less")}'`
         }
       }
     }
