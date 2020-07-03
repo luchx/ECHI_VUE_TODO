@@ -3,33 +3,39 @@ import classNames from "classnames";
 
 export default {
   name: "TodoCard",
+  props: {
+    todoList: {
+      type: Array,
+      default: () => []
+    }
+  },
   render() {
+    const { todoList } = this.$props;
     return (
       <section class={styles.cardWrapper}>
-        <div class={styles.cardContent}>
-          <div class={styles.cardInfo}>
-            <span class={styles.cardCheck}>
-              <i class={classNames("iconfont", styles.icon)}>&#xe6ca;</i>
-            </span>
-            <p class={styles.cardText}>这是一段描述文字</p>
+        {todoList.map(item => (
+          <div class={styles.cardContent} key={item.id}>
+            <div
+              class={classNames(styles.cardInfo, {
+                [styles.finished]: item.status === 1
+              })}
+            >
+              <span class={styles.cardCheck}>
+                <i
+                  class={classNames("iconfont", styles.icon)}
+                  domPropsInnerHTML={
+                    item.status === 1 ? "&#xe606;" : "&#xe6ca;"
+                  }
+                ></i>
+              </span>
+              <p class={styles.cardText}>{item.title}</p>
+            </div>
+            <div class={styles.cardClaim}>
+              <i class={classNames("iconfont", styles.icon)}>&#xe611;</i>
+              <span>{item.date}</span>
+            </div>
           </div>
-          <div class={styles.cardClaim}>
-            <i class={classNames("iconfont", styles.icon)}>&#xe611;</i>
-            <span>今天 23:14</span>
-          </div>
-        </div>
-        <div class={styles.cardContent}>
-          <div class={classNames(styles.cardInfo, styles.disabled)}>
-            <span class={styles.cardCheck}>
-              <i class={classNames("iconfont", styles.icon)}>&#xe606;</i>
-            </span>
-            <p class={styles.cardText}>这是一段描述文字</p>
-          </div>
-          <div class={styles.cardClaim}>
-            <i class={classNames("iconfont", styles.icon)}>&#xe611;</i>
-            <span>今天 23:14</span>
-          </div>
-        </div>
+        ))}
       </section>
     );
   }
