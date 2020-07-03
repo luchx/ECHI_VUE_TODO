@@ -1,4 +1,7 @@
-import { createRouter, createWebHistory } from "vue-router";
+import Vue from "vue";
+import VueRouter from "vue-router";
+
+Vue.use(VueRouter);
 
 const routes = [
   {
@@ -7,13 +10,13 @@ const routes = [
     meta: {
       title: "待办"
     },
-    component: () =>
-      import(/* webpackChunkName: "todo" */ "@/views/todo/index.vue")
+    component: () => import(/* webpackChunkName: "todo" */ "@/views/todo")
   }
 ];
 
-const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+const router = new VueRouter({
+  mode: "history",
+  base: process.env.BASE_URL,
   routes
 });
 

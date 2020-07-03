@@ -1,5 +1,5 @@
-const files = require.context('.', true, /\.vue$/);
-const modules: { [key: string]: any } = {};
+const files = require.context(".", true, /\.(vue|jsx)$/);
+const modules = {};
 
 files.keys().forEach(key => {
   const component = files(key).default;
