@@ -2,12 +2,6 @@ import Vue from "vue";
 import classNames from "classnames";
 import styles from "./index.less";
 
-export interface EHeader {
-  title: string
-
-  type: string,
-}
-
 export default Vue.extend({
   name: "Header",
   props: {
