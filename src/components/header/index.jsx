@@ -6,16 +6,16 @@ export default {
   props: {
     title: {
       type: String,
-      default: "",
+      default: ""
     },
     type: {
       type: String,
-      default: "back",
+      default: "back"
     },
     extra: {
       type: Object,
-      default: null,
-    },
+      default: null
+    }
   },
   render() {
     const { type, title, extra } = this.$props;
@@ -30,5 +30,5 @@ export default {
         <span class={styles.extra}>{extra}</span>
       </header>
     );
-  },
+  }
 };

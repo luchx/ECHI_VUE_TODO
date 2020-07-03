@@ -13,7 +13,7 @@ export default {
       <EContainer>
         <EHeader title={this.title} type="menu" />
         <EContent>sada</EContent>
-        <EFooter>sada</EFooter>
+        <EFooter activeKey="todo" />
       </EContainer>
     );
   }
