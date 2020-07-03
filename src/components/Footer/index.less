@@ -3,7 +3,8 @@
   align-items: center;
   justify-content: space-between;
   height: 50px;
-  background-color: @bg-color;
+  background-color: #fff;
+  box-shadow: @box-shadow-base;
   // border-top: 1px solid @border-color-base;
   .iconItem {
     display: flex;
@@ -17,6 +18,9 @@
     cursor: pointer;
     &.active {
       color: @primary-color;
+      .icon {
+        color: @primary-color;
+      }
     }
     > p {
       margin: 0;

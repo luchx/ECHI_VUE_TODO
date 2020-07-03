@@ -1,17 +1,12 @@
-import TodoCard from "./components/Card";
+import "./index.less";
 
 export default {
-  name: "Todo",
-  components: {
-    TodoCard
-  },
+  name: "Review",
   render() {
     return (
       <EContainer>
         <EHeader title={this.$route.meta.title} type="menu" />
-        <EContent>
-          <TodoCard />
-        </EContent>
+        <EContent>review</EContent>
         <EFooter />
       </EContainer>
     );

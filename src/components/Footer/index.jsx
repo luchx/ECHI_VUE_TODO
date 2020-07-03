@@ -3,47 +3,39 @@ import classNames from "classnames";
 
 export default {
   name: "Footer",
-  props: {
-    activeKey: {
-      type: String,
-      default: "todo",
-    },
-  },
   data() {
     return {
       list: [
         {
           title: "待办",
           key: "todo",
-          path: '/todo',
-          icon: "&#xe60f;",
+          path: "/todo",
+          icon: "&#xe69e;"
         },
         {
           title: "日程",
           key: "date",
-          path: '/date',
-          icon: "&#xe60f;",
+          path: "/date",
+          icon: "&#xe668;"
         },
         {
           title: "回顾",
           key: "review",
-          path: '/review',
-          icon: "&#xe60f;",
-        },
-      ],
+          path: "/review",
+          icon: "&#xe68a;"
+        }
+      ]
     };
   },
   render() {
-    const { activeKey } = this.$props;
     const { list } = this.$data;
     return (
       <section class={styles.footer}>
-        {list.map((item) => (
+        {list.map(item => (
           <router-link
             to={item.path}
-            class={classNames(styles.iconItem, {
-              [styles.active]: item.key === activeKey,
-            })}
+            activeClass={styles.active}
+            class={styles.iconItem}
             key={item.key}
           >
             <i
@@ -55,5 +47,5 @@ export default {
         ))}
       </section>
     );
-  },
+  }
 };

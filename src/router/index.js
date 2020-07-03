@@ -5,12 +5,33 @@ Vue.use(VueRouter);
 
 const routes = [
   {
+    path: "/",
+    name: "Home",
+    redirect: "/todo"
+  },
+  {
     path: "/todo",
     name: "Todo",
     meta: {
       title: "待办"
     },
-    component: () => import(/* webpackChunkName: "todo" */ "@/views/Todo")
+    component: () => import(/* webpackChunkName: "Todo" */ "@/views/Todo")
+  },
+  {
+    path: "/date",
+    name: "Date",
+    meta: {
+      title: "日程"
+    },
+    component: () => import(/* webpackChunkName: "Date" */ "@/views/Date")
+  },
+  {
+    path: "/review",
+    name: "Review",
+    meta: {
+      title: "回顾"
+    },
+    component: () => import(/* webpackChunkName: "Review" */ "@/views/Review")
   }
 ];
 
