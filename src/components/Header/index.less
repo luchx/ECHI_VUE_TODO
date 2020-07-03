@@ -1,0 +1,24 @@
+.header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  height: 50px;
+  background-color: #fff;
+  // box-shadow: @box-shadow-base;
+  .icon {
+    color: @icon-color;
+  }
+  .title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: block;
+    flex: 1;
+    padding: 0 8px;
+    font-size: 16px; /*px*/
+    color: @heading-color;
+    transform: translate(-50%, -50%);
+  }
+}

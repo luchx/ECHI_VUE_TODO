@@ -1,0 +1,30 @@
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 50px;
+  background-color: @bg-color;
+  // border-top: 1px solid @border-color-base;
+  .iconItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 33.3%;
+    font-size: 12px; /*px*/
+    color: @text-color;
+    text-decoration: none;
+    cursor: pointer;
+    &.active {
+      color: @primary-color;
+    }
+    > p {
+      margin: 0;
+    }
+    .icon {
+      font-size: 16px; /*px*/
+      color: @icon-color;
+      margin-bottom: 4px;
+    }
+  }
+}

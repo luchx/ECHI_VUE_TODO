@@ -5,12 +5,12 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/",
+    path: "/todo",
     name: "Todo",
     meta: {
       title: "待办"
     },
-    component: () => import(/* webpackChunkName: "todo" */ "@/views/todo")
+    component: () => import(/* webpackChunkName: "todo" */ "@/views/Todo")
   }
 ];
 
