@@ -8,19 +8,19 @@
 
 <script>
 import { defineComponent } from "vue";
-import EContainer from "@/views/components/container";
-import EHeader from "@/views/components/header";
-import EContent from "@/views/components/content";
-import EFooter from "@/views/components/footer";
+// import EContainer from "@/views/components/container";
+// import EHeader from "@/views/components/header";
+// import EContent from "@/views/components/content";
+// import EFooter from "@/views/components/footer";
 
 export default defineComponent({
   name: "Todo",
-  components: {
-    EContainer,
-    EHeader,
-    EContent,
-    EFooter
-  },
+  // components: {
+  //   EContainer,
+  //   EHeader,
+  //   EContent,
+  //   EFooter
+  // },
   props: {
     title: {
       type: String,

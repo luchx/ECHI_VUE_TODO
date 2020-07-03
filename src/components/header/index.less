@@ -1,0 +1,23 @@
+.header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  height: 45px;
+  background-color: #fff;
+  .icon {
+    color: @color-icon;
+  }
+  .title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: block;
+    flex: 1;
+    padding: 0 8px;
+    font-size: 16px; /*px*/
+    color: @primary-text;
+    transform: translate(-50%, -50%);
+  }
+}
