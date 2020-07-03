@@ -7,7 +7,9 @@
   </header>
 </template>
 <script>
-export default {
+import { defineComponent } from "vue";
+
+export default defineComponent({
   name: "Header",
   props: {
     title: {
@@ -23,7 +25,7 @@ export default {
       default: null
     }
   }
-};
+});
 </script>
 
 <style lang="less" scoped>
