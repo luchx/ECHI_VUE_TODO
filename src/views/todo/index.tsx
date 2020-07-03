@@ -5,7 +5,7 @@ import EHeader from "@/views/components/header";
 import EContent from "@/views/components/content";
 import EFooter from "@/views/components/footer";
 
-export default Vue.extend({
+export default Vue.defineComponent({
   name: "Todo",
   render() {
     return (

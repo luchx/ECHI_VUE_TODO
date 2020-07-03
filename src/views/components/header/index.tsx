@@ -2,7 +2,7 @@ import Vue from "vue";
 import classNames from "classnames";
 import styles from "./index.less";
 
-export default Vue.extend({
+export default Vue.defineComponent({
   name: "Header",
   props: {
     title: {
@@ -12,6 +12,10 @@ export default Vue.extend({
     type: {
       type: String,
       default: "back"
+    },
+    extra: {
+      type: Object,
+      default: null
     }
   },
   render() {
