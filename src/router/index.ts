@@ -1,18 +1,14 @@
-import { RouteConfig, createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHistory } from "vue-router";
 
-const routes: RouteConfig[] = [
+const routes = [
   {
     path: "/",
-    name: "Home",
-    redirect: "/todo"
-  },
-  {
-    path: "/todo",
     name: "Todo",
     meta: {
       title: "待办"
     },
-    component: () => import(/* webpackChunkName: "todo" */ "@/views/todo")
+    component: () =>
+      import(/* webpackChunkName: "todo" */ "@/views/todo/index.vue")
   }
 ];
 
