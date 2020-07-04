@@ -7,28 +7,29 @@ export default {
     todoList: {
       type: Array,
       default: () => []
-    }
-  },
-  computed: {
-    undoList() {
-      const { todoList } = this.$props;
-      return todoList;
     },
-    finishList() {
-      const { todoList } = this.$props;
-      return todoList;
-    }
   },
   methods: {
-    handleToggleCheck(item) {
+    handleToggleCheck(event, item) {
+      event.stopPropagation();
       item.isFinished = !item.isFinished;
+      this.$emit("check", item);
+    },
+    goDetail(event, item) {
+      this.$emit("goDetail", event, item);
     }
   },
   render() {
+    const { todoList } = this.$props;
+
     return (
-      <section class={styles.cardWrapper}>
-        {this.undoList.map(item => (
-          <div class={styles.cardContent} key={item.id}>
+      <transition-group name="list" tag="section" class={styles.cardWrapper}>
+        {todoList.map(item => (
+          <div
+            class={styles.cardContent}
+            key={item.id}
+            onClick={event => this.goDetail(event, item)}
+          >
             <div
               class={classNames(styles.cardInfo, {
                 [styles.finished]: item.isFinished
@@ -36,7 +37,7 @@ export default {
             >
               <span
                 class={styles.cardCheck}
-                onClick={() => this.handleToggleCheck(item)}
+                onClick={event => this.handleToggleCheck(event, item)}
               >
                 <i
                   class={classNames("iconfont", styles.icon)}
@@ -57,7 +58,7 @@ export default {
             </div>
           </div>
         ))}
-      </section>
+      </transition-group>
     );
   }
 };

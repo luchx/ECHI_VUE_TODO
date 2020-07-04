@@ -1,0 +1,87 @@
+.todoDetail {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: @zIndex-top;
+  width: 100vw;
+  height: 100vh;
+  background-color: #fff;
+}
+
+.saveBtn {
+  --height: 28px;
+  display: inline-block;
+  width: 60px;
+  height: var(--height);
+  line-height: var(--height);
+  text-align: center;
+  font-size: @font-size-base;
+  color: @primary-color;
+  background-color: #fff;
+  border-radius: @border-radius-base;
+  border: 1px solid @primary-color;
+  /*no*/
+  cursor: pointer;
+}
+
+.todoDetailContent {
+  padding: @primary-gap;
+
+  .cardInfo {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 8px;
+
+    &.finished {
+      .cardCheck .icon {
+        color: @success-color;
+      }
+    }
+
+    .cardCheck {
+      display: block;
+      min-width: 30px;
+
+      .icon {
+        font-size: 16px;
+        color: @warning-color;
+      }
+    }
+
+    .cardInput {
+      position: relative;
+      display: block;
+      font-size: @font-size-base;
+      /*px*/
+      color: @text-color;
+      box-sizing: border-box;
+      margin: 0;
+      font-variant: tabular-nums;
+      list-style: none;
+      font-feature-settings: "tnum";
+      width: 100%;
+      height: 32px;
+      padding: 4px 11px;
+      line-height: 1.5;
+      background-color: #fff;
+      background-image: none;
+      border: 1px solid @border-color-base; /*no*/
+      border-radius: @border-radius-base;
+      transition: all .3s;
+    }
+  }
+
+  .cardClaim {
+    font-size: 12px;
+    /*px*/
+    color: @primary-color;
+    margin-left: 30px;
+
+    .icon {
+      font-size: 12px;
+      color: @primary-color;
+      margin-right: 4px;
+    }
+  }
+}

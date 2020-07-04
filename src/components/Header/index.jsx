@@ -16,6 +16,10 @@ export default {
     extra: {
       type: Object,
       default: null
+    },
+    goBack: {
+      type: Function,
+      default: null,
     }
   },
   methods: {
@@ -24,7 +28,12 @@ export default {
       handleToggle(true);
     },
     handleBack() {
-      this.$touter.back();
+      const { goBack } = this.$props;
+      if (typeof goBack === "function") {
+        goBack();
+        return;
+      }
+      this.$router.back();
     }
   },
   render() {

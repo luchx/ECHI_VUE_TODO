@@ -5,6 +5,10 @@
 }
 
 :global {
+  * {
+    box-sizing: border-box;
+  }
+
   .iconfont {
     font-family: "iconfont" !important;
     font-size: 16px;
@@ -24,5 +28,9 @@
   .fade-enter,
   .fade-leave-to {
     opacity: 0;
+  }
+
+  .list-move {
+    transition: transform 1s;
   }
 }
