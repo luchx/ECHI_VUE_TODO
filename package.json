@@ -21,6 +21,7 @@
     "classnames": "^2.2.6",
     "core-js": "^3.6.5",
     "lib-flexible": "^0.3.2",
+    "moment": "^2.27.0",
     "normalize.css": "^8.0.1",
     "register-service-worker": "^1.7.1",
     "vue": "^2.6.11",

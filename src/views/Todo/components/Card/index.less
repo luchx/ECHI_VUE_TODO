@@ -1,6 +1,7 @@
 .cardWrapper {
   display: block;
   padding: @primary-gap;
+
   .cardContent {
     display: block;
     padding: @primary-gap;
@@ -9,44 +10,69 @@
     border-radius: @border-radius-base;
     margin-bottom: @primary-gap;
   }
+
   .cardInfo {
     display: flex;
     align-items: center;
     justify-content: flex-start;
     margin-bottom: 8px;
+
     &.finished {
-      .icon {
-        color: @disabled-color;
-      }
-      .cardText {
-        text-decoration: line-through;
+      .cardCheck .icon {
+        color: @success-color;
       }
     }
+
     .cardCheck {
       display: block;
       min-width: 30px;
+
       .icon {
         font-size: 16px;
-        color: @text-color-secondary;
+        color: @warning-color;
       }
     }
+
     .cardText {
+      position: relative;
       display: block;
-      font-size: 16px; /*px*/
+      font-size: 16px;
+      /*px*/
       color: @text-color;
       margin: 0;
       text-overflow: ellipsis;
       white-space: nowrap;
       overflow: hidden;
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 0;
+        height: 2px;
+        /*no*/
+        background-color: @success-color;
+        transition: width ease 0.3s;
+      }
+
+      &.line::before {
+        content: "";
+        width: 100%;
+
+      }
     }
   }
+
   .cardClaim {
-    font-size: 12px; /*px*/
-    color: @error-color;
+    font-size: 12px;
+    /*px*/
+    color: @primary-color;
     margin-left: 30px;
+
     .icon {
       font-size: 12px;
-      color: @error-color;
+      color: @primary-color;
       margin-right: 4px;
     }
   }

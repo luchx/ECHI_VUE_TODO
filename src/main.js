@@ -8,6 +8,10 @@ import router from "@/router";
 import store from "@/store";
 import components from "@/components";
 
+import moment from "moment";
+moment.locale("zh-cn");
+Vue.prototype.$moment = moment;
+
 // 注册全局的组件
 Object.keys(components).forEach(key => {
   Vue.component(key, components[key]);

@@ -9,30 +9,51 @@ export default {
       default: () => []
     }
   },
+  computed: {
+    undoList() {
+      const { todoList } = this.$props;
+      return todoList;
+    },
+    finishList() {
+      const { todoList } = this.$props;
+      return todoList;
+    }
+  },
+  methods: {
+    handleToggleCheck(item) {
+      item.isFinished = !item.isFinished;
+    }
+  },
   render() {
-    const { todoList } = this.$props;
     return (
       <section class={styles.cardWrapper}>
-        {todoList.map(item => (
+        {this.undoList.map(item => (
           <div class={styles.cardContent} key={item.id}>
             <div
               class={classNames(styles.cardInfo, {
-                [styles.finished]: item.status === 1
+                [styles.finished]: item.isFinished
               })}
             >
-              <span class={styles.cardCheck}>
+              <span
+                class={styles.cardCheck}
+                onClick={() => this.handleToggleCheck(item)}
+              >
                 <i
                   class={classNames("iconfont", styles.icon)}
-                  domPropsInnerHTML={
-                    item.status === 1 ? "&#xe606;" : "&#xe6ca;"
-                  }
+                  domPropsInnerHTML={item.isFinished ? "&#xe606;" : "&#xe6ca;"}
                 ></i>
               </span>
-              <p class={styles.cardText}>{item.title}</p>
+              <p
+                class={classNames(styles.cardText, {
+                  [styles.line]: item.isFinished
+                })}
+              >
+                {item.title}
+              </p>
             </div>
             <div class={styles.cardClaim}>
               <i class={classNames("iconfont", styles.icon)}>&#xe611;</i>
-              <span>{item.date}</span>
+              <span>{this.$moment(item.date).calendar()}</span>
             </div>
           </div>
         ))}
