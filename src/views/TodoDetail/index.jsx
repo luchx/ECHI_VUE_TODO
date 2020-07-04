@@ -6,59 +6,64 @@ export default {
   props: {
     todo: {
       type: Object,
-      default: () => {},
+      default: () => {}
     },
     visible: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
   methods: {
     handleBack() {
       this.$router.back();
       this.$emit("update", {
-        visible: false,
+        visible: false
       });
     },
     handleToggleCheck(event, item) {
       event.stopPropagation();
       item.isFinished = !item.isFinished;
-    },
+    }
   },
   render() {
     const { visible, todo } = this.$props;
 
     return (
       visible && (
-        <EContainer class={styles.todoDetail}>
+        <EContainer class={classNames(styles.todoDetail)}>
           <EHeader
             goBack={this.handleBack}
             extra={<span class={styles.saveBtn}>保存</span>}
           />
           <EContent class={styles.todoDetailContent}>
             <div
-              class={classNames(styles.cardInfo, {
-                [styles.finished]: todo.isFinished,
+              class={classNames(styles.todoDetailTitle, {
+                [styles.finished]: todo.isFinished
               })}
             >
               <span
-                class={styles.cardCheck}
-                onClick={(event) => this.handleToggleCheck(event, todo)}
+                class={styles.todoDetailCheck}
+                onClick={event => this.handleToggleCheck(event, todo)}
               >
                 <i
                   class={classNames("iconfont", styles.icon)}
                   domPropsInnerHTML={todo.isFinished ? "&#xe606;" : "&#xe6ca;"}
                 ></i>
               </span>
-              <input class={classNames(styles.cardInput)} value={todo.title} />
+              <input
+                class={classNames(styles.todoDetailInput)}
+                value={todo.title}
+                placeholder="标题"
+              />
             </div>
-            <div class={styles.cardClaim}>
-              <i class={classNames("iconfont", styles.icon)}>&#xe611;</i>
-              <span>{this.$moment(todo.date).calendar()}</span>
-            </div>
+            <textarea
+              class={classNames(styles.todoDetailText)}
+              value={todo.description}
+              placeholder="记录你的美好"
+            />
           </EContent>
         </EContainer>
       )
     );
-  },
+  }
 };

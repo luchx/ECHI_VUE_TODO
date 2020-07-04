@@ -61,10 +61,8 @@ export default {
       }
     },
     handleGoDetail(event, item) {
-      console.log(event, item);
       this.visible = true;
       this.todoDetail = item;
-      console.log(this.todoDetail);
       this.$router.push({
         name: "TodoDetail",
         params: {
