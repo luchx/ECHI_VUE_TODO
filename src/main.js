@@ -8,6 +8,25 @@ import router from "@/router";
 import store from "@/store";
 import components from "@/components";
 
+import {
+  Button,
+  SwipeCell,
+  Dialog,
+  Toast,
+  Field,
+  Divider,
+  Popup,
+  DatetimePicker
+} from "vant";
+Vue.use(Button);
+Vue.use(SwipeCell);
+Vue.use(Dialog);
+Vue.use(Toast);
+Vue.use(Field);
+Vue.use(Divider);
+Vue.use(Popup);
+Vue.use(DatetimePicker);
+
 import moment from "moment";
 moment.locale("zh-cn");
 Vue.prototype.$moment = moment;

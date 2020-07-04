@@ -1,54 +1,61 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 
+// 解决两次访问相同路由地址报错
+const originalPush = VueRouter.prototype.push;
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err);
+};
+
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
     name: "Home",
-    redirect: "/todo",
+    redirect: "/todo"
   },
   {
     path: "/todo",
     name: "Todo",
     meta: {
-      title: "待办",
+      title: "待办"
     },
     component: () => import(/* webpackChunkName: "Todo" */ "@/views/Todo"),
     children: [
       {
         path: "detail/:id",
         name: "TodoDetail",
-        component: () => import(/* webpackChunkName: "TodoDetail" */ "@/views/TodoDetail"),
-      },
-    ],
+        component: () =>
+          import(/* webpackChunkName: "TodoDetail" */ "@/views/TodoDetail")
+      }
+    ]
   },
   {
     path: "/date",
     name: "Date",
     meta: {
-      title: "日程",
+      title: "日程"
     },
-    component: () => import(/* webpackChunkName: "Date" */ "@/views/Date"),
+    component: () => import(/* webpackChunkName: "Date" */ "@/views/Date")
   },
   {
     path: "/review",
     name: "Review",
     meta: {
-      title: "回顾",
+      title: "回顾"
     },
-    component: () => import(/* webpackChunkName: "Review" */ "@/views/Review"),
-  },
+    component: () => import(/* webpackChunkName: "Review" */ "@/views/Review")
+  }
 ];
 
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
-  routes,
+  routes
 });
 
-router.afterEach((route) => {
+router.afterEach(route => {
   // 从路由的元信息中获取 title 属性
   if (route.meta.title) {
     document.title = route.meta.title;

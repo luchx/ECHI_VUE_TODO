@@ -7,7 +7,7 @@ function resolve(dir) {
 module.exports = {
   lintOnSave: true,
   css: {
-    requireModuleExtension: false,
+    // requireModuleExtension: false,
     loaderOptions: {
       postcss: {
         plugins: [

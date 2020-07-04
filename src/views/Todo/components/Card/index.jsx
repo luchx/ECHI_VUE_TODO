@@ -1,4 +1,4 @@
-import styles from "./index.less";
+import styles from "./index.module.less";
 import classNames from "classnames";
 
 export default {
@@ -7,7 +7,7 @@ export default {
     todoList: {
       type: Array,
       default: () => []
-    },
+    }
   },
   methods: {
     handleToggleCheck(event, item) {
@@ -17,6 +17,26 @@ export default {
     },
     goDetail(event, item) {
       this.$emit("goDetail", event, item);
+    },
+    handleBeforeClose(event, item) {
+      const { position, instance } = event;
+      switch (position) {
+        case "left":
+        case "cell":
+        case "outside":
+          instance.close();
+          break;
+        case "right":
+          this.$dialog
+            .confirm({
+              message: "确定删除吗？"
+            })
+            .then(() => {
+              instance.close();
+              this.$emit("del", item);
+            });
+          break;
+      }
     }
   },
   render() {
@@ -25,38 +45,52 @@ export default {
     return (
       <transition-group name="list" tag="section" class={styles.cardWrapper}>
         {todoList.map(item => (
-          <div
-            class={styles.cardContent}
+          <van-swipe-cell
             key={item.id}
-            onClick={event => this.goDetail(event, item)}
+            beforeClose={event => this.handleBeforeClose(event, item)}
           >
+            <van-button
+              slot="right"
+              style={{ height: "100%" }}
+              square
+              text="删除"
+              type="danger"
+              class="delete-button"
+            />
             <div
-              class={classNames(styles.cardInfo, {
-                [styles.finished]: item.isFinished
-              })}
+              class={styles.cardContent}
+              onClick={event => this.goDetail(event, item)}
             >
-              <span
-                class={styles.cardCheck}
-                onClick={event => this.handleToggleCheck(event, item)}
-              >
-                <i
-                  class={classNames("iconfont", styles.icon)}
-                  domPropsInnerHTML={item.isFinished ? "&#xe606;" : "&#xe6ca;"}
-                ></i>
-              </span>
-              <p
-                class={classNames(styles.cardText, {
-                  [styles.line]: item.isFinished
+              <div
+                class={classNames(styles.cardInfo, {
+                  [styles.finished]: item.isFinished
                 })}
               >
-                {item.title}
-              </p>
+                <span
+                  class={styles.cardCheck}
+                  onClick={event => this.handleToggleCheck(event, item)}
+                >
+                  <i
+                    class={classNames("iconfont", styles.icon)}
+                    domPropsInnerHTML={
+                      item.isFinished ? "&#xe606;" : "&#xe6ca;"
+                    }
+                  ></i>
+                </span>
+                <p
+                  class={classNames(styles.cardText, {
+                    [styles.line]: item.isFinished
+                  })}
+                >
+                  {item.title}
+                </p>
+              </div>
+              <div class={styles.cardClaim}>
+                <i class={classNames("iconfont", styles.icon)}>&#xe611;</i>
+                <span>{this.$moment(item.date).calendar()}</span>
+              </div>
             </div>
-            <div class={styles.cardClaim}>
-              <i class={classNames("iconfont", styles.icon)}>&#xe611;</i>
-              <span>{this.$moment(item.date).calendar()}</span>
-            </div>
-          </div>
+          </van-swipe-cell>
         ))}
       </transition-group>
     );

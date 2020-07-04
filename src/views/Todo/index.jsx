@@ -9,7 +9,7 @@ export default {
     return {
       todoList: [],
       visible: false,
-      todoDetail: {},
+      todoDetail: {}
     };
   },
   methods: {
@@ -21,7 +21,7 @@ export default {
           description: "这是一段描述文字",
           date: "2020-07-04 15:06",
           status: 1,
-          isFinished: true,
+          isFinished: true
         },
         {
           id: 2,
@@ -29,7 +29,7 @@ export default {
           description: "这是一段描述文字",
           date: "2020-08-03 11:28",
           status: 2,
-          isFinished: false,
+          isFinished: false
         },
         {
           id: 3,
@@ -37,7 +37,7 @@ export default {
           description: "这是一段描述文字",
           date: "2020-03-03 19:11",
           status: 2,
-          isFinished: false,
+          isFinished: false
         },
         {
           id: 4,
@@ -45,15 +45,15 @@ export default {
           description: "这是一段描述文字",
           date: "2020-07-04 19:11",
           status: 2,
-          isFinished: false,
-        },
+          isFinished: false
+        }
       ].sort((a, b) => {
         return b.status - a.status;
       });
     },
     handleCheck(item) {
       const { id, isFinished } = item;
-      this.todoList = this.todoList.filter((todo) => todo.id !== id);
+      this.todoList = this.todoList.filter(todo => todo.id !== id);
       if (isFinished) {
         this.todoList.push(item);
       } else {
@@ -66,13 +66,13 @@ export default {
       this.$router.push({
         name: "TodoDetail",
         params: {
-          id: item.id,
-        },
+          id: item.id
+        }
       });
     },
     handleUpdate({ visible }) {
       this.visible = visible;
-    },
+    }
   },
   mounted() {
     this.getTodoList();
@@ -99,5 +99,5 @@ export default {
         <EFooter />
       </EContainer>
     );
-  },
+  }
 };

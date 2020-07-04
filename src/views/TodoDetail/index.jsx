@@ -1,4 +1,4 @@
-import styles from "./index.less";
+import styles from "./index.module.less";
 import classNames from "classnames";
 
 export default {
@@ -13,6 +13,12 @@ export default {
       default: false
     }
   },
+  data() {
+    return {
+      currentDate: new Date(),
+      visibleDate: false
+    };
+  },
   methods: {
     handleBack() {
       this.$router.back();
@@ -23,17 +29,33 @@ export default {
     handleToggleCheck(event, item) {
       event.stopPropagation();
       item.isFinished = !item.isFinished;
+    },
+    handleOpenDate() {
+      this.visibleDate = true;
+    },
+    handleCloseDate() {
+      this.visibleDate = false;
+    },
+    handleConfirmDate(value) {
+      console.log(value);
+      this.todo.date = this.$moment(value);
+      this.handleCloseDate();
     }
   },
   render() {
     const { visible, todo } = this.$props;
+    const { currentDate, visibleDate } = this.$data;
 
     return (
       visible && (
         <EContainer class={classNames(styles.todoDetail)}>
           <EHeader
             goBack={this.handleBack}
-            extra={<span class={styles.saveBtn}>保存</span>}
+            extra={
+              <van-button plain type="primary" class={styles.saveBtn}>
+                保存
+              </van-button>
+            }
           />
           <EContent class={styles.todoDetailContent}>
             <div
@@ -50,18 +72,42 @@ export default {
                   domPropsInnerHTML={todo.isFinished ? "&#xe606;" : "&#xe6ca;"}
                 ></i>
               </span>
-              <input
+              <van-field
                 class={classNames(styles.todoDetailInput)}
                 value={todo.title}
                 placeholder="标题"
               />
             </div>
-            <textarea
-              class={classNames(styles.todoDetailText)}
+            <van-divider />
+            <van-field
+              class={classNames(styles.todoDetailInput)}
               value={todo.description}
-              placeholder="记录你的美好"
+              showWordLimit={true}
+              maxlength="200"
+              type="textarea"
+              rows="10"
+              autosize
+              placeholder="记录你的美好123"
             />
+            <van-divider />
+            <div class={styles.todoDetailClaim} onClick={this.handleOpenDate}>
+              <i class={classNames("iconfont", styles.icon)}>&#xe611;</i>
+              <span>{this.$moment(todo.date).calendar()}</span>
+            </div>
           </EContent>
+          <van-popup
+            value={visibleDate}
+            closeOnClickOverlay={false}
+            position="bottom"
+          >
+            <van-datetime-picker
+              onCancel={this.handleCloseDate}
+              onConfirm={this.handleConfirmDate}
+              value={currentDate}
+              type="datetime"
+              title="选择完整时间"
+            />
+          </van-popup>
         </EContainer>
       )
     );

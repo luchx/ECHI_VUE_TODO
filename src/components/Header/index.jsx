@@ -1,4 +1,4 @@
-import styles from "./index.less";
+import styles from "./index.module.less";
 import classNames from "classnames";
 
 export default {
@@ -19,7 +19,7 @@ export default {
     },
     goBack: {
       type: Function,
-      default: null,
+      default: null
     }
   },
   methods: {
