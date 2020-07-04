@@ -1,8 +1,43 @@
 .aside {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: @zIndex-top;
   display: block;
-  width: 30vw;
+  width: 100vw;
   height: 100vh;
   overflow: hidden;
-  overflow-y: auto;
-  background-color: @bg-color;
+
+  .asideMask {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(204, 204, 204, 0.48);
+  }
+
+  .asideContent {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: @zIndex-top;
+    display: block;
+    width: 70%;
+    height: 100vh;
+    overflow: hidden;
+    overflow-y: auto;
+    background-color: #fff;
+  }
+}
+
+:global {
+
+  .fade-enter-active {
+    transition: all .3s ease;
+  }
+  .fade-enter {
+    transform: translateX(-10px);
+    opacity: 0;
+  }
 }

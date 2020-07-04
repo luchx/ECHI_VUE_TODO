@@ -33,6 +33,7 @@ export default {
     return (
       <EContainer>
         <EHeader title={this.$route.meta.title} type="menu" />
+        <EAside />
         <EContent>
           <TodoCard todoList={this.$data.todoList} />
         </EContent>
