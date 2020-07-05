@@ -26,12 +26,14 @@ export default {
             {
               name: "代办",
               key: "todo",
+              path: "/todo",
               iconName: "todo-list",
               iconColor: "#1890ff"
             },
             {
               name: "日程",
               key: "date",
+              path: "/date",
               iconName: "star",
               iconColor: "#1890ff"
             }
@@ -43,11 +45,13 @@ export default {
             {
               name: "已完成",
               key: "finished",
+              path: "/finished",
               iconName: "like",
               iconColor: "#52c41a"
             },
             {
               name: "回收站",
+              path: "/recycle",
               iconName: "underway",
               iconColor: "#f5222d"
             }
@@ -103,7 +107,7 @@ export default {
                 <div class={styles.asideGroup}>
                   <div class={styles.asideTitle}>{group.groupName}</div>
                   {group.children.map(child => (
-                    <div class={styles.asideItem}>
+                    <router-link to={child.path} tag="div" class={styles.asideItem}>
                       <span class={styles.asideItemLeft}>
                         <van-icon
                           name={child.iconName}
@@ -115,7 +119,7 @@ export default {
                       <span class={styles.asideItemRight}>
                         {countData[child.key]}
                       </span>
-                    </div>
+                    </router-link>
                   ))}
                 </div>
               ))}
