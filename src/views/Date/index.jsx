@@ -152,7 +152,11 @@ export default {
             onSelect={this.handleConfirmCalender}
             color="#f5222d"
           />
-          <van-divider class="divider">今日任务</van-divider>
+          <van-divider class="divider">
+            {this.$moment(currentDate).isSame(new Date(), "day")
+              ? "今日任务"
+              : this.$moment(currentDate).format("YYYY-MM-DD")}
+          </van-divider>
           <ETodoCard
             todoList={todoList}
             onCheck={this.handleCheck}

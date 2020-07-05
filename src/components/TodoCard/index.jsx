@@ -46,6 +46,7 @@ export default {
       <transition-group name="list" tag="section" class={styles.cardWrapper}>
         {todoList.map(item => (
           <van-swipe-cell
+            class={styles.cardCell}
             key={item.id}
             beforeClose={event => this.handleBeforeClose(event, item)}
           >
@@ -55,14 +56,14 @@ export default {
               square
               text="删除"
               type="danger"
-              class="delete-button"
             />
-            <div class={styles.cardContent} onClick={() => this.goDetail(item)}>
-              <div
-                class={classNames(styles.cardInfo, {
-                  [styles.finished]: item.isFinished
-                })}
-              >
+            <div
+              class={classNames(styles.cardContent, {
+                [styles.finished]: item.isFinished
+              })}
+              onClick={() => this.goDetail(item)}
+            >
+              <div class={styles.cardInfo}>
                 <span
                   class={styles.cardCheck}
                   onClick={event => this.handleToggleCheck(event, item)}
@@ -74,17 +75,15 @@ export default {
                     }
                   ></i>
                 </span>
-                <p
-                  class={classNames(styles.cardText, {
-                    [styles.line]: item.isFinished
-                  })}
-                >
-                  {item.title}
-                </p>
+                <p class={styles.cardText}>{item.title}</p>
               </div>
               <div class={styles.cardClaim}>
                 <i class={classNames("iconfont", styles.icon)}>&#xe611;</i>
-                <span>{this.$moment(item.date).calendar()}</span>
+                <span>
+                  {this.$moment(item.date).calendar(null, {
+                    sameElse: "MM-DD HH:mm"
+                  })}
+                </span>
               </div>
             </div>
           </van-swipe-cell>

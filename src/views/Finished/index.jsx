@@ -1,3 +1,5 @@
+import styles from "./index.module.less";
+
 export default {
   name: "Finished",
   data() {
@@ -21,24 +23,24 @@ export default {
           title: "这是一段描述文字",
           description: "这是一段描述文字",
           date: "2020-08-03 11:28",
-          status: 2,
-          isFinished: false
+          status: 1,
+          isFinished: true
         },
         {
           id: 3,
           title: "这是一段描述文字这是一段描述文字这是一段描述文字",
           description: "这是一段描述文字",
           date: "2020-03-03 19:11",
-          status: 2,
-          isFinished: false
+          status: 1,
+          isFinished: true
         },
         {
           id: 4,
           title: "这是一段描述文字这是一段描述文字这是一段描述文字",
           description: "这是一段描述文字",
           date: "2020-07-04 19:11",
-          status: 2,
-          isFinished: false
+          status: 1,
+          isFinished: true
         }
       ].sort((a, b) => {
         return b.status - a.status;
@@ -72,7 +74,14 @@ export default {
       <EContainer>
         <EHeader title={this.$route.meta.title} type="menu" />
         <EAside />
-        <EContent>
+        <EContent class={styles.wrapper}>
+          <van-divider class="divider">2020-07-05</van-divider>
+          <ETodoCard
+            todoList={todoList}
+            onCheck={this.handleCheck}
+            onGoDetail={this.handleGoDetail}
+          />
+          <van-divider class="divider">2020-06-07</van-divider>
           <ETodoCard
             todoList={todoList}
             onCheck={this.handleCheck}

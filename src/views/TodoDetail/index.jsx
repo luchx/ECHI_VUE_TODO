@@ -83,7 +83,11 @@ export default {
           <van-divider />
           <div class={styles.todoDetailClaim} onClick={this.handleOpenDate}>
             <i class={classNames("iconfont", styles.icon)}>&#xe611;</i>
-            <span>{this.$moment(todoData.date).calendar()}</span>
+            <span>
+              {this.$moment(todoData.date).calendar(null, {
+                sameElse: "MM-DD HH:mm"
+              })}
+            </span>
           </div>
         </EContent>
         <van-popup
