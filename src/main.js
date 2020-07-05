@@ -19,6 +19,7 @@ import {
   DatetimePicker,
   Calendar,
   Rate,
+  Icon
 } from "vant";
 Vue.use(Button);
 Vue.use(SwipeCell);
@@ -30,6 +31,7 @@ Vue.use(Popup);
 Vue.use(DatetimePicker);
 Vue.use(Calendar);
 Vue.use(Rate);
+Vue.use(Icon);
 
 import moment from "moment";
 moment.locale("zh-cn");

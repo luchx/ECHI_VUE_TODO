@@ -1,12 +1,59 @@
 import styles from "./index.module.less";
 import classNames from "classnames";
+import DEFAULT_USER_Male from "@/assets/image/male.jpg";
+// import DEFAULT_USER_FEMale from "@/assets/image/female.jpg";
 
 export default {
   name: "Aside",
   inject: ["parent"],
   data() {
     return {
-      show: false
+      show: false,
+      userInfo: {
+        avatar: "",
+        name: "Echi",
+        description: "记录生活的美好~"
+      },
+      countData: {
+        todo: 5,
+        date: 3,
+        finished: 8
+      },
+      asideList: [
+        {
+          groupName: "聚焦",
+          children: [
+            {
+              name: "代办",
+              key: "todo",
+              iconName: "todo-list",
+              iconColor: "#1890ff"
+            },
+            {
+              name: "日程",
+              key: "date",
+              iconName: "star",
+              iconColor: "#1890ff"
+            }
+          ]
+        },
+        {
+          groupName: "历史",
+          children: [
+            {
+              name: "已完成",
+              key: "finished",
+              iconName: "like",
+              iconColor: "#52c41a"
+            },
+            {
+              name: "回收站",
+              iconName: "underway",
+              iconColor: "#f5222d"
+            }
+          ]
+        }
+      ]
     };
   },
   methods: {
@@ -24,7 +71,7 @@ export default {
   },
   render() {
     const { collapsed } = this.parent;
-    const { show } = this.$data;
+    const { show, asideList, userInfo, countData } = this.$data;
 
     return (
       <transition
@@ -38,7 +85,40 @@ export default {
             <div
               class={classNames(styles.asideContent, { [styles.show]: show })}
             >
-              asdad
+              <div class={styles.asideUser}>
+                <div class={styles.asideUserImg}>
+                  <img src={userInfo.avatar || DEFAULT_USER_Male} />
+                </div>
+
+                <div class={styles.asideUserInfo}>
+                  <p class={styles.asideUserTitle}>
+                    {userInfo.name || "未登录"}
+                  </p>
+                  <p class={styles.asideUserText}>
+                    {userInfo.description || "登录后可使用更多功能~"}
+                  </p>
+                </div>
+              </div>
+              {asideList.map(group => (
+                <div class={styles.asideGroup}>
+                  <div class={styles.asideTitle}>{group.groupName}</div>
+                  {group.children.map(child => (
+                    <div class={styles.asideItem}>
+                      <span class={styles.asideItemLeft}>
+                        <van-icon
+                          name={child.iconName}
+                          class={styles.icon}
+                          color={child.iconColor}
+                        />
+                        {child.name}
+                      </span>
+                      <span class={styles.asideItemRight}>
+                        {countData[child.key]}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              ))}
             </div>
           </section>
         )}

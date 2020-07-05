@@ -96,7 +96,7 @@ export default {
               </div>
             </div>
           </div>
-          <van-divider class={styles.divider}>完成任务</van-divider>
+          <van-divider class="divider">完成任务</van-divider>
           <ETodoCard
             todoList={todoList}
             onCheck={this.handleCheck}

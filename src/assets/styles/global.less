@@ -19,6 +19,7 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+/** 动画 start -------------*/
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity .05s;
@@ -31,4 +32,14 @@
 
 .list-move {
   transition: transform 1s;
+}
+
+/** 动画 end ----------------*/
+
+// 分割线
+.divider {
+  margin: 0;
+  padding: @primary-gap @primary-gap 0;
+  color: @primary-color;
+  border-color: @primary-color;
 }
