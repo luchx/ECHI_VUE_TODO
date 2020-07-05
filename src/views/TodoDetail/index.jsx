@@ -88,7 +88,7 @@ export default {
         </EContent>
         <van-popup
           value={visibleDate}
-          closeOnClickOverlay={false}
+          onInput={this.handleCloseDate}
           position="bottom"
         >
           <van-datetime-picker
