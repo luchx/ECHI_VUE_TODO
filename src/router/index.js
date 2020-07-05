@@ -44,6 +44,22 @@ const routes = [
       title: "本周回顾"
     },
     component: () => import(/* webpackChunkName: "Review" */ "@/views/Review")
+  },
+  {
+    path: "/finished",
+    name: "Finished",
+    meta: {
+      title: "历史事项"
+    },
+    component: () => import(/* webpackChunkName: "Finished" */ "@/views/Finished")
+  },
+  {
+    path: "/recycle",
+    name: "Recycle",
+    meta: {
+      title: "回收站"
+    },
+    component: () => import(/* webpackChunkName: "Recycle" */ "@/views/Recycle")
   }
 ];
 
