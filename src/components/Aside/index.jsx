@@ -107,7 +107,11 @@ export default {
                 <div class={styles.asideGroup}>
                   <div class={styles.asideTitle}>{group.groupName}</div>
                   {group.children.map(child => (
-                    <router-link to={child.path} tag="div" class={styles.asideItem}>
+                    <router-link
+                      to={child.path}
+                      tag="div"
+                      class={styles.asideItem}
+                    >
                       <span class={styles.asideItemLeft}>
                         <van-icon
                           name={child.iconName}

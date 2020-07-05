@@ -82,7 +82,7 @@ export default {
         <EContent>
           <div class={styles.reviewHeader}>
             <div class={styles.rateBox}>
-              <van-rate value={3.5} color="#52c41a" allowHalf={true} />
+              <van-rate value={3.5} color="#f5222d" allowHalf={true} />
             </div>
             <div class={styles.reviewBox}>
               <div class={styles.reviewBoxItem}>

@@ -51,7 +51,8 @@ const routes = [
     meta: {
       title: "历史事项"
     },
-    component: () => import(/* webpackChunkName: "Finished" */ "@/views/Finished")
+    component: () =>
+      import(/* webpackChunkName: "Finished" */ "@/views/Finished")
   },
   {
     path: "/recycle",
