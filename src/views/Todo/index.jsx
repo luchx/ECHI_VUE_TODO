@@ -1,10 +1,5 @@
-import TodoCard from "./components/Card";
-
 export default {
   name: "Todo",
-  components: {
-    TodoCard
-  },
   data() {
     return {
       todoList: [],
@@ -90,7 +85,7 @@ export default {
         <EHeader title={this.$route.meta.title} type="menu" />
         <EAside />
         <EContent>
-          <TodoCard
+          <ETodoCard
             todoList={todoList}
             onCheck={this.handleCheck}
             onGoDetail={this.handleGoDetail}
