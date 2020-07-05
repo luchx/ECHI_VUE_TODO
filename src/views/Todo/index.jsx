@@ -2,9 +2,7 @@ export default {
   name: "Todo",
   data() {
     return {
-      todoList: [],
-      visible: false,
-      todoDetail: {}
+      todoList: []
     };
   },
   methods: {
@@ -55,33 +53,23 @@ export default {
         this.todoList.unshift(item);
       }
     },
-    handleGoDetail(event, item) {
-      this.visible = true;
-      this.todoDetail = item;
+    handleGoDetail(item) {
       this.$router.push({
         name: "TodoDetail",
         params: {
           id: item.id
         }
       });
-    },
-    handleUpdate({ visible }) {
-      this.visible = visible;
     }
   },
   mounted() {
     this.getTodoList();
   },
   render() {
-    const { todoList, visible, todoDetail } = this.$data;
+    const { todoList } = this.$data;
 
     return (
       <EContainer>
-        <router-view
-          visible={visible}
-          todo={todoDetail}
-          onUpdate={this.handleUpdate}
-        />
         <EHeader title={this.$route.meta.title} type="menu" />
         <EAside />
         <EContent>

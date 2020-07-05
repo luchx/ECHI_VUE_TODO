@@ -21,15 +21,13 @@ const routes = [
     meta: {
       title: "待办"
     },
-    component: () => import(/* webpackChunkName: "Todo" */ "@/views/Todo"),
-    children: [
-      {
-        path: "detail/:id",
-        name: "TodoDetail",
-        component: () =>
-          import(/* webpackChunkName: "TodoDetail" */ "@/views/TodoDetail")
-      }
-    ]
+    component: () => import(/* webpackChunkName: "Todo" */ "@/views/Todo")
+  },
+  {
+    path: "/todo-detail/:id",
+    name: "TodoDetail",
+    component: () =>
+      import(/* webpackChunkName: "TodoDetail" */ "@/views/TodoDetail")
   },
   {
     path: "/date",

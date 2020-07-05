@@ -15,8 +15,8 @@ export default {
       item.isFinished = !item.isFinished;
       this.$emit("check", item);
     },
-    goDetail(event, item) {
-      this.$emit("goDetail", event, item);
+    goDetail(item) {
+      this.$emit("goDetail", item);
     },
     handleBeforeClose(event, item) {
       const { position, instance } = event;
@@ -57,10 +57,7 @@ export default {
               type="danger"
               class="delete-button"
             />
-            <div
-              class={styles.cardContent}
-              onClick={event => this.goDetail(event, item)}
-            >
+            <div class={styles.cardContent} onClick={() => this.goDetail(item)}>
               <div
                 class={classNames(styles.cardInfo, {
                   [styles.finished]: item.isFinished

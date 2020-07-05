@@ -3,29 +3,21 @@ import classNames from "classnames";
 
 export default {
   name: "TodoDetail",
-  props: {
-    todo: {
-      type: Object,
-      default: () => {}
-    },
-    visible: {
-      type: Boolean,
-      default: false
-    }
-  },
   data() {
     return {
       currentDate: new Date(),
-      visibleDate: false
+      visibleDate: false,
+      todoData: {
+        id: 3,
+        title: "这是一段描述文字这是一段描述文字这是一段描述文字",
+        description: "这是一段描述文字",
+        date: "2020-03-03 19:11",
+        status: 2,
+        isFinished: false
+      }
     };
   },
   methods: {
-    handleBack() {
-      this.$router.back();
-      this.$emit("update", {
-        visible: false
-      });
-    },
     handleToggleCheck(event, item) {
       event.stopPropagation();
       item.isFinished = !item.isFinished;
@@ -38,78 +30,76 @@ export default {
     },
     handleConfirmDate(value) {
       console.log(value);
-      this.todo.date = this.$moment(value);
+      this.todoData.date = this.$moment(value);
       this.handleCloseDate();
     }
   },
   render() {
-    const { visible, todo } = this.$props;
-    const { currentDate, visibleDate } = this.$data;
+    const { currentDate, visibleDate, todoData } = this.$data;
 
     return (
-      visible && (
-        <EContainer class={classNames(styles.todoDetail)}>
-          <EHeader
-            goBack={this.handleBack}
-            extra={
-              <van-button plain type="primary" class={styles.saveBtn}>
-                保存
-              </van-button>
-            }
-          />
-          <EContent class={styles.todoDetailContent}>
-            <div
-              class={classNames(styles.todoDetailTitle, {
-                [styles.finished]: todo.isFinished
-              })}
+      <EContainer class={classNames(styles.todoDetail)}>
+        <EHeader
+          extra={
+            <van-button plain type="primary" class={styles.saveBtn}>
+              保存
+            </van-button>
+          }
+        />
+        <EContent class={styles.todoDetailContent}>
+          <div
+            class={classNames(styles.todoDetailTitle, {
+              [styles.finished]: todoData.isFinished
+            })}
+          >
+            <span
+              class={styles.todoDetailCheck}
+              onClick={() => this.handleToggleCheck(todoData)}
             >
-              <span
-                class={styles.todoDetailCheck}
-                onClick={event => this.handleToggleCheck(event, todo)}
-              >
-                <i
-                  class={classNames("iconfont", styles.icon)}
-                  domPropsInnerHTML={todo.isFinished ? "&#xe606;" : "&#xe6ca;"}
-                ></i>
-              </span>
-              <van-field
-                class={classNames(styles.todoDetailInput)}
-                value={todo.title}
-                placeholder="标题"
-              />
-            </div>
-            <van-divider />
+              <i
+                class={classNames("iconfont", styles.icon)}
+                domPropsInnerHTML={
+                  todoData.isFinished ? "&#xe606;" : "&#xe6ca;"
+                }
+              ></i>
+            </span>
             <van-field
               class={classNames(styles.todoDetailInput)}
-              value={todo.description}
-              showWordLimit={true}
-              maxlength="200"
-              type="textarea"
-              rows="10"
-              autosize
-              placeholder="记录你的美好123"
+              value={todoData.title}
+              placeholder="标题"
             />
-            <van-divider />
-            <div class={styles.todoDetailClaim} onClick={this.handleOpenDate}>
-              <i class={classNames("iconfont", styles.icon)}>&#xe611;</i>
-              <span>{this.$moment(todo.date).calendar()}</span>
-            </div>
-          </EContent>
-          <van-popup
-            value={visibleDate}
-            closeOnClickOverlay={false}
-            position="bottom"
-          >
-            <van-datetime-picker
-              onCancel={this.handleCloseDate}
-              onConfirm={this.handleConfirmDate}
-              value={currentDate}
-              type="datetime"
-              title="选择完整时间"
-            />
-          </van-popup>
-        </EContainer>
-      )
+          </div>
+          <van-divider />
+          <van-field
+            class={classNames(styles.todoDetailInput)}
+            value={todoData.description}
+            showWordLimit={true}
+            maxlength="200"
+            type="textarea"
+            rows="10"
+            autosize
+            placeholder="记录你的美好123"
+          />
+          <van-divider />
+          <div class={styles.todoDetailClaim} onClick={this.handleOpenDate}>
+            <i class={classNames("iconfont", styles.icon)}>&#xe611;</i>
+            <span>{this.$moment(todoData.date).calendar()}</span>
+          </div>
+        </EContent>
+        <van-popup
+          value={visibleDate}
+          closeOnClickOverlay={false}
+          position="bottom"
+        >
+          <van-datetime-picker
+            onCancel={this.handleCloseDate}
+            onConfirm={this.handleConfirmDate}
+            value={currentDate}
+            type="datetime"
+            title="选择完整时间"
+          />
+        </van-popup>
+      </EContainer>
     );
   }
 };
