@@ -17,7 +17,8 @@ import {
   Divider,
   Popup,
   DatetimePicker,
-  Calendar
+  Calendar,
+  Rate,
 } from "vant";
 Vue.use(Button);
 Vue.use(SwipeCell);
@@ -28,6 +29,7 @@ Vue.use(Divider);
 Vue.use(Popup);
 Vue.use(DatetimePicker);
 Vue.use(Calendar);
+Vue.use(Rate);
 
 import moment from "moment";
 moment.locale("zh-cn");

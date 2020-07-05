@@ -150,6 +150,7 @@ export default {
             onSelect={this.handleConfirmCalender}
             color="#1890ff"
           />
+          <van-divider class={styles.divider}>今日任务</van-divider>
           <ETodoCard
             todoList={todoList}
             onCheck={this.handleCheck}

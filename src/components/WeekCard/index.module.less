@@ -12,27 +12,6 @@
     align-items: center;
     justify-content: space-between;
     overflow: hidden;
-  
-    .dateBoxTips {
-      position: absolute;
-      left: 0;
-      bottom: -1px;
-      width: (100%/7);
-      height: 100%;
-      z-index: 2;
-      background-color: @primary-color;
-  
-      &::after {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        margin: 0 auto;
-        width: 20%;
-        border-bottom: 1px solid @primary-color;
-      }
-    }
   }
   
   .dateBoxItem {
@@ -41,7 +20,7 @@
     width: (100%/7);
     height: 34px;
     padding: 10px 0;
-    font-size: 10px; /*px*/
+    font-size: @font-size-tiny; /*px*/
     color: @text-color-secondary;
     text-align: center;
   }
@@ -62,7 +41,7 @@
       height: var(--size);
       line-height: var(--size);
       text-align: center;
-      font-size: 12px; /*px*/
+      font-size: @font-size-base; /*px*/
       color: @text-color;
       border-radius: 13px;
       background-color: transparent;

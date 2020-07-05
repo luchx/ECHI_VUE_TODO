@@ -41,7 +41,7 @@ const routes = [
     path: "/review",
     name: "Review",
     meta: {
-      title: "回顾"
+      title: "本周回顾"
     },
     component: () => import(/* webpackChunkName: "Review" */ "@/views/Review")
   }

@@ -1,3 +1,5 @@
+import styles from "./index.module.less";
+
 export default {
   name: "Review",
   data() {
@@ -55,9 +57,7 @@ export default {
         this.todoList.unshift(item);
       }
     },
-    handleGoDetail(event, item) {
-      this.visible = true;
-      this.todoDetail = item;
+    handleGoDetail(item) {
       this.$router.push({
         name: "TodoDetail",
         params: {
@@ -73,18 +73,30 @@ export default {
     this.getTodoList();
   },
   render() {
-    const { todoList, visible, todoDetail } = this.$data;
+    const { todoList } = this.$data;
 
     return (
       <EContainer>
-        <router-view
-          visible={visible}
-          todo={todoDetail}
-          onUpdate={this.handleUpdate}
-        />
         <EHeader title={this.$route.meta.title} type="menu" />
         <EAside />
         <EContent>
+          <div class={styles.reviewHeader}>
+            <div class={styles.rateBox}>
+              <van-rate value={3.5} color="#52c41a" allowHalf={true} />
+            </div>
+            <div class={styles.reviewBox}>
+              <div class={styles.reviewBoxItem}>
+                本周完成：<span>5</span>
+              </div>
+              <div class={styles.reviewBoxItem}>
+                本周评分：<span>5星</span>
+              </div>
+              <div class={styles.reviewBoxItem}>
+                本周效率：<span>高</span>
+              </div>
+            </div>
+          </div>
+          <van-divider class={styles.divider}>完成任务</van-divider>
           <ETodoCard
             todoList={todoList}
             onCheck={this.handleCheck}
