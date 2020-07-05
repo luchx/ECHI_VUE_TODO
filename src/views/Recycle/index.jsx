@@ -13,7 +13,7 @@ export default {
           title: "这是一段描述文字",
           description: "这是一段描述文字",
           date: "2020-07-04 15:06",
-          status: 1,
+          status: 3,
           isFinished: true
         },
         {
@@ -21,7 +21,7 @@ export default {
           title: "这是一段描述文字",
           description: "这是一段描述文字",
           date: "2020-08-03 11:28",
-          status: 2,
+          status: 3,
           isFinished: false
         },
         {
@@ -29,7 +29,7 @@ export default {
           title: "这是一段描述文字这是一段描述文字这是一段描述文字",
           description: "这是一段描述文字",
           date: "2020-03-03 19:11",
-          status: 2,
+          status: 3,
           isFinished: false
         },
         {
@@ -37,7 +37,7 @@ export default {
           title: "这是一段描述文字这是一段描述文字这是一段描述文字",
           description: "这是一段描述文字",
           date: "2020-07-04 19:11",
-          status: 2,
+          status: 3,
           isFinished: false
         }
       ].sort((a, b) => {
@@ -77,6 +77,7 @@ export default {
             todoList={todoList}
             onCheck={this.handleCheck}
             onGoDetail={this.handleGoDetail}
+            recycle={true}
           />
         </EContent>
         <EFooter />
