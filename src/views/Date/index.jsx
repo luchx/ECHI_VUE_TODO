@@ -146,9 +146,11 @@ export default {
             round={false}
             showTitle={false}
             showConfirm={false}
+            minDate={new Date(2019, 0, 1)}
+            maxDate={new Date(2099, 0, 1)}
             formatter={this.formatterCalender}
             onSelect={this.handleConfirmCalender}
-            color="#1890ff"
+            color="#f5222d"
           />
           <van-divider class={styles.divider}>今日任务</van-divider>
           <ETodoCard
