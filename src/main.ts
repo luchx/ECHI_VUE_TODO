@@ -48,6 +48,9 @@ import moment from "moment";
 moment.locale("zh-cn");
 Vue.prototype.$moment = moment;
 
+import VueCompositionApi from '@vue/composition-api';
+Vue.use(VueCompositionApi)
+
 // 注册全局的组件
 Object.keys(components).forEach(key => {
   Vue.component(key, components[key]);
