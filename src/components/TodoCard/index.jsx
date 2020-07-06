@@ -36,7 +36,7 @@ export default {
     },
     handleRestore(item) {
       this.$emit("restore", item);
-    },
+    }
   },
   render() {
     const { todoList, recycle } = this.$props;
