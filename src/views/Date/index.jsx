@@ -12,8 +12,8 @@ export default {
   },
   methods: {
     formatDate(timeStamp) {
-      let weekDate = []; // 日期周期
-      let num = 7; // 循环次数
+      const weekDate = []; // 日期周期
+      const num = 7; // 循环次数
       let dayAdd = 0; // 当前天数
       // 获取当前星期几
       const currentDay = this.$moment(timeStamp).day();
@@ -21,12 +21,12 @@ export default {
       let addNum = num - currentDay;
       let dayMinus = 1;
       while (minusNum--) {
-        let addDay = 86400000 * dayMinus; // 当前时间跨度(86400000为一天的间隔)
+        const addDay = 86400000 * dayMinus; // 当前时间跨度(86400000为一天的间隔)
         weekDate.unshift(timeStamp - addDay);
         dayMinus++;
       }
       while (addNum--) {
-        let addDay = 86400000 * dayAdd; // 当前时间跨度(86400000为一天的间隔)
+        const addDay = 86400000 * dayAdd; // 当前时间跨度(86400000为一天的间隔)
         weekDate.push(timeStamp + addDay);
         dayAdd++;
       }
