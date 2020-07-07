@@ -8,41 +8,25 @@ import router from "@/router";
 import store from "@/store";
 import components from "@/components";
 
+// 引入 vant 组件库
+import "@/vant";
+
+// 接入 mockjs
+const mock = process.env.VUE_APP_MOCK;
+if (mock) {
+  require("@src/mock");
+}
+
 import FastClick from "fastclick";
 if ("addEventListener" in document) {
   document.addEventListener(
     "DOMContentLoaded",
-    function() {
+    function () {
       FastClick.attach(document.body);
     },
     false
   );
 }
-
-import {
-  Button,
-  SwipeCell,
-  Dialog,
-  Toast,
-  Field,
-  Divider,
-  Popup,
-  DatetimePicker,
-  Calendar,
-  Rate,
-  Icon
-} from "vant";
-Vue.use(Button);
-Vue.use(SwipeCell);
-Vue.use(Dialog);
-Vue.use(Toast);
-Vue.use(Field);
-Vue.use(Divider);
-Vue.use(Popup);
-Vue.use(DatetimePicker);
-Vue.use(Calendar);
-Vue.use(Rate);
-Vue.use(Icon);
 
 import moment from "moment";
 moment.locale("zh-cn");

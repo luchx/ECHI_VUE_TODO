@@ -45,6 +45,7 @@
     "less": "^3.0.4",
     "less-loader": "^5.0.0",
     "lint-staged": "^10.2.11",
+    "mockjs": "^1.1.0",
     "postcss-px2rem": "^0.3.0",
     "prettier": "^1.19.1",
     "typescript": "~3.9.3",
