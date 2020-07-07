@@ -14,7 +14,7 @@ import "@/vant";
 // 接入 mockjs
 const mock = process.env.VUE_APP_MOCK;
 if (mock) {
-  require("@src/mock");
+  require("@/mock");
 }
 
 import FastClick from "fastclick";
