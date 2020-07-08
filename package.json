@@ -5,7 +5,8 @@
   "typings": "types/index.d.ts",
   "license": "Apache 2.0",
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "serve": "vue-cli-service serve --mode dev",
+    "serve:mock": "vue-cli-service serve --mode mock",
     "build": "vue-cli-service build",
     "build:report": "vue-cli-service build --report",
     "lint": "vue-cli-service lint --fix"

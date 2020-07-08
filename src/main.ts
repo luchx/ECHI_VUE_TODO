@@ -13,7 +13,8 @@ import "@/vant";
 
 // 接入 mockjs
 const mock = process.env.VUE_APP_MOCK;
-if (mock) {
+
+if (mock && process.env.NODE_ENV !== "production") {
   require("@/mock");
 }
 

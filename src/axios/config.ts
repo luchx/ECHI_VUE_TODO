@@ -1,7 +1,8 @@
-import axios, { AxiosResponse, AxiosRequestConfig } from 'axios';
+import axios, { AxiosResponse, AxiosRequestConfig, AxiosError } from 'axios';
 
 // 超时重新请求配置
 const VUE_APP_URL = process.env.VUE_APP_URL;
+
 const axiosConfig: AxiosRequestConfig = {
   baseURL: VUE_APP_URL,
   // 请求后的数据处理
@@ -37,7 +38,7 @@ service.interceptors.response.use(
   (response) => {
     return response;
   },
-  (error) => {
+  (error: AxiosError) => {
     if (error && error.response) {
       const RESPONSE_CODE = {
         400: '请求参数错误',
