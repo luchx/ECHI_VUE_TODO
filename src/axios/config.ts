@@ -5,12 +5,12 @@ const VUE_APP_URL = process.env.VUE_APP_URL;
 
 const axiosConfig: AxiosRequestConfig = {
   baseURL: VUE_APP_URL,
-  // 请求后的数据处理
-  transformResponse: [
-    (data: AxiosResponse) => {
-      return data;
-    }
-  ],
+  // // 请求后的数据处理
+  // transformResponse: [
+  //   (data: AxiosResponse) => {
+  //     return data;
+  //   }
+  // ],
   // 超时设置20s
   timeout: 20000,
   // 跨域是否带Token

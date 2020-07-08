@@ -12,7 +12,9 @@ import {
   Calendar,
   Rate,
   Icon,
-  ActionSheet
+  ActionSheet,
+  Skeleton,
+  Empty
 } from "vant";
 Vue.use(Button);
 Vue.use(SwipeCell);
@@ -26,3 +28,5 @@ Vue.use(Calendar);
 Vue.use(Rate);
 Vue.use(Icon);
 Vue.use(ActionSheet);
+Vue.use(Skeleton);
+Vue.use(Empty);

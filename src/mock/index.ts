@@ -2,7 +2,7 @@ import Mock from "mockjs";
 
 // 模拟请求延时
 Mock.setup({
-  timeout: "200-600"
+  timeout: "200-1000"
 });
 
 const fetchList = [];
@@ -20,6 +20,7 @@ fetchList.forEach(item => {
       url = method;
       method = "get";
     }
+    
     Mock.mock(new RegExp(`^${url}`), method.toLowerCase(), Mock.mock(target));
   }
 });

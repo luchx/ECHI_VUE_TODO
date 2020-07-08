@@ -1,11 +1,17 @@
-import { AxiosRequestConfig, AxiosPromise } from "axios";
+import { AxiosRequestConfig } from "axios";
 import axios from "./config";
+
+export interface respondData {
+  code: number;
+  data: any;
+  message: string;
+}
 
 // HTTP工具类
 export default class Http {
   public static async request(params: AxiosRequestConfig) {
     const res = await axios(params);
-    return res.data;
+    return res.data as respondData;
   }
 
   /**
@@ -14,7 +20,7 @@ export default class Http {
    * @param [data] 数据
    * @returns Promise
    */
-  public static get({ url, params, ...axiosConfig }): AxiosPromise {
+  public static get(url: string, params?, axiosConfig = {}) {
     return this.request({
       method: "GET",
       url,
@@ -29,7 +35,7 @@ export default class Http {
    * @param [data] 数据
    * @returns Promise
    */
-  public static put({ url, data, ...axiosConfig }): AxiosPromise {
+  public static put(url: string, data?, axiosConfig = {}) {
     return this.request({
       method: "PUT",
       url,
@@ -44,7 +50,7 @@ export default class Http {
    * @param [data] 数据
    * @returns Promise
    */
-  public static post({ url, data, ...axiosConfig }): AxiosPromise {
+  public static post(url: string, data?, axiosConfig = {}) {
     return this.request({
       method: "POST",
       url,
@@ -59,7 +65,7 @@ export default class Http {
    * @param [params] 数据
    * @returns Promise
    */
-  public static delete({ url, params, ...axiosConfig }): AxiosPromise {
+  public static delete(url: string, params?, ...axiosConfig) {
     return this.request({
       method: "DELETE",
       url,

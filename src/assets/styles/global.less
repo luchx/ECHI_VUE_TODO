@@ -4,42 +4,44 @@
   src: url('../font/iconfont.eot?#iefix') format('embedded-opentype'), url('../font/iconfont.woff') format('woff'), url('../font/iconfont.ttf') format('truetype'), url('../font/iconfont.svg#iconfont') format('svg');
 }
 
-* {
-  box-sizing: border-box;
-}
+body {
+  * {
+    box-sizing: border-box;
+  }
 
-.iconfont {
-  font-family: "iconfont" !important;
-  font-size: 16px;
-  /*px*/
-  font-style: normal;
-  -webkit-font-smoothing: antialiased;
-  -webkit-text-stroke-width: 0.2px;
-  /*no*/
-  -moz-osx-font-smoothing: grayscale;
-}
+  .iconfont {
+    font-family: "iconfont" !important;
+    font-size: 16px;
+    /*px*/
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: 0.2px;
+    /*no*/
+    -moz-osx-font-smoothing: grayscale;
+  }
 
-/** 动画 start -------------*/
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity .05s;
-}
+  /** 动画 start -------------*/
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: opacity .05s;
+  }
 
-.fade-enter,
-.fade-leave-to {
-  opacity: 0;
-}
+  .fade-enter,
+  .fade-leave-to {
+    opacity: 0;
+  }
 
-.list-move {
-  transition: transform 1s;
-}
+  .list-move {
+    transition: transform 1s;
+  }
 
-/** 动画 end ----------------*/
+  /** 动画 end ----------------*/
 
-// 分割线
-.divider {
-  margin: 0;
-  padding: 0 @primary-gap;
-  color: @primary-color;
-  border-color: @primary-color;
+  // 分割线
+  .divider {
+    margin: 0;
+    padding: 0 @primary-gap;
+    color: @primary-color;
+    border-color: @primary-color;
+  }
 }
