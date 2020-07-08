@@ -1,4 +1,5 @@
 import styles from "./index.module.less";
+import { ApiGetTodoList } from "@/api/todo";
 
 export default {
   name: "Date",
@@ -7,7 +8,8 @@ export default {
       showCalender: false,
       weekDate: [],
       currentDate: new Date().getTime(),
-      todoList: []
+      todoList: [],
+      loading: false,
     };
   },
   methods: {
@@ -40,47 +42,18 @@ export default {
 
       return day;
     },
-    getTodoList() {
-      this.todoList = [
-        {
-          id: 1,
-          title: "这是一段描述文字",
-          description: "这是一段描述文字",
-          date: "2020-07-04 15:06",
-          status: 1,
-          isFinished: true
-        },
-        {
-          id: 2,
-          title: "这是一段描述文字",
-          description: "这是一段描述文字",
-          date: "2020-08-03 11:28",
-          status: 2,
-          isFinished: false
-        },
-        {
-          id: 3,
-          title: "这是一段描述文字这是一段描述文字这是一段描述文字",
-          description: "这是一段描述文字",
-          date: "2020-03-03 19:11",
-          status: 2,
-          isFinished: false
-        },
-        {
-          id: 4,
-          title: "这是一段描述文字这是一段描述文字这是一段描述文字",
-          description: "这是一段描述文字",
-          date: "2020-07-04 19:11",
-          status: 2,
-          isFinished: false
-        }
-      ].sort((a, b) => {
-        return b.status - a.status;
-      });
+    async getTodoList() {
+      this.loading = true;
+      const resp = await ApiGetTodoList();
+      this.loading = false;
+      if (resp.code === 0) {
+        this.todoList = resp.data.list;
+        console.log(resp.data);
+      }
     },
     handleCheck(item) {
       const { id, isFinished } = item;
-      this.todoList = this.todoList.filter(todo => todo.id !== id);
+      this.todoList = this.todoList.filter((todo) => todo.id !== id);
       if (isFinished) {
         this.todoList.push(item);
       } else {
@@ -91,8 +64,8 @@ export default {
       this.$router.push({
         name: "TodoDetail",
         params: {
-          id: item.id
-        }
+          id: item.id,
+        },
       });
     },
     handleShowCalender() {
@@ -103,7 +76,7 @@ export default {
     },
     handleConfirmCalender(value) {
       const times = new Date(value).getTime();
-      const date = this.weekDate.find(date =>
+      const date = this.weekDate.find((date) =>
         this.$moment(date).isSame(value, "day")
       );
       if (!date) {
@@ -117,7 +90,7 @@ export default {
     },
     handleUpdateValue(date) {
       this.currentDate = date;
-    }
+    },
   },
   mounted() {
     this.getTodoList();
@@ -125,7 +98,13 @@ export default {
     this.formatDate(today);
   },
   render() {
-    const { showCalender, weekDate, currentDate, todoList } = this.$data;
+    const {
+      showCalender,
+      weekDate,
+      currentDate,
+      todoList,
+      loading,
+    } = this.$data;
 
     return (
       <EContainer>
@@ -158,6 +137,7 @@ export default {
               : this.$moment(currentDate).format("YYYY-MM-DD")}
           </van-divider>
           <ETodoCard
+            loading={loading}
             todoList={todoList}
             onCheck={this.handleCheck}
             onGoDetail={this.handleGoDetail}
@@ -166,5 +146,5 @@ export default {
         <EFooter />
       </EContainer>
     );
-  }
+  },
 };

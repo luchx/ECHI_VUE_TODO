@@ -1,54 +1,27 @@
 import styles from "./index.module.less";
+import { ApiGetTodoList } from "@/api/todo";
 
 export default {
   name: "Finished",
   data() {
     return {
-      todoList: []
+      todoList: [],
+      loading: false,
     };
   },
   methods: {
-    getTodoList() {
-      this.todoList = [
-        {
-          id: 1,
-          title: "这是一段描述文字",
-          description: "这是一段描述文字",
-          date: "2020-07-04 15:06",
-          status: 1,
-          isFinished: true
-        },
-        {
-          id: 2,
-          title: "这是一段描述文字",
-          description: "这是一段描述文字",
-          date: "2020-08-03 11:28",
-          status: 1,
-          isFinished: true
-        },
-        {
-          id: 3,
-          title: "这是一段描述文字这是一段描述文字这是一段描述文字",
-          description: "这是一段描述文字",
-          date: "2020-03-03 19:11",
-          status: 1,
-          isFinished: true
-        },
-        {
-          id: 4,
-          title: "这是一段描述文字这是一段描述文字这是一段描述文字",
-          description: "这是一段描述文字",
-          date: "2020-07-04 19:11",
-          status: 1,
-          isFinished: true
-        }
-      ].sort((a, b) => {
-        return b.status - a.status;
-      });
+    async getTodoList() {
+      this.loading = true;
+      const resp = await ApiGetTodoList();
+      this.loading = false;
+      if (resp.code === 0) {
+        this.todoList = resp.data.list;
+        console.log(resp.data);
+      }
     },
     handleCheck(item) {
       const { id, isFinished } = item;
-      this.todoList = this.todoList.filter(todo => todo.id !== id);
+      this.todoList = this.todoList.filter((todo) => todo.id !== id);
       if (isFinished) {
         this.todoList.push(item);
       } else {
@@ -59,30 +32,25 @@ export default {
       this.$router.push({
         name: "TodoDetail",
         params: {
-          id: item.id
-        }
+          id: item.id,
+        },
       });
-    }
+    },
   },
   mounted() {
     this.getTodoList();
   },
   render() {
-    const { todoList } = this.$data;
+    const { todoList, loading } = this.$data;
 
     return (
       <EContainer>
         <EHeader title={this.$route.meta.title} type="menu" />
         <EAside />
         <EContent class={styles.wrapper}>
-          <van-divider class="divider">2020-07-05</van-divider>
-          <ETodoCard
-            todoList={todoList}
-            onCheck={this.handleCheck}
-            onGoDetail={this.handleGoDetail}
-          />
           <van-divider class="divider">2020-06-07</van-divider>
           <ETodoCard
+            loading={loading}
             todoList={todoList}
             onCheck={this.handleCheck}
             onGoDetail={this.handleGoDetail}
@@ -91,5 +59,5 @@ export default {
         <EFooter />
       </EContainer>
     );
-  }
+  },
 };
