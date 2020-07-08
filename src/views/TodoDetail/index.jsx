@@ -11,23 +11,23 @@ export default {
         {
           name: "低优先级",
           key: "low",
-          color: "#1890ff",
+          color: "#1890ff"
         },
         {
           name: "中优先级",
           key: "middle",
-          color: "#52c41a",
+          color: "#52c41a"
         },
         {
           name: "高优先级",
           key: "height",
-          color: "#faad14",
+          color: "#faad14"
         },
         {
           name: "最高优先级",
           key: "heightest",
-          color: "#f5222d",
-        },
+          color: "#f5222d"
+        }
       ],
       currentDate: new Date(),
       visibleDate: false,
@@ -37,8 +37,8 @@ export default {
         description: "这是一段描述文字",
         date: "2020-03-03 19:11",
         status: 2,
-        isFinished: false,
-      },
+        isFinished: false
+      }
     };
   },
   methods: {
@@ -67,7 +67,7 @@ export default {
       console.log(value);
       this.statusData = value;
       this.handleCloseStatus();
-    },
+    }
   },
   render() {
     const {
@@ -76,7 +76,7 @@ export default {
       statusOptions,
       currentDate,
       visibleDate,
-      todoData,
+      todoData
     } = this.$data;
 
     return (
@@ -97,7 +97,7 @@ export default {
               >
                 <span
                   style={{
-                    color: statusData.color,
+                    color: statusData.color
                   }}
                 >
                   {statusData.name || "优先级"}
@@ -111,7 +111,7 @@ export default {
                   <i class={classNames("iconfont", styles.icon)}>&#xe668;</i>
                   <span>
                     {this.$moment(todoData.date).calendar(null, {
-                      sameElse: "MM-DD HH:mm",
+                      sameElse: "MM-DD HH:mm"
                     })}
                   </span>
                 </div>
@@ -120,7 +120,7 @@ export default {
             <van-divider />
             <div
               class={classNames(styles.todoDetailTitle, {
-                [styles.finished]: todoData.isFinished,
+                [styles.finished]: todoData.isFinished
               })}
             >
               <span
@@ -148,7 +148,7 @@ export default {
               type="textarea"
               rows="10"
               autosize
-              placeholder="记录你的美好123"
+              placeholder="记录你的美好"
             />
           </div>
         </EContent>
@@ -174,5 +174,5 @@ export default {
         </van-popup>
       </EContainer>
     );
-  },
+  }
 };

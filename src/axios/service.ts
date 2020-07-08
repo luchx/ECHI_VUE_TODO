@@ -1,5 +1,5 @@
-import { AxiosRequestConfig, AxiosPromise } from 'axios';
-import axios from './config';
+import { AxiosRequestConfig, AxiosPromise } from "axios";
+import axios from "./config";
 
 // HTTP工具类
 export default class Http {
@@ -16,7 +16,7 @@ export default class Http {
    */
   public static get({ url, params, ...axiosConfig }): AxiosPromise {
     return this.request({
-      method: 'GET',
+      method: "GET",
       url,
       params,
       ...axiosConfig
@@ -31,7 +31,7 @@ export default class Http {
    */
   public static put({ url, data, ...axiosConfig }): AxiosPromise {
     return this.request({
-      method: 'PUT',
+      method: "PUT",
       url,
       data,
       ...axiosConfig
@@ -46,7 +46,7 @@ export default class Http {
    */
   public static post({ url, data, ...axiosConfig }): AxiosPromise {
     return this.request({
-      method: 'POST',
+      method: "POST",
       url,
       data,
       ...axiosConfig
@@ -61,7 +61,7 @@ export default class Http {
    */
   public static delete({ url, params, ...axiosConfig }): AxiosPromise {
     return this.request({
-      method: 'DELETE',
+      method: "DELETE",
       url,
       params,
       ...axiosConfig
