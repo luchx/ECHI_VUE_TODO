@@ -11,7 +11,8 @@ import {
   DatetimePicker,
   Calendar,
   Rate,
-  Icon
+  Icon,
+  ActionSheet
 } from "vant";
 Vue.use(Button);
 Vue.use(SwipeCell);
@@ -24,3 +25,4 @@ Vue.use(DatetimePicker);
 Vue.use(Calendar);
 Vue.use(Rate);
 Vue.use(Icon);
+Vue.use(ActionSheet);

@@ -17,30 +17,48 @@
 }
 
 .todoDetailContent {
-  padding: @primary-gap;
   background-color: #fff;
+}
 
-  .todoDetailTitle {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    &.finished {
-      .todoDetailCheck .icon {
-        color: @primary-color;
-      }
+.todoDetailHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: @primary-gap @primary-gap 0;
+  .todoDetailHeaderItem {
+    max-width: 33.3%;
+    text-align: center;
+    color: @primary-color;
+    font-size: @font-size-base; /*px*/
+  }
+  :global {
+    .van-dropdown-menu__bar {
+      height: 32px;
+      box-shadow: unset;
     }
+  }
+}
 
-    .todoDetailCheck {
-      display: block;
-      min-width: 30px;
-
-      .icon {
-        font-size: 16px;
-        color: @warning-color;
-      }
+.todoDetailTitle {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 @primary-gap;
+  &.finished {
+    .todoDetailCheck .icon {
+      color: @primary-color;
     }
   }
 
+  .todoDetailCheck {
+    display: block;
+    min-width: 30px;
+
+    .icon {
+      font-size: 16px;
+      color: @warning-color;
+    }
+  }
 }
 
 .todoDetailInput {
@@ -48,7 +66,10 @@
   font-size: @font-size-base;
   /*px*/
   color: @text-color;
-  padding: 0;
+  padding: 0 @primary-gap;
+  &.textarea {
+    padding: @primary-gap;
+  }
 }
 :global {
   .van-cell::after {
@@ -56,28 +77,12 @@
   }
 }
 
-.todoDetailDate {
-  font-size: @font-size-tiny;
-  /*px*/
-  color: @primary-color;
-  padding-top: 8px;
-  padding-bottom: @primary-gap;
-
-  .icon {
-    font-size: @font-size-tiny;
-    color: @primary-color;
-    margin-right: 4px;
-  }
-}
-
 .todoDetailClaim {
-  font-size: 12px;
-  /*px*/
-  color: @primary-color;
-
+  display: flex;
+  align-items: center;
+  justify-content: center;
   .icon {
-    font-size: 12px;
-    color: @primary-color;
+    color: @error-color;
     margin-right: 4px;
   }
 }
