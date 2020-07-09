@@ -4,7 +4,7 @@ import axios from "./config";
 export interface RespondData {
   code: number;
   data: any;
-  timestamp: Date,
+  timestamp: Date;
   message: string;
 }
 

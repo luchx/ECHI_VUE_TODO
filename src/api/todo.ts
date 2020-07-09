@@ -9,3 +9,9 @@ export function ApiGetTodoDetail(id) {
     id
   });
 }
+
+export function ApiGetTodoListByDay(day) {
+  return service.get("/getTodoListByDay", {
+    day
+  });
+}

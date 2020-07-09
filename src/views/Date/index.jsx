@@ -1,5 +1,5 @@
 import styles from "./index.module.less";
-import { ApiGetTodoList } from "@/api/todo";
+import { ApiGetTodoListByDay } from "@/api/todo";
 
 export default {
   name: "Date",
@@ -15,22 +15,15 @@ export default {
   methods: {
     formatDate(timeStamp) {
       const weekDate = []; // 日期周期
-      const num = 7; // 循环次数
-      let dayAdd = 0; // 当前天数
+      let count = 7; // 循环次数
+      let day = 0; // 当前天数
       // 获取当前星期几
       const currentDay = this.$moment(timeStamp).day();
-      let minusNum = currentDay;
-      let addNum = num - currentDay;
-      let dayMinus = 1;
-      while (minusNum--) {
-        const addDay = 86400000 * dayMinus; // 当前时间跨度(86400000为一天的间隔)
-        weekDate.unshift(timeStamp - addDay);
-        dayMinus++;
-      }
-      while (addNum--) {
-        const addDay = 86400000 * dayAdd; // 当前时间跨度(86400000为一天的间隔)
-        weekDate.push(timeStamp + addDay);
-        dayAdd++;
+      const addNum = timeStamp - 86400000 * currentDay;
+      while (count--) {
+        const addDay = 86400000 * day; // 当前时间跨度(86400000为一天的间隔)
+        weekDate.push(addNum + addDay);
+        day++;
       }
       this.weekDate = weekDate;
     },
@@ -42,16 +35,14 @@ export default {
 
       return day;
     },
-    async getTodoList() {
+    async getTodoListByDay() {
       this.loading = true;
-      const resp = await ApiGetTodoList();
+      const day = this.currentDate;
+      const resp = await ApiGetTodoListByDay(day);
       this.loading = false;
       if (resp.code === 0) {
         this.todoList = resp.data.list;
         console.log(resp);
-        const today = resp.timestamp;
-        this.currentDate = today;
-        this.formatDate(today);
       }
     },
     handleCheck(item) {
@@ -78,7 +69,7 @@ export default {
       this.showCalender = false;
     },
     handleConfirmCalender(value) {
-      const times = new Date(value).getTime();
+      const times = +new Date(value);
       const date = this.weekDate.find(date =>
         this.$moment(date).isSame(value, "day")
       );
@@ -88,17 +79,18 @@ export default {
       } else {
         this.currentDate = date;
       }
-
       this.handleCloseCalender();
+      this.getTodoListByDay();
     },
     handleUpdateValue(date) {
       this.currentDate = date;
+      this.getTodoListByDay();
     }
   },
   mounted() {
     const today = this.currentDate;
     this.formatDate(today);
-    this.getTodoList();
+    this.getTodoListByDay();
   },
   render() {
     const {
