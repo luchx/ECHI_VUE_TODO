@@ -20,7 +20,7 @@ fetchList.forEach(item => {
       url = method;
       method = "get";
     }
-    
+
     Mock.mock(new RegExp(`^${url}`), method.toLowerCase(), Mock.mock(target));
   }
 });

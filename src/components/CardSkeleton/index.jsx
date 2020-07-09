@@ -5,13 +5,13 @@ export default {
   props: {
     loading: {
       type: Boolean,
-      default: false,
+      default: false
     },
     // 默认展示条数
     rows: {
       type: Number,
-      default: 5,
-    },
+      default: 5
+    }
   },
   render() {
     const { loading, rows } = this.$props;
@@ -26,5 +26,5 @@ export default {
         </div>
       )
     );
-  },
+  }
 };

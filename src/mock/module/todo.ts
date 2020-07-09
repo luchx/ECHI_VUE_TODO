@@ -17,7 +17,7 @@ export default {
             date: "@datetime",
             "status|1": [1, 2, 3],
             "isFinished|1": function() {
-              return this["status"] === 1
+              return this["status"] === 1;
             }
           }
         ]

@@ -13,5 +13,5 @@ export default {
         </van-empty>
       </div>
     );
-  },
+  }
 };

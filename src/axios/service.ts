@@ -1,7 +1,7 @@
 import { AxiosRequestConfig } from "axios";
 import axios from "./config";
 
-export interface respondData {
+export interface RespondData {
   code: number;
   data: any;
   message: string;
@@ -11,7 +11,7 @@ export interface respondData {
 export default class Http {
   public static async request(params: AxiosRequestConfig) {
     const res = await axios(params);
-    return res.data as respondData;
+    return res.data as RespondData;
   }
 
   /**

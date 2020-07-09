@@ -9,7 +9,7 @@ export default {
       weekDate: [],
       currentDate: new Date().getTime(),
       todoList: [],
-      loading: false,
+      loading: false
     };
   },
   methods: {
@@ -53,7 +53,7 @@ export default {
     },
     handleCheck(item) {
       const { id, isFinished } = item;
-      this.todoList = this.todoList.filter((todo) => todo.id !== id);
+      this.todoList = this.todoList.filter(todo => todo.id !== id);
       if (isFinished) {
         this.todoList.push(item);
       } else {
@@ -64,8 +64,8 @@ export default {
       this.$router.push({
         name: "TodoDetail",
         params: {
-          id: item.id,
-        },
+          id: item.id
+        }
       });
     },
     handleShowCalender() {
@@ -76,7 +76,7 @@ export default {
     },
     handleConfirmCalender(value) {
       const times = new Date(value).getTime();
-      const date = this.weekDate.find((date) =>
+      const date = this.weekDate.find(date =>
         this.$moment(date).isSame(value, "day")
       );
       if (!date) {
@@ -90,7 +90,7 @@ export default {
     },
     handleUpdateValue(date) {
       this.currentDate = date;
-    },
+    }
   },
   mounted() {
     this.getTodoList();
@@ -103,7 +103,7 @@ export default {
       weekDate,
       currentDate,
       todoList,
-      loading,
+      loading
     } = this.$data;
 
     return (
@@ -146,5 +146,5 @@ export default {
         <EFooter />
       </EContainer>
     );
-  },
+  }
 };

@@ -1,4 +1,4 @@
-import axios, { AxiosResponse, AxiosRequestConfig, AxiosError } from "axios";
+import axios, { AxiosRequestConfig, AxiosError } from "axios";
 
 // 超时重新请求配置
 const VUE_APP_URL = process.env.VUE_APP_URL;

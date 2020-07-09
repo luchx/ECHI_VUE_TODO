@@ -5,7 +5,7 @@ export default {
   data() {
     return {
       todoList: [],
-      loading: false,
+      loading: false
     };
   },
   methods: {
@@ -20,7 +20,7 @@ export default {
     },
     handleCheck(item) {
       const { id, isFinished } = item;
-      this.todoList = this.todoList.filter((todo) => todo.id !== id);
+      this.todoList = this.todoList.filter(todo => todo.id !== id);
       if (isFinished) {
         this.todoList.push(item);
       } else {
@@ -31,10 +31,10 @@ export default {
       this.$router.push({
         name: "TodoDetail",
         params: {
-          id: item.id,
-        },
+          id: item.id
+        }
       });
-    },
+    }
   },
   mounted() {
     this.getTodoList();
@@ -58,5 +58,5 @@ export default {
         <EFooter />
       </EContainer>
     );
-  },
+  }
 };
