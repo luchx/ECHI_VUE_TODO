@@ -1,5 +1,6 @@
 import styles from "./index.module.less";
 import classNames from "classnames";
+import { ApiGetTodoDetail } from "@/api/todo";
 
 export default {
   name: "TodoDetail",
@@ -31,17 +32,21 @@ export default {
       ],
       currentDate: new Date(),
       visibleDate: false,
-      todoData: {
-        id: 3,
-        title: "这是一段描述文字这是一段描述文字这是一段描述文字",
-        description: "这是一段描述文字",
-        date: "2020-03-03 19:11",
-        status: 2,
-        isFinished: false
-      }
+      todoData: {}
     };
   },
   methods: {
+    async getTodoDetail(id) {
+      this.loading = true;
+      const resp = await ApiGetTodoDetail(id);
+      this.loading = false;
+      if (resp.code === 0) {
+        const data = resp.data;
+        this.todoData = data;
+        this.statusData =
+          this.statusOptions.find(item => item.key === data.priority) || {};
+      }
+    },
     handleToggleCheck(event, item) {
       event.stopPropagation();
       item.isFinished = !item.isFinished;
@@ -68,6 +73,10 @@ export default {
       this.statusData = value;
       this.handleCloseStatus();
     }
+  },
+  mounted() {
+    const { id } = this.$route.params;
+    this.getTodoDetail(id);
   },
   render() {
     const {

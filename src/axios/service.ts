@@ -4,6 +4,7 @@ import axios from "./config";
 export interface RespondData {
   code: number;
   data: any;
+  timestamp: Date,
   message: string;
 }
 
@@ -20,7 +21,7 @@ export default class Http {
    * @param [data] 数据
    * @returns Promise
    */
-  public static get(url: string, params?, axiosConfig = {}) {
+  public static get(url: string, params?: object, axiosConfig = {}) {
     return this.request({
       method: "GET",
       url,
@@ -35,7 +36,7 @@ export default class Http {
    * @param [data] 数据
    * @returns Promise
    */
-  public static put(url: string, data?, axiosConfig = {}) {
+  public static put(url: string, data?: object, axiosConfig = {}) {
     return this.request({
       method: "PUT",
       url,
@@ -50,7 +51,7 @@ export default class Http {
    * @param [data] 数据
    * @returns Promise
    */
-  public static post(url: string, data?, axiosConfig = {}) {
+  public static post(url: string, data?: object, axiosConfig = {}) {
     return this.request({
       method: "POST",
       url,
@@ -65,7 +66,7 @@ export default class Http {
    * @param [params] 数据
    * @returns Promise
    */
-  public static delete(url: string, params?, ...axiosConfig) {
+  public static delete(url: string, params?: object, ...axiosConfig) {
     return this.request({
       method: "DELETE",
       url,
