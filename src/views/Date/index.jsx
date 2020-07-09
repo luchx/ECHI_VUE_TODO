@@ -48,7 +48,10 @@ export default {
       this.loading = false;
       if (resp.code === 0) {
         this.todoList = resp.data.list;
-        console.log(resp.data);
+        console.log(resp);
+        const today = resp.timestamp;
+        this.currentDate = today;
+        this.formatDate(today);
       }
     },
     handleCheck(item) {
@@ -93,9 +96,9 @@ export default {
     }
   },
   mounted() {
-    this.getTodoList();
     const today = this.currentDate;
     this.formatDate(today);
+    this.getTodoList();
   },
   render() {
     const {
