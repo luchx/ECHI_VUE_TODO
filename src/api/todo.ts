@@ -23,3 +23,7 @@ export function ApiGetReviewTodoList() {
 export function ApiGetFinishedTodoList(data) {
   return service.get("/todo/getFinishedTodoList", data);
 }
+
+export function ApiGetRecycleTodoList(data) {
+  return service.get("/todo/getRecycleTodoList", data);
+}

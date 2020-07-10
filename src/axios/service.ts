@@ -12,6 +12,7 @@ export interface RespondData {
 export default class Http {
   public static async request(params: AxiosRequestConfig) {
     const res = await axios(params);
+    console.log("打印请求值 ☞", res.data);
     return res.data as RespondData;
   }
 

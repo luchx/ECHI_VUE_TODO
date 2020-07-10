@@ -1,4 +1,4 @@
-import { ApiGetTodoList } from "@/api/todo";
+import { ApiGetRecycleTodoList } from "@/api/todo";
 
 export default {
   name: "Recycle",
@@ -9,13 +9,12 @@ export default {
     };
   },
   methods: {
-    async getTodoList() {
+    async getRecycleTodoList() {
       this.loading = true;
-      const resp = await ApiGetTodoList();
+      const resp = await ApiGetRecycleTodoList();
       this.loading = false;
       if (resp.code === 0) {
         this.todoList = resp.result.list;
-        console.log(resp.result);
       }
     },
     handleCheck(item) {
@@ -37,7 +36,7 @@ export default {
     }
   },
   mounted() {
-    this.getTodoList();
+    this.getRecycleTodoList();
   },
   render() {
     const { todoList, loading } = this.$data;

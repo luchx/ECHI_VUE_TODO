@@ -16,7 +16,7 @@ export default {
             title: "@ctitle",
             description: "@cparagraph(10, 20)",
             date: "@datetime",
-            status: 2,
+            status: 1,
             isFinished: false,
             "priority|1": [1, 2, 3, 4]
           }
@@ -35,7 +35,7 @@ export default {
         date: "@datetime",
         "status|1": [1, 2, 3],
         "isFinished|1": function() {
-          return this["status"] === 1;
+          return this["status"] === 2;
         },
         "priority|1": ["low", "middle", "height", "heightest"]
       }
@@ -59,7 +59,7 @@ export default {
             date: "@datetime",
             "status|1": [1, 2, 3],
             "isFinished|1": function() {
-              return this["status"] === 1;
+              return this["status"] === 2;
             },
             "priority|1": [1, 2, 3, 4]
           }
@@ -83,7 +83,7 @@ export default {
             title: "@ctitle",
             description: "@cparagraph(10, 20)",
             date: "@datetime",
-            status: 1,
+            status: 2,
             isFinished: true,
             "priority|1": [1, 2, 3, 4]
           }
@@ -108,7 +108,7 @@ export default {
               title: "@ctitle",
               description: "@cparagraph(10, 20)",
               date: "@datetime",
-              status: 1,
+              status: 2,
               isFinished: true,
               "priority|1": [1, 2, 3, 4]
             }
@@ -119,7 +119,7 @@ export default {
               title: "@ctitle",
               description: "@cparagraph(10, 20)",
               date: "@datetime",
-              status: 1,
+              status: 2,
               isFinished: true,
               "priority|1": [1, 2, 3, 4]
             }
@@ -127,5 +127,27 @@ export default {
         }
       }
     };
+  },
+  "/todo/getRecycleTodoList": {
+    code: 0,
+    timestamp: +new Date(),
+    result: {
+      pagination: {
+        page: 1,
+        pageSize: 10,
+        total: 23
+      },
+      "list|5-11": [
+        {
+          "id|+1": 1,
+          title: "@ctitle",
+          description: "@cparagraph(10, 20)",
+          date: "@datetime",
+          status: 3,
+          "isFinished|0-1": 1,
+          "priority|1": [1, 2, 3, 4]
+        }
+      ]
+    }
   }
 };
