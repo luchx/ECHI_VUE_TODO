@@ -1,5 +1,6 @@
 import styles from "./index.module.less";
 import { ApiGetTodoListByDay } from "@/api/todo";
+import { mapState } from "vuex";
 
 export default {
   name: "Date",
@@ -7,10 +8,15 @@ export default {
     return {
       showCalender: false,
       weekDate: [],
-      currentDate: new Date().getTime(),
+      currentDate: +new Date(),
       todoList: [],
       loading: false
     };
+  },
+  computed: {
+    ...mapState({
+      timestamp: state => state.timestamp
+    })
   },
   methods: {
     formatDate(timeStamp) {
@@ -42,7 +48,6 @@ export default {
       this.loading = false;
       if (resp.code === 0) {
         this.todoList = resp.data.list;
-        console.log(resp);
       }
     },
     handleCheck(item) {
@@ -87,9 +92,11 @@ export default {
       this.getTodoListByDay();
     }
   },
-  mounted() {
-    const today = this.currentDate;
-    this.formatDate(today);
+  async mounted() {
+    this.loading = true;
+    const times = await this.$store.dispatch("getTimes");
+    this.currentDate = times;
+    this.formatDate(times);
     this.getTodoListByDay();
   },
   render() {
