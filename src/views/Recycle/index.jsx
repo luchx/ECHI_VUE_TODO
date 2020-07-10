@@ -17,15 +17,6 @@ export default {
         this.todoList = resp.result.list;
       }
     },
-    handleCheck(item) {
-      const { id, isFinished } = item;
-      this.todoList = this.todoList.filter(todo => todo.id !== id);
-      if (isFinished) {
-        this.todoList.push(item);
-      } else {
-        this.todoList.unshift(item);
-      }
-    },
     handleGoDetail(item) {
       this.$router.push({
         name: "TodoDetail",
@@ -49,7 +40,6 @@ export default {
           <ETodoCard
             loading={loading}
             todoList={todoList}
-            onCheck={this.handleCheck}
             onGoDetail={this.handleGoDetail}
             recycle={true}
           />
