@@ -1,7 +1,7 @@
 import service from "@/axios/service";
 
-export function ApiGetTodoList() {
-  return service.get("/todo/getTodoList");
+export function ApiGetTodoList(data) {
+  return service.get("/todo/getTodoList", data);
 }
 
 export function ApiGetTodoDetail(id) {
@@ -16,6 +16,10 @@ export function ApiGetTodoListByDay(day) {
   });
 }
 
-export function ApiGetTodoListByWeek() {
-  return service.get("/todo/getTodoListByWeek");
+export function ApiGetReviewTodoList() {
+  return service.get("/todo/getReviewTodoList");
+}
+
+export function ApiGetFinishedTodoList(data) {
+  return service.get("/todo/getFinishedTodoList", data);
 }

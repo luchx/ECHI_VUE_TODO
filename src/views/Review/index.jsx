@@ -1,5 +1,5 @@
 import styles from "./index.module.less";
-import { ApiGetTodoList } from "@/api/todo";
+import { ApiGetReviewTodoList } from "@/api/todo";
 
 export default {
   name: "Review",
@@ -8,17 +8,29 @@ export default {
       todoList: [],
       loading: false,
       visible: false,
-      todoDetail: {}
+      todoDetail: {},
+      taskData: {}
     };
   },
+  computed: {
+    ratioText() {
+      const { rate } = this.taskData;
+      if (rate <= 3) {
+        return "低";
+      } else if (rate <= 4) {
+        return "中";
+      }
+      return "高";
+    }
+  },
   methods: {
-    async getTodoList() {
+    async getReviewTodoList() {
       this.loading = true;
-      const resp = await ApiGetTodoList();
+      const resp = await ApiGetReviewTodoList();
       this.loading = false;
       if (resp.code === 0) {
-        this.todoList = resp.data.list;
-        console.log(resp.data);
+        this.taskData = resp.result.task;
+        this.todoList = resp.result.list;
       }
     },
     handleCheck(item) {
@@ -43,10 +55,10 @@ export default {
     }
   },
   mounted() {
-    this.getTodoList();
+    this.getReviewTodoList();
   },
   render() {
-    const { todoList, loading } = this.$data;
+    const { todoList, taskData, loading } = this.$data;
 
     return (
       <EContainer>
@@ -55,17 +67,21 @@ export default {
         <EContent>
           <div class={styles.reviewHeader}>
             <div class={styles.rateBox}>
-              <van-rate value={3.5} color="#f5222d" allowHalf={true} />
+              <van-rate
+                value={taskData.rate}
+                color="#f5222d"
+                allowHalf={true}
+              />
             </div>
             <div class={styles.reviewBox}>
               <div class={styles.reviewBoxItem}>
-                本周完成：<span>5</span>
+                本周完成：<span>{taskData.finishCount}</span>
               </div>
               <div class={styles.reviewBoxItem}>
-                本周评分：<span>5星</span>
+                本周评分：{taskData.rate && <span>{taskData.rate}星</span>}
               </div>
               <div class={styles.reviewBoxItem}>
-                本周效率：<span>高</span>
+                本周效率：{taskData.rate && <span>{this.ratioText}</span>}
               </div>
             </div>
           </div>

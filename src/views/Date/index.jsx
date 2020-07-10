@@ -47,7 +47,7 @@ export default {
       const resp = await ApiGetTodoListByDay(day);
       this.loading = false;
       if (resp.code === 0) {
-        this.todoList = resp.data.list;
+        this.todoList = resp.result.list;
       }
     },
     handleCheck(item) {
@@ -94,6 +94,7 @@ export default {
   },
   async mounted() {
     this.loading = true;
+    this.formatDate(this.currentDate);
     const times = await this.$store.dispatch("getTimes");
     this.currentDate = times;
     this.formatDate(times);

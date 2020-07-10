@@ -4,7 +4,7 @@ export default {
     return {
       code: 0,
       timestamp: +new Date(),
-      data: {
+      result: {
         pagination: {
           page: 1,
           pageSize: 10,
@@ -16,10 +16,8 @@ export default {
             title: "@ctitle",
             description: "@cparagraph(10, 20)",
             date: "@datetime",
-            "status|1": [1, 2, 3],
-            "isFinished|1": function () {
-              return this["status"] === 1;
-            },
+            status: 2,
+            isFinished: false,
             "priority|1": [1, 2, 3, 4]
           }
         ]
@@ -30,13 +28,13 @@ export default {
     return {
       code: 0,
       timestamp: +new Date(),
-      data: {
+      result: {
         "id|1-100": 1,
         title: "@ctitle",
         description: "@cparagraph(10, 20)",
         date: "@datetime",
         "status|1": [1, 2, 3],
-        "isFinished|1": function () {
+        "isFinished|1": function() {
           return this["status"] === 1;
         },
         "priority|1": ["low", "middle", "height", "heightest"]
@@ -47,7 +45,7 @@ export default {
     return {
       code: 0,
       timestamp: +new Date(),
-      data: {
+      result: {
         pagination: {
           page: 1,
           pageSize: 10,
@@ -60,7 +58,7 @@ export default {
             description: "@cparagraph(10, 20)",
             date: "@datetime",
             "status|1": [1, 2, 3],
-            "isFinished|1": function () {
+            "isFinished|1": function() {
               return this["status"] === 1;
             },
             "priority|1": [1, 2, 3, 4]
@@ -69,15 +67,15 @@ export default {
       }
     };
   },
-  "/todo/getTodoListByWeek": () => {
+  "/todo/getReviewTodoList": () => {
     return {
       code: 0,
       timestamp: +new Date(),
-      data: {
+      result: {
         task: {
-          "finished|5-10": 1,
-          "total|5-10": 1,
-          "rate|3-5": 0.5
+          "finishCount|5-10": 1,
+          total: 10,
+          "rate|1-5": 0.5
         },
         "list|5-11": [
           {
@@ -85,13 +83,48 @@ export default {
             title: "@ctitle",
             description: "@cparagraph(10, 20)",
             date: "@datetime",
-            "status|1": [1, 2, 3],
-            "isFinished|1": function () {
-              return this["status"] === 1;
-            },
+            status: 1,
+            isFinished: true,
             "priority|1": [1, 2, 3, 4]
           }
         ]
+      }
+    };
+  },
+  "/todo/getFinishedTodoList": () => {
+    return {
+      code: 0,
+      timestamp: +new Date(),
+      result: {
+        pagination: {
+          page: 1,
+          pageSize: 10,
+          total: 23
+        },
+        data: {
+          "2020-06-05|5-10": [
+            {
+              "id|+1": 1,
+              title: "@ctitle",
+              description: "@cparagraph(10, 20)",
+              date: "@datetime",
+              status: 1,
+              isFinished: true,
+              "priority|1": [1, 2, 3, 4]
+            }
+          ],
+          "2020-07-10|5-10": [
+            {
+              "id|+1": 1,
+              title: "@ctitle",
+              description: "@cparagraph(10, 20)",
+              date: "@datetime",
+              status: 1,
+              isFinished: true,
+              "priority|1": [1, 2, 3, 4]
+            }
+          ]
+        }
       }
     };
   }

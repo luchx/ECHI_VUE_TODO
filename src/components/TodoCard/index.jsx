@@ -17,6 +17,11 @@ export default {
     recycle: {
       type: Boolean,
       default: false
+    },
+    // 是否展示复选项
+    showCheck: {
+      type: Boolean,
+      default: true
     }
   },
   methods: {
@@ -43,7 +48,7 @@ export default {
     }
   },
   render() {
-    const { todoList, recycle, loading } = this.$props;
+    const { todoList, recycle, showCheck, loading } = this.$props;
 
     if (loading) {
       return <ECardSkeleton loading={loading} />;
@@ -82,7 +87,7 @@ export default {
               onClick={() => this.goDetail(item)}
             >
               <div class={styles.cardInfo}>
-                {!recycle && (
+                {!recycle && showCheck && (
                   <span
                     class={styles.cardCheck}
                     onClick={event => this.handleToggleCheck(event, item)}
@@ -99,7 +104,7 @@ export default {
               </div>
               <div
                 class={classNames(styles.cardClaim, {
-                  [styles.recycle]: recycle
+                  [styles.recycle]: recycle || !showCheck
                 })}
               >
                 <i class={classNames("iconfont", styles.icon)}>&#xe611;</i>

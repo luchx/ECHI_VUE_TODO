@@ -14,8 +14,7 @@ export default {
       const resp = await ApiGetTodoList();
       this.loading = false;
       if (resp.code === 0) {
-        this.todoList = resp.data.list;
-        console.log(resp.data);
+        this.todoList = resp.result.list;
       }
     },
     handleCheck(item) {

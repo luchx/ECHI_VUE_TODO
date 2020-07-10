@@ -41,7 +41,7 @@ export default {
       const resp = await ApiGetTodoDetail(id);
       this.loading = false;
       if (resp.code === 0) {
-        const data = resp.data;
+        const data = resp.result;
         this.todoData = data;
         this.statusData =
           this.statusOptions.find(item => item.key === data.priority) || {};

@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import { ApiGetTimes } from '@/api/basic';
+import { ApiGetTimes } from "@/api/basic";
 
 Vue.use(Vuex);
 
@@ -11,24 +11,24 @@ export default new Vuex.Store({
   getters: {},
   actions: {
     getTimes({ commit }) {
-      return new Promise(async (resolve, reject) => {
+      return new Promise(async function(resolve, reject) {
         const resp = await ApiGetTimes();
         if (resp.code === 0) {
-          resolve(resp.data);
+          resolve(resp.result);
           commit("change", {
-            timestamp: resp.data
-          })
+            timestamp: resp.result
+          });
         } else {
-          reject()
+          reject();
         }
-      })
+      });
     }
   },
   mutations: {
     change(state, params) {
       for (const key in params) {
-        if (state.hasOwnProperty(key)) {
-          state[key] = params[key]
+        if (Reflect.has(state, key)) {
+          state[key] = params[key];
         }
       }
     }

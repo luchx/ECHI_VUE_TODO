@@ -1,31 +1,21 @@
 import styles from "./index.module.less";
-import { ApiGetTodoList } from "@/api/todo";
+import { ApiGetFinishedTodoList } from "@/api/todo";
 
 export default {
   name: "Finished",
   data() {
     return {
-      todoList: [],
+      todoData: [],
       loading: false
     };
   },
   methods: {
-    async getTodoList() {
+    async getFinishedTodoList() {
       this.loading = true;
-      const resp = await ApiGetTodoList();
+      const resp = await ApiGetFinishedTodoList();
       this.loading = false;
       if (resp.code === 0) {
-        this.todoList = resp.data.list;
-        console.log(resp.data);
-      }
-    },
-    handleCheck(item) {
-      const { id, isFinished } = item;
-      this.todoList = this.todoList.filter(todo => todo.id !== id);
-      if (isFinished) {
-        this.todoList.push(item);
-      } else {
-        this.todoList.unshift(item);
+        this.todoData = resp.result.data;
       }
     },
     handleGoDetail(item) {
@@ -38,23 +28,33 @@ export default {
     }
   },
   mounted() {
-    this.getTodoList();
+    this.getFinishedTodoList();
   },
   render() {
-    const { todoList, loading } = this.$data;
+    const { todoData, loading } = this.$data;
 
     return (
       <EContainer>
         <EHeader title={this.$route.meta.title} type="menu" />
         <EAside />
         <EContent class={styles.wrapper}>
-          <van-divider class="divider">2020-06-07</van-divider>
-          <ETodoCard
-            loading={loading}
-            todoList={todoList}
-            onCheck={this.handleCheck}
-            onGoDetail={this.handleGoDetail}
-          />
+          {Object.keys(todoData).map(date => (
+            <div>
+              <div class={styles.titleBar}>
+                <van-divider class="divider">{date}</van-divider>
+              </div>
+              <ETodoCard
+                showCheck={false}
+                loading={loading}
+                todoList={todoData[date]}
+                onGoDetail={this.handleGoDetail}
+                style={{
+                  paddingTop: 0,
+                  paddingBottom: 0
+                }}
+              />
+            </div>
+          ))}
         </EContent>
         <EFooter />
       </EContainer>

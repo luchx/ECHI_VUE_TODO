@@ -3,7 +3,7 @@ import axios from "./config";
 
 export interface RespondData {
   code: number;
-  data: any;
+  result: any;
   timestamp: Date;
   message: string;
 }
