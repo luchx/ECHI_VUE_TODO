@@ -6,6 +6,7 @@ export default {
   name: "TodoDetail",
   data() {
     return {
+      id: null,
       statusVisible: false,
       statusData: {},
       statusOptions: [
@@ -37,6 +38,9 @@ export default {
   },
   methods: {
     async getTodoDetail(id) {
+      if (!id) {
+        return;
+      }
       this.loading = true;
       const resp = await ApiGetTodoDetail(id);
       this.loading = false;
@@ -75,6 +79,7 @@ export default {
   },
   mounted() {
     const { id } = this.$route.query;
+    this.id = id;
     this.getTodoDetail(id);
   },
   render() {
@@ -84,7 +89,8 @@ export default {
       statusOptions,
       currentDate,
       visibleDate,
-      todoData
+      todoData,
+      id
     } = this.$data;
 
     return (
@@ -131,21 +137,26 @@ export default {
                 [styles.finished]: todoData.isFinished
               })}
             >
-              <span
-                class={styles.todoDetailCheck}
-                onClick={() => this.handleToggleCheck(todoData)}
-              >
-                <i
-                  class={classNames("iconfont", styles.icon)}
-                  domPropsInnerHTML={
-                    todoData.isFinished ? "&#xe606;" : "&#xe6ca;"
-                  }
-                ></i>
-              </span>
+              {id && (
+                <span
+                  class={styles.todoDetailCheck}
+                  onClick={() => this.handleToggleCheck(todoData)}
+                >
+                  <i
+                    class={classNames("iconfont", styles.icon)}
+                    domPropsInnerHTML={
+                      todoData.isFinished ? "&#xe606;" : "&#xe6ca;"
+                    }
+                  ></i>
+                </span>
+              )}
               <van-field
                 class={classNames(styles.todoDetailInput)}
                 value={todoData.title}
                 placeholder="标题"
+                style={{
+                  paddingLeft: id ? "" : 0
+                }}
               />
             </div>
             <van-field

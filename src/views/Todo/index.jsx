@@ -1,4 +1,5 @@
 import { ApiGetTodoList } from "@/api/todo";
+import styles from "./index.module.less";
 
 export default {
   name: "Todo",
@@ -43,7 +44,21 @@ export default {
 
     return (
       <EContainer>
-        <EHeader title={this.$route.meta.title} type="menu" />
+        <EHeader
+          title={this.$route.meta.title}
+          type="menu"
+          extra={
+            <router-link
+              to={{
+                name: "TodoDetail"
+              }}
+            >
+              <van-button plain type="info" class={styles.addBtn}>
+                新增
+              </van-button>
+            </router-link>
+          }
+        />
         <EAside />
         <EContent>
           <ETodoCard
