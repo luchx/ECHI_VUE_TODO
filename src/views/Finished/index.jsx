@@ -20,7 +20,7 @@ export default {
     },
     handleGoDetail(item) {
       this.$router.push({
-        name: "TodoDetailView",
+        name: "TodoDetail",
         params: {
           id: item.id
         }
@@ -44,7 +44,6 @@ export default {
                 <van-divider class="divider">{date}</van-divider>
               </div>
               <ETodoCard
-                showCheck={false}
                 loading={loading}
                 todoList={todoData[date]}
                 onGoDetail={this.handleGoDetail}

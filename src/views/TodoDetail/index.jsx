@@ -31,6 +31,7 @@ export default {
         }
       ],
       currentDate: new Date(),
+      visibleDate: false,
       todoData: {}
     };
   },
@@ -45,6 +46,31 @@ export default {
         this.statusData =
           this.statusOptions.find(item => item.key === data.priority) || {};
       }
+    },
+    handleToggleCheck(item) {
+      item.isFinished = !item.isFinished;
+    },
+    handleOpenDate() {
+      this.visibleDate = true;
+    },
+    handleCloseDate() {
+      this.visibleDate = false;
+    },
+    handleConfirmDate(value) {
+      console.log(value);
+      this.todoData.date = this.$moment(value);
+      this.handleCloseDate();
+    },
+    handleOpenStatus() {
+      this.statusVisible = true;
+    },
+    handleCloseStatus() {
+      this.statusVisible = false;
+    },
+    handleSelectStatus(value) {
+      console.log(value);
+      this.statusData = value;
+      this.handleCloseStatus();
     }
   },
   mounted() {
@@ -52,15 +78,31 @@ export default {
     this.getTodoDetail(id);
   },
   render() {
-    const { statusData, todoData } = this.$data;
+    const {
+      statusVisible,
+      statusData,
+      statusOptions,
+      currentDate,
+      visibleDate,
+      todoData
+    } = this.$data;
 
     return (
       <EContainer class={classNames(styles.todoDetail)}>
-        <EHeader />
+        <EHeader
+          extra={
+            <van-button plain type="info" class={styles.saveBtn}>
+              保存
+            </van-button>
+          }
+        />
         <EContent>
           <div class={styles.todoDetailContent}>
             <div class={styles.todoDetailHeader}>
-              <div class={styles.todoDetailHeaderItem}>
+              <div
+                class={styles.todoDetailHeaderItem}
+                onClick={this.handleOpenStatus}
+              >
                 <span
                   style={{
                     color: statusData.color
@@ -70,7 +112,10 @@ export default {
                 </span>
               </div>
               <div class={styles.todoDetailHeaderItem}>
-                <div class={styles.todoDetailClaim}>
+                <div
+                  class={styles.todoDetailClaim}
+                  onClick={this.handleOpenDate}
+                >
                   <i class={classNames("iconfont", styles.icon)}>&#xe668;</i>
                   <span>
                     {this.$moment(todoData.date).calendar(null, {
@@ -86,7 +131,10 @@ export default {
                 [styles.finished]: todoData.isFinished
               })}
             >
-              <span class={styles.todoDetailCheck}>
+              <span
+                class={styles.todoDetailCheck}
+                onClick={() => this.handleToggleCheck(todoData)}
+              >
                 <i
                   class={classNames("iconfont", styles.icon)}
                   domPropsInnerHTML={
@@ -97,7 +145,6 @@ export default {
               <van-field
                 class={classNames(styles.todoDetailInput)}
                 value={todoData.title}
-                readonly={true}
                 placeholder="标题"
               />
             </div>
@@ -105,7 +152,6 @@ export default {
               class={classNames(styles.todoDetailInput, styles.textarea)}
               value={todoData.description}
               showWordLimit={true}
-              readonly={true}
               maxlength="200"
               type="textarea"
               rows="10"
@@ -114,6 +160,26 @@ export default {
             />
           </div>
         </EContent>
+        <van-action-sheet
+          value={statusVisible}
+          onInput={this.handleCloseStatus}
+          actions={statusOptions}
+          round={false}
+          onSelect={this.handleSelectStatus}
+        />
+        <van-popup
+          value={visibleDate}
+          onInput={this.handleCloseDate}
+          position="bottom"
+        >
+          <van-datetime-picker
+            onCancel={this.handleCloseDate}
+            onConfirm={this.handleConfirmDate}
+            value={currentDate}
+            type="datetime"
+            title="选择完整时间"
+          />
+        </van-popup>
       </EContainer>
     );
   }
