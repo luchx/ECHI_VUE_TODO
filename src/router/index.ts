@@ -18,7 +18,7 @@ const routes: RouteConfig[] = [
     component: () => import(/* webpackChunkName: "Todo" */ "@/views/Todo")
   },
   {
-    path: "/todo-detail/:id",
+    path: "/todo-detail",
     name: "TodoDetail",
     component: () =>
       import(/* webpackChunkName: "TodoDetail" */ "@/views/TodoDetail")
@@ -27,7 +27,7 @@ const routes: RouteConfig[] = [
     path: "/todo-detail-view/:id",
     name: "TodoDetailView",
     component: () =>
-      import(/* webpackChunkName: "TodoDetail" */ "@/views/TodoDetailView")
+      import(/* webpackChunkName: "TodoDetailView" */ "@/views/TodoDetailView")
   },
   {
     path: "/date",

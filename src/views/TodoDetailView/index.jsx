@@ -3,7 +3,7 @@ import classNames from "classnames";
 import { ApiGetTodoDetail } from "@/api/todo";
 
 export default {
-  name: "TodoDetail",
+  name: "TodoDetailView",
   data() {
     return {
       statusData: {},

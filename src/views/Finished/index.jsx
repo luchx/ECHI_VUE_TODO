@@ -21,7 +21,7 @@ export default {
     handleGoDetail(item) {
       this.$router.push({
         name: "TodoDetail",
-        params: {
+        query: {
           id: item.id
         }
       });

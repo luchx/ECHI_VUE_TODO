@@ -74,7 +74,7 @@ export default {
     }
   },
   mounted() {
-    const { id } = this.$route.params;
+    const { id } = this.$route.query;
     this.getTodoDetail(id);
   },
   render() {
