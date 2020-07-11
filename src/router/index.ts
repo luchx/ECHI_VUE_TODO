@@ -5,8 +5,11 @@ Vue.use(VueRouter);
 
 const routes: RouteConfig[] = [
   {
+    path: "*",
+    redirect: "/exception/404"
+  },
+  {
     path: "/",
-    name: "Home",
     redirect: "/todo"
   },
   {
@@ -63,29 +66,32 @@ const routes: RouteConfig[] = [
     component: () => import(/* webpackChunkName: "Recycle" */ "@/views/Recycle")
   },
   {
-    path: "exception/403",
+    path: "/exception/403",
     name: "403",
     meta: {
       title: "403"
     },
-    component: () => import(/* webpackChunkName: "Exception" */ "@/views/Exception/403")
+    component: () =>
+      import(/* webpackChunkName: "Exception" */ "@/views/Exception/403")
   },
   {
-    path: "exception/500",
-    name: "500",
-    meta: {
-      title: "500"
-    },
-    component: () => import(/* webpackChunkName: "Exception" */ "@/views/Exception/500")
-  },
-  {
-    path: "*",
+    path: "/exception/404",
     name: "404",
     meta: {
       title: "404"
     },
-    component: () => import(/* webpackChunkName: "Exception" */ "@/views/Exception/404")
+    component: () =>
+      import(/* webpackChunkName: "Exception" */ "@/views/Exception/404")
   },
+  {
+    path: "/exception/500",
+    name: "500",
+    meta: {
+      title: "500"
+    },
+    component: () =>
+      import(/* webpackChunkName: "Exception" */ "@/views/Exception/500")
+  }
 ];
 
 const router = new VueRouter({
