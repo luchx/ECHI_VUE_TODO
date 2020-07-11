@@ -3,7 +3,7 @@ import classNames from "classnames";
 import { ApiGetTodoDetail } from "@/api/todo";
 
 export default {
-  name: "TodoDetailView",
+  name: "TodoDetail",
   data() {
     return {
       statusVisible: false,
@@ -32,7 +32,8 @@ export default {
       ],
       currentDate: new Date(),
       visibleDate: false,
-      todoData: {}
+      todoData: {},
+      readonly: false
     };
   },
   methods: {
@@ -47,11 +48,16 @@ export default {
           this.statusOptions.find(item => item.key === data.priority) || {};
       }
     },
-    handleToggleCheck(event, item) {
-      event.stopPropagation();
+    handleToggleCheck(item) {
+      if (this.$props.readonly) {
+        return;
+      }
       item.isFinished = !item.isFinished;
     },
     handleOpenDate() {
+      if (this.$props.readonly) {
+        return;
+      }
       this.visibleDate = true;
     },
     handleCloseDate() {
@@ -63,6 +69,9 @@ export default {
       this.handleCloseDate();
     },
     handleOpenStatus() {
+      if (this.$props.readonly) {
+        return;
+      }
       this.statusVisible = true;
     },
     handleCloseStatus() {
@@ -76,9 +85,13 @@ export default {
   },
   mounted() {
     const { id } = this.$route.params;
+    const { type } = this.$route.query;
+    this.readonly = type === "view";
+    console.log(this.readonly);
     this.getTodoDetail(id);
   },
   render() {
+    const { readonly } = this.$props;
     const {
       statusVisible,
       statusData,
@@ -92,9 +105,11 @@ export default {
       <EContainer class={classNames(styles.todoDetail)}>
         <EHeader
           extra={
-            <van-button plain type="info" class={styles.saveBtn}>
-              保存
-            </van-button>
+            readonly ? null : (
+              <van-button plain type="info" class={styles.saveBtn}>
+                保存
+              </van-button>
+            )
           }
         />
         <EContent>
@@ -146,6 +161,7 @@ export default {
               <van-field
                 class={classNames(styles.todoDetailInput)}
                 value={todoData.title}
+                readonly={readonly}
                 placeholder="标题"
               />
             </div>
@@ -153,6 +169,7 @@ export default {
               class={classNames(styles.todoDetailInput, styles.textarea)}
               value={todoData.description}
               showWordLimit={true}
+              readonly={readonly}
               maxlength="200"
               type="textarea"
               rows="10"

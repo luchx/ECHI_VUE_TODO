@@ -44,7 +44,7 @@ export default {
     },
     handleGoDetail(item) {
       this.$router.push({
-        name: "TodoDetail",
+        name: "TodoDetailView",
         params: {
           id: item.id
         }
