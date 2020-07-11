@@ -1,7 +1,8 @@
+import Vue from "vue";
 import { ApiGetTodoList } from "@/api/todo";
 import styles from "./index.module.less";
 
-export default {
+export default Vue.extend({
   name: "Todo",
   data() {
     return {
@@ -72,4 +73,4 @@ export default {
       </EContainer>
     );
   }
-};
+});

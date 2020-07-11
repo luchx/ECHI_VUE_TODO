@@ -61,7 +61,31 @@ const routes: RouteConfig[] = [
       title: "回收站"
     },
     component: () => import(/* webpackChunkName: "Recycle" */ "@/views/Recycle")
-  }
+  },
+  {
+    path: "exception/403",
+    name: "403",
+    meta: {
+      title: "403"
+    },
+    component: () => import(/* webpackChunkName: "Exception" */ "@/views/Exception/403")
+  },
+  {
+    path: "exception/500",
+    name: "500",
+    meta: {
+      title: "500"
+    },
+    component: () => import(/* webpackChunkName: "Exception" */ "@/views/Exception/500")
+  },
+  {
+    path: "*",
+    name: "404",
+    meta: {
+      title: "404"
+    },
+    component: () => import(/* webpackChunkName: "Exception" */ "@/views/Exception/404")
+  },
 ];
 
 const router = new VueRouter({

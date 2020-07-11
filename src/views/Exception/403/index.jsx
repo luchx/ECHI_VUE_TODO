@@ -1,8 +1,8 @@
 import Exception from "../exception.vue";
 
 export default {
-  name: "404",
+  name: "403",
   render() {
-    return <Exception type="404"></Exception>;
+    return <Exception type="403"></Exception>;
   }
 };

@@ -1,6 +1,8 @@
+import Exception from "../exception.vue";
+
 export default {
   name: "500",
   render() {
-    return <div>500</div>;
+    return <Exception type="500"></Exception>;
   }
 };
