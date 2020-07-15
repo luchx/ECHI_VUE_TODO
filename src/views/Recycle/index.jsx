@@ -13,7 +13,6 @@ export default {
   },
   methods: {
     async getRecycleTodoList(page = 1, pageSize = 10) {
-      this.loading = true;
       if (this.loading) return;
       this.loading = true;
       this.currentPage = page;

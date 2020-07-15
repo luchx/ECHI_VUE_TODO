@@ -13,7 +13,6 @@ export function ApiSaveTodoList(data) {
   return service.post("/todo/saveTodoList", data);
 }
 
-
 /**
  * 获取待办列表
  * @param {Object} data
@@ -26,7 +25,7 @@ export function ApiGetTodoList(data) {
 
 /**
  * 获取待办详情
- * @param {String} id 
+ * @param {String} id
  */
 export function ApiGetTodoDetail(id) {
   return service.get("/todo/getTodoDetail", {
@@ -36,7 +35,7 @@ export function ApiGetTodoDetail(id) {
 
 /**
  * 根据日期获取待办数据
- * @param {timestamp} day 
+ * @param {timestamp} day
  */
 export function ApiGetTodoListByDay(day) {
   return service.get("/todo/getTodoListByDay", {
