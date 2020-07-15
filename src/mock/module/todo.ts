@@ -38,7 +38,7 @@ export default {
         description: "@cparagraph(10, 20)",
         date: "@datetime",
         "status|1": [1, 2, 3],
-        "isFinished|1": function() {
+        "isFinished|1": function () {
           return this["status"] === 2;
         },
         "priority|1": [1, 2, 3, 4]
@@ -62,7 +62,7 @@ export default {
             description: "@cparagraph(10, 20)",
             date: "@datetime",
             "status|1": [1, 2, 3],
-            "isFinished|1": function() {
+            "isFinished|1": function () {
               return this["status"] === 2;
             },
             "priority|1": [1, 2, 3, 4]
@@ -105,30 +105,33 @@ export default {
           pageSize: 10,
           total: 23
         },
-        data: {
-          "2020-06-05|5-10": [
+        list: [{
+          date: "2020-06-05",
+          "list|5-10": [
             {
               "id|+1": 1,
               title: "@ctitle",
               description: "@cparagraph(10, 20)",
-              date: "@datetime",
+              date: "2020-06-05",
               status: 2,
               isFinished: true,
               "priority|1": [1, 2, 3, 4]
             }
           ],
-          "2020-07-10|5-10": [
+        },{
+          date: "2020-07-15",
+          "list|5-10": [
             {
               "id|+1": 1,
               title: "@ctitle",
               description: "@cparagraph(10, 20)",
-              date: "@datetime",
+              date: "2020-07-15",
               status: 2,
               isFinished: true,
               "priority|1": [1, 2, 3, 4]
             }
-          ]
-        }
+          ],
+        }]
       }
     };
   },

@@ -27,7 +27,7 @@ export default {
       if (resp.code === 0) {
         const { list, pagination } = resp.result;
         const { total } = pagination;
-        this.todoList = list;
+        this.todoData = list;
         this.total = total;
       }
     },
@@ -51,14 +51,14 @@ export default {
         <EHeader title={this.$route.meta.title} type="menu" />
         <EAside />
         <EContent class={styles.wrapper}>
-          {Object.keys(todoData).map(date => (
+          {todoData.map(item => (
             <div>
               <div class={styles.titleBar}>
-                <van-divider class="divider">{date}</van-divider>
+                <van-divider class="divider">{item.date}</van-divider>
               </div>
               <ETodoCard
                 loading={loading}
-                todoList={todoData[date]}
+                todoList={item.list}
                 onGoDetail={this.handleGoDetail}
                 style={{
                   paddingTop: 0,
