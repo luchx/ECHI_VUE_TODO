@@ -1,5 +1,9 @@
 export default {
-  // 默认为 get 请求
+  "POST | /todo/saveTodoList": {
+    code: 0,
+    timestamp: +new Date(),
+    result: true
+  },
   "/todo/getTodoList": () => {
     return {
       code: 0,
@@ -37,7 +41,7 @@ export default {
         "isFinished|1": function() {
           return this["status"] === 2;
         },
-        "priority|1": ["low", "middle", "height", "heightest"]
+        "priority|1": [1, 2, 3, 4]
       }
     };
   },

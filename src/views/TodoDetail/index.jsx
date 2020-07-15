@@ -1,6 +1,7 @@
 import styles from "./index.module.less";
 import classNames from "classnames";
 import { ApiGetTodoDetail } from "@/api/todo";
+import { ApiSaveTodoList } from "./../../api/todo";
 
 export default {
   name: "TodoDetail",
@@ -12,28 +13,32 @@ export default {
       statusOptions: [
         {
           name: "低优先级",
-          key: "low",
-          color: "#1890ff"
+          key: 1,
+          color: "#1890ff",
         },
         {
           name: "中优先级",
-          key: "middle",
-          color: "#52c41a"
+          key: 2,
+          color: "#52c41a",
         },
         {
           name: "高优先级",
-          key: "height",
-          color: "#faad14"
+          key: 3,
+          color: "#faad14",
         },
         {
           name: "最高优先级",
-          key: "heightest",
-          color: "#f5222d"
-        }
+          key: 4,
+          color: "#f5222d",
+        },
       ],
       currentDate: new Date(),
       visibleDate: false,
-      todoData: {}
+      todoData: {},
+      title: "",
+      description: "",
+      date: +new Date(),
+      priority: null,
     };
   },
   methods: {
@@ -47,8 +52,12 @@ export default {
       if (resp.code === 0) {
         const data = resp.result;
         this.todoData = data;
+        this.title = data.title;
+        this.description = data.description;
+        this.date = data.date;
+        this.priority = data.priority;
         this.statusData =
-          this.statusOptions.find(item => item.key === data.priority) || {};
+          this.statusOptions.find((item) => item.key === data.priority) || {};
       }
     },
     handleToggleCheck(item) {
@@ -62,7 +71,7 @@ export default {
     },
     handleConfirmDate(value) {
       console.log(value);
-      this.todoData.date = this.$moment(value);
+      this.date = this.$moment(value);
       this.handleCloseDate();
     },
     handleOpenStatus() {
@@ -72,10 +81,37 @@ export default {
       this.statusVisible = false;
     },
     handleSelectStatus(value) {
-      console.log(value);
       this.statusData = value;
+      this.priority = value.key;
       this.handleCloseStatus();
-    }
+    },
+    async handleSave() {
+      if (!this.title) {
+        this.$toast("请填写标题~");
+        return;
+      }
+
+      const data = {
+        title: this.title,
+        description: this.description,
+        date: this.date,
+        priority: this.priority,
+      };
+
+      if (this.id) {
+        data["id"] = this.id;
+      }
+      console.log(data);
+      const resp = await ApiSaveTodoList(data);
+      if (resp.code === 0) {
+        this.$toast.success("提交成功");
+        setTimeout(() => {
+          this.$router.replace({
+            name: "Todo",
+          });
+        }, 1500);
+      }
+    },
   },
   mounted() {
     const { id } = this.$route.query;
@@ -90,14 +126,22 @@ export default {
       currentDate,
       visibleDate,
       todoData,
-      id
+      id,
+      title,
+      description,
+      date,
     } = this.$data;
 
     return (
       <EContainer class={classNames(styles.todoDetail)}>
         <EHeader
           extra={
-            <van-button plain type="info" class={styles.saveBtn}>
+            <van-button
+              plain
+              type="info"
+              class={styles.saveBtn}
+              onClick={this.handleSave}
+            >
               保存
             </van-button>
           }
@@ -111,7 +155,7 @@ export default {
               >
                 <span
                   style={{
-                    color: statusData.color
+                    color: statusData.color,
                   }}
                 >
                   {statusData.name || "优先级"}
@@ -124,8 +168,8 @@ export default {
                 >
                   <i class={classNames("iconfont", styles.icon)}>&#xe668;</i>
                   <span>
-                    {this.$moment(todoData.date).calendar(null, {
-                      sameElse: "MM-DD HH:mm"
+                    {this.$moment(date).calendar(null, {
+                      sameElse: "MM-DD HH:mm",
                     })}
                   </span>
                 </div>
@@ -134,7 +178,7 @@ export default {
             <van-divider />
             <div
               class={classNames(styles.todoDetailTitle, {
-                [styles.finished]: todoData.isFinished
+                [styles.finished]: todoData.isFinished,
               })}
             >
               {id && (
@@ -152,16 +196,18 @@ export default {
               )}
               <van-field
                 class={classNames(styles.todoDetailInput)}
-                value={todoData.title}
+                value={title}
+                onInput={(value) => (this.$data.title = value)}
                 placeholder="标题"
                 style={{
-                  paddingLeft: id ? "" : 0
+                  paddingLeft: id ? "" : 0,
                 }}
               />
             </div>
             <van-field
               class={classNames(styles.todoDetailInput, styles.textarea)}
-              value={todoData.description}
+              value={description}
+              onInput={(value) => (this.$data.description = value)}
               showWordLimit={true}
               maxlength="200"
               type="textarea"
@@ -193,5 +239,5 @@ export default {
         </van-popup>
       </EContainer>
     );
-  }
+  },
 };

@@ -27,3 +27,7 @@ export function ApiGetFinishedTodoList(data) {
 export function ApiGetRecycleTodoList(data) {
   return service.get("/todo/getRecycleTodoList", data);
 }
+
+export function ApiSaveTodoList(data) {
+  return service.post("/todo/saveTodoList", data);
+}
