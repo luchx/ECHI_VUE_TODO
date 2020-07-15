@@ -1,5 +1,5 @@
 import Vue from "vue";
-import { ApiGetTodoList } from "@/api/todo";
+import { ApiGetTodoList, ApiDeleteTodoToRecycle } from "@/api/todo";
 import styles from "./index.module.less";
 
 export default Vue.extend({
@@ -48,6 +48,14 @@ export default Vue.extend({
           id: item.id
         }
       });
+    },
+    async handleDelete(item) {
+      const { id } = item;
+      const resp = await ApiDeleteTodoToRecycle(id);
+      if (resp.code === 0) {
+        this.$toast.success("删除成功");
+        this.todoList = this.todoList.filter(todo => todo.id !== id);
+      }
     }
   },
   mounted() {
@@ -80,6 +88,7 @@ export default Vue.extend({
             todoList={todoList}
             onCheck={this.handleCheck}
             onGoDetail={this.handleGoDetail}
+            onDel={this.handleDelete}
           />
         </EContent>
         <EFooter />

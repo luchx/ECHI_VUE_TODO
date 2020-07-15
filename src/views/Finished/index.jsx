@@ -1,5 +1,5 @@
 import styles from "./index.module.less";
-import { ApiGetFinishedTodoList } from "@/api/todo";
+import { ApiGetFinishedTodoList, ApiDeleteTodoToRecycle } from "@/api/todo";
 
 export default {
   name: "Finished",
@@ -38,6 +38,13 @@ export default {
           id: item.id
         }
       });
+    },
+    async handleDelete(item) {
+      const { id } = item;
+      const resp = await ApiDeleteTodoToRecycle(id);
+      if (resp.code === 0) {
+        this.$toast.success("删除成功");
+      }
     }
   },
   mounted() {
@@ -60,6 +67,7 @@ export default {
                 loading={loading}
                 todoList={item.list}
                 onGoDetail={this.handleGoDetail}
+                onDel={this.handleDelete}
                 style={{
                   paddingTop: 0,
                   paddingBottom: 0

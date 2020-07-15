@@ -1,5 +1,5 @@
 import styles from "./index.module.less";
-import { ApiGetTodoListByDay } from "@/api/todo";
+import { ApiGetTodoListByDay, ApiDeleteTodoToRecycle } from "@/api/todo";
 import { mapState } from "vuex";
 
 export default {
@@ -90,6 +90,14 @@ export default {
     handleUpdateValue(date) {
       this.currentDate = date;
       this.getTodoListByDay();
+    },
+    async handleDelete(item) {
+      const { id } = item;
+      const resp = await ApiDeleteTodoToRecycle(id);
+      if (resp.code === 0) {
+        this.$toast.success("删除成功");
+        this.todoList = this.todoList.filter(todo => todo.id !== id);
+      }
     }
   },
   async mounted() {
@@ -144,6 +152,7 @@ export default {
             todoList={todoList}
             onCheck={this.handleCheck}
             onGoDetail={this.handleGoDetail}
+            onDel={this.handleDelete}
           />
         </EContent>
         <EFooter />

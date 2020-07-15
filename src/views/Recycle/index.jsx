@@ -1,4 +1,8 @@
-import { ApiGetRecycleTodoList } from "@/api/todo";
+import {
+  ApiGetRecycleTodoList,
+  ApiDeleteTodo,
+  ApiRestoreTodoFromRecycle
+} from "@/api/todo";
 
 export default {
   name: "Recycle",
@@ -37,6 +41,22 @@ export default {
           id: item.id
         }
       });
+    },
+    async handleDelete(item) {
+      const { id } = item;
+      const resp = await ApiDeleteTodo(id);
+      if (resp.code === 0) {
+        this.$toast.success("删除成功");
+        this.todoList = this.todoList.filter(todo => todo.id !== id);
+      }
+    },
+    async handleRestore(item) {
+      const { id } = item;
+      const resp = await ApiRestoreTodoFromRecycle(id);
+      if (resp.code === 0) {
+        this.$toast.success("还原成功");
+        this.todoList = this.todoList.filter(todo => todo.id !== id);
+      }
     }
   },
   mounted() {
@@ -54,6 +74,8 @@ export default {
             loading={loading}
             todoList={todoList}
             onGoDetail={this.handleGoDetail}
+            onDel={this.handleDelete}
+            onRestore={this.handleRestore}
             recycle={true}
           />
         </EContent>

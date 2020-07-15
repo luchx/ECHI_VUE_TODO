@@ -69,3 +69,27 @@ export function ApiGetFinishedTodoList(data) {
 export function ApiGetRecycleTodoList(data) {
   return service.get("/todo/getRecycleTodoList", data);
 }
+
+/**
+ * 删除待办
+ * @param {String} id
+ */
+export function ApiDeleteTodo(id) {
+  return service.delete("/todo/deleteTodo", id);
+}
+
+/**
+ * 删除待办-回收站
+ * @param {String} id
+ */
+export function ApiDeleteTodoToRecycle(id) {
+  return service.delete("/todo/deleteTodoToRecycle", id);
+}
+
+/**
+ * 还原待办-回收站
+ * @param {String} id
+ */
+export function ApiRestoreTodoFromRecycle(id) {
+  return service.put("/todo/rebackTodoToRecycle", id);
+}
