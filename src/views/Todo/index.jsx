@@ -6,17 +6,30 @@ export default Vue.extend({
   name: "Todo",
   data() {
     return {
+      currentPage: 1,
+      pageSize: 10,
+      total: 0,
       todoList: [],
       loading: false
     };
   },
   methods: {
-    async getTodoList() {
+    async getTodoList(page = 1, pageSize = 10) {
+      if (this.loading) return;
       this.loading = true;
-      const resp = await ApiGetTodoList();
+      this.currentPage = page;
+      this.pageSize = pageSize;
+      const data = {
+        page,
+        pageSize
+      };
+      const resp = await ApiGetTodoList(data);
       this.loading = false;
       if (resp.code === 0) {
-        this.todoList = resp.result.list;
+        const { list, pagination } = resp.result;
+        const { total } = pagination;
+        this.todoList = list;
+        this.total = total;
       }
     },
     handleCheck(item) {

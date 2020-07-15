@@ -1,7 +1,6 @@
 import styles from "./index.module.less";
 import classNames from "classnames";
-import { ApiGetTodoDetail } from "@/api/todo";
-import { ApiSaveTodoList } from "./../../api/todo";
+import { ApiGetTodoDetail, ApiSaveTodoList } from "@/api/todo";
 
 export default {
   name: "TodoDetail",
@@ -14,23 +13,23 @@ export default {
         {
           name: "低优先级",
           key: 1,
-          color: "#1890ff",
+          color: "#1890ff"
         },
         {
           name: "中优先级",
           key: 2,
-          color: "#52c41a",
+          color: "#52c41a"
         },
         {
           name: "高优先级",
           key: 3,
-          color: "#faad14",
+          color: "#faad14"
         },
         {
           name: "最高优先级",
           key: 4,
-          color: "#f5222d",
-        },
+          color: "#f5222d"
+        }
       ],
       currentDate: new Date(),
       visibleDate: false,
@@ -38,7 +37,7 @@ export default {
       title: "",
       description: "",
       date: +new Date(),
-      priority: null,
+      priority: null
     };
   },
   methods: {
@@ -57,7 +56,7 @@ export default {
         this.date = data.date;
         this.priority = data.priority;
         this.statusData =
-          this.statusOptions.find((item) => item.key === data.priority) || {};
+          this.statusOptions.find(item => item.key === data.priority) || {};
       }
     },
     handleToggleCheck(item) {
@@ -95,7 +94,7 @@ export default {
         title: this.title,
         description: this.description,
         date: this.date,
-        priority: this.priority,
+        priority: this.priority
       };
 
       if (this.id) {
@@ -107,11 +106,11 @@ export default {
         this.$toast.success("提交成功");
         setTimeout(() => {
           this.$router.replace({
-            name: "Todo",
+            name: "Todo"
           });
         }, 1500);
       }
-    },
+    }
   },
   mounted() {
     const { id } = this.$route.query;
@@ -129,7 +128,7 @@ export default {
       id,
       title,
       description,
-      date,
+      date
     } = this.$data;
 
     return (
@@ -155,7 +154,7 @@ export default {
               >
                 <span
                   style={{
-                    color: statusData.color,
+                    color: statusData.color
                   }}
                 >
                   {statusData.name || "优先级"}
@@ -169,7 +168,7 @@ export default {
                   <i class={classNames("iconfont", styles.icon)}>&#xe668;</i>
                   <span>
                     {this.$moment(date).calendar(null, {
-                      sameElse: "MM-DD HH:mm",
+                      sameElse: "MM-DD HH:mm"
                     })}
                   </span>
                 </div>
@@ -178,7 +177,7 @@ export default {
             <van-divider />
             <div
               class={classNames(styles.todoDetailTitle, {
-                [styles.finished]: todoData.isFinished,
+                [styles.finished]: todoData.isFinished
               })}
             >
               {id && (
@@ -197,17 +196,17 @@ export default {
               <van-field
                 class={classNames(styles.todoDetailInput)}
                 value={title}
-                onInput={(value) => (this.$data.title = value)}
+                onInput={value => (this.$data.title = value)}
                 placeholder="标题"
                 style={{
-                  paddingLeft: id ? "" : 0,
+                  paddingLeft: id ? "" : 0
                 }}
               />
             </div>
             <van-field
               class={classNames(styles.todoDetailInput, styles.textarea)}
               value={description}
-              onInput={(value) => (this.$data.description = value)}
+              onInput={value => (this.$data.description = value)}
               showWordLimit={true}
               maxlength="200"
               type="textarea"
@@ -239,5 +238,5 @@ export default {
         </van-popup>
       </EContainer>
     );
-  },
+  }
 };

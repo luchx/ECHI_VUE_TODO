@@ -1,6 +1,6 @@
 import { AxiosRequestConfig } from "axios";
 import axios from "./config";
-import { Toast } from 'vant';
+import { Toast } from "vant";
 
 export interface RespondData {
   code: number;
@@ -15,7 +15,7 @@ export default class Http {
     const toast = Toast.loading({
       duration: 0,
       forbidClick: true,
-      message: "加载中...",
+      message: "加载中..."
     });
     const res = await axios(params);
     console.log("打印请求值 ☞", res.data);

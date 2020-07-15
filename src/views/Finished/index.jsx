@@ -5,17 +5,31 @@ export default {
   name: "Finished",
   data() {
     return {
+      currentPage: 1,
+      pageSize: 10,
+      total: 0,
       todoData: [],
       loading: false
     };
   },
   methods: {
-    async getFinishedTodoList() {
+    async getFinishedTodoList(page = 1, pageSize = 10) {
       this.loading = true;
-      const resp = await ApiGetFinishedTodoList();
+      if (this.loading) return;
+      this.loading = true;
+      this.currentPage = page;
+      this.pageSize = pageSize;
+      const data = {
+        page,
+        pageSize
+      };
+      const resp = await ApiGetFinishedTodoList(data);
       this.loading = false;
       if (resp.code === 0) {
-        this.todoData = resp.result.data;
+        const { list, pagination } = resp.result;
+        const { total } = pagination;
+        this.todoList = list;
+        this.total = total;
       }
     },
     handleGoDetail(item) {
