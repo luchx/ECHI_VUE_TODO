@@ -10,7 +10,11 @@ const routes: RouteConfig[] = [
   },
   {
     path: "/",
-    redirect: "/todo"
+    name: "Login",
+    meta: {
+      title: "登录"
+    },
+    component: () => import(/* webpackChunkName: "Login" */ "@/views/Login")
   },
   {
     path: "/todo",
