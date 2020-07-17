@@ -1,0 +1,97 @@
+.loginWrapper {
+  padding: 60px 40px 0;
+
+  .login-verify-logo {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+    > img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+
+  .login-verify-check {
+    margin-top: 40px;
+  }
+
+  // 输入项组件
+  input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+  }
+
+  .login-verify-item {
+    margin-bottom: 30px;
+
+    &:first-child {
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-size: 14px;
+    }
+
+    .login-verify-input {
+      position: relative;
+      display: flex;
+
+      &::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        border-bottom: 1px solid @primary-color;
+        transition: width 0.5s ease-in;
+        transform-origin: right;
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 0;
+        border-bottom: 1px solid @primary-color;
+        transition: width 0.5s ease-in;
+        transform-origin: left;
+      }
+
+      input {
+        display: block;
+        width: 100%;
+        height: 40px;
+        font-size: 12px;
+        padding: 8px 5px;
+        border: none;
+        border-bottom: 1px solid @disabled-color;
+      }
+
+      .login-verify-btn {
+        position: absolute;
+        top: 3px;
+        right: 0;
+        display: block;
+        width: 100px;
+        font-size: 12px;
+      }
+    }
+
+    .login-verify-input.focus {
+
+      &::after,
+      &::before {
+        width: 50%;
+      }
+    }
+
+    .login-verify-input.check input {
+      padding-right: 110px;
+    }
+  }
+}
