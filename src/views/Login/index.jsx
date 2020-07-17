@@ -20,42 +20,34 @@ export default Vue.extend({
   methods: {
     // 手机号码输入操作
     handlePhoneChange(event) {
-      this.setState({
-        phone: event.target.value
-      });
+      this.phone = event.target.value;
     },
 
     // 验证码输入操作
     handleCodeChange(event) {
-      this.setState({
-        code: event.target.value
-      });
+      this.code = event.target.value;
     },
 
     // 输入框获取焦点
     handleInputFocus(key) {
-      this.setState({
-        focusName: key
-      });
+      this.focusName = key;
     },
 
     // 输入框失去焦点
     handleInputBlur() {
-      this.setState({
-        focusName: ""
-      });
+      this.focusName = "";
     },
 
     validatePhone(phone) {
       if (!phone) {
-        this.$toast.info("请输入您的手机号码");
+        this.$toast("请输入您的手机号码");
         return false;
       }
       // if (!TestPhone(phone)) {
-      //   this.$toast.info("您的号码输入错误");
+      //   this.$toast("您的号码输入错误");
       //   return false;
       // }
-      // return true;
+      return true;
     },
 
     // 发送验证码
@@ -64,6 +56,8 @@ export default Vue.extend({
       if (!this.validatePhone(phone)) {
         return;
       }
+
+      this.getLeftTime();
       // ApiGetVerifyCode(phone)
       //   .then(result => {
       //     if (result.status) {
@@ -81,34 +75,24 @@ export default Vue.extend({
     // 倒计时获取剩余时间
     getLeftTime() {
       let leftTime = this.$data.leftTime;
-      this.setState({
-        sendingCodeStatus: true,
-        sendingCodeText: leftTime + "s"
-      });
+      this.sendingCodeStatus = true;
+      this.sendingCodeText = leftTime + "s";
       if (this.$data.handleTimer !== undefined) {
         clearInterval(this.$data.handleTimer);
-        this.setState({
-          handleTimer: null
-        });
+        this.handleTimer = null;
       }
       const handleTimer = setInterval(() => {
         leftTime--;
         if (leftTime < 0) {
-          this.setState({
-            sendingCodeStatus: false,
-            sendingCodeText: "获取验证码"
-          });
+          this.sendingCodeStatus = false;
+          this.sendingCodeText = "获取验证码";
           leftTime = this.$data.leftTime;
           clearInterval(handleTimer);
         } else {
-          this.setState({
-            sendingCodeText: leftTime + "s"
-          });
+          this.sendingCodeText = leftTime + "s";
         }
       }, 1000);
-      this.setState({
-        handleTimer: handleTimer
-      });
+      this.handleTimer = handleTimer;
     },
 
     handleSubmit() {
@@ -117,22 +101,22 @@ export default Vue.extend({
         return;
       }
       if (code.length === 0) {
-        return this.$toast.info("请输入验证码");
+        return this.$toast("请输入验证码");
       }
       // ApiMemberLogin(phone, code)
       //   .then(result => {
       //     if (result.status) {
       //       if (result.data.created) {
-      //         this.$toast.info("已为您自动创建帐号,正在登录...", 2);
+      //         this.$toast("已为您自动创建帐号,正在登录...");
       //       } else {
-      //         this.$toast.info("欢迎回来!!!", 2);
+      //         this.$toast("欢迎回来!!!");
       //       }
       //       local.set("echi_user_id", result.data.id);
       //       setTimeout(() => {
       //         this.props.history.replace({ pathname: "/member" });
       //       }, 1500);
       //     } else {
-      //       this.$toast.info(result.message, 2);
+      //       this.$toast(result.message);
       //     }
       //   })
       //   .catch(err => {
@@ -149,7 +133,7 @@ export default Vue.extend({
               <img src={Logo} alt="logo" title="logo" />
             </div>
           </div>
-          <form class={styles["login-verify-check"]}>
+          <div class={styles["login-verify-check"]}>
             <div class={styles["login-verify-item"]}>
               <label>手机号码</label>
               <div
@@ -186,8 +170,9 @@ export default Vue.extend({
                 />
                 <div class={styles["login-verify-btn"]}>
                   <van-button
-                    type="primary"
+                    type="info"
                     size="small"
+                    block
                     onClick={() => this.handleSendCode()}
                     disabled={this.$data.sendingCodeStatus}
                   >
@@ -201,13 +186,14 @@ export default Vue.extend({
             <div class={styles["login-verify-bottom"]}>
               <van-button
                 type="primary"
-                onClick={() => this.handleSubmit()}
+                block
+                onClick={this.handleSubmit}
                 disabled={this.$data.submitStatus}
               >
                 提交
               </van-button>
             </div>
-          </form>
+          </div>
         </div>
       </EContainer>
     );
