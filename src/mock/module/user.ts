@@ -1,5 +1,5 @@
 export default {
-  "/user/login": {
+  "POST | /user/login": {
     code: 0,
     timestamp: +new Date(),
     result: {
