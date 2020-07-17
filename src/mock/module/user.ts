@@ -8,6 +8,7 @@ export default {
       sex: "男",
       avatar: "",
       password: "xxx",
+      token: "123456789"
     }
   }
 };
