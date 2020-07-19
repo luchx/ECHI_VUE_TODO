@@ -2,6 +2,8 @@ import Vue from "vue";
 import Logo from "@/assets/image/logo.png";
 import classNames from "classnames";
 import styles from "./index.module.less";
+import { ApiGetVerify } from "@/api/user";
+import { TestPhone } from "@/utils/validate";
 
 export default Vue.extend({
   name: "Login",
@@ -14,7 +16,7 @@ export default Vue.extend({
       sendingCodeText: "",
       leftTime: 120,
       handleTimer: null,
-      submitStatus: false
+      submitStatus: false,
     };
   },
   methods: {
@@ -26,6 +28,9 @@ export default Vue.extend({
     // 验证码输入操作
     handleCodeChange(event) {
       this.code = event.target.value;
+      console.log({
+        event,
+      });
     },
 
     // 输入框获取焦点
@@ -43,10 +48,10 @@ export default Vue.extend({
         this.$toast("请输入您的手机号码");
         return false;
       }
-      // if (!TestPhone(phone)) {
-      //   this.$toast("您的号码输入错误");
-      //   return false;
-      // }
+      if (!TestPhone(phone)) {
+        this.$toast("您的号码输入错误");
+        return false;
+      }
       return true;
     },
 
@@ -58,25 +63,23 @@ export default Vue.extend({
       }
 
       this.getLeftTime();
-      // ApiGetVerifyCode(phone)
-      //   .then(result => {
-      //     if (result.status) {
-      //       this.$toast.info("验证码为:" + result.data);
-      //       this.getLeftTime();
-      //     } else {
-      //       this.$toast.info(result.message);
-      //     }
-      //   })
-      //   .catch(err => {
-      //     console.log(err);
-      //   });
+      ApiGetVerify(phone)
+        .then((resp) => {
+          if (resp.code === 0) {
+            this.$toast("验证码为:" + resp.result);
+            this.getLeftTime();
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
 
     // 倒计时获取剩余时间
     getLeftTime() {
       let leftTime = this.$data.leftTime;
       this.sendingCodeStatus = true;
-      this.sendingCodeText = leftTime + "s";
+      this.sendingCodeText = `${leftTime} s`;
       if (this.$data.handleTimer !== undefined) {
         clearInterval(this.$data.handleTimer);
         this.handleTimer = null;
@@ -89,7 +92,7 @@ export default Vue.extend({
           leftTime = this.$data.leftTime;
           clearInterval(handleTimer);
         } else {
-          this.sendingCodeText = leftTime + "s";
+          this.sendingCodeText = `${leftTime} s`;
         }
       }, 1000);
       this.handleTimer = handleTimer;
@@ -122,55 +125,54 @@ export default Vue.extend({
       //   .catch(err => {
       //     console.log(err);
       //   });
-    }
+    },
   },
   render() {
     return (
       <EContainer>
         <div class={styles.loginWrapper}>
-          <div class={styles["login-verify-content"]}>
-            <div class={styles["login-verify-logo"]}>
+          <div class={styles.content}>
+            <div class={styles.logo}>
               <img src={Logo} alt="logo" title="logo" />
             </div>
           </div>
-          <div class={styles["login-verify-check"]}>
-            <div class={styles["login-verify-item"]}>
+          <div class={styles.checkBox}>
+            <div class={styles.checkBoxItem}>
               <label>手机号码</label>
               <div
-                class={classNames(styles["login-verify-input"], {
-                  [styles["focus"]]: "phone" === this.$data.focusName
+                class={classNames(styles.checkBoxInput, {
+                  [styles.focus]: "phone" === this.$data.focusName,
                 })}
               >
                 <input
                   type="number"
-                  ref="phone"
                   placeholder="请输入手机号码"
                   autoFocus
                   value={this.$data.phone}
-                  onChange={event => this.handlePhoneChange(event)}
+                  onInput={this.handlePhoneChange}
                   onFocus={() => this.handleInputFocus("phone")}
-                  onBlur={() => this.handleInputBlur()}
+                  onBlur={this.handleInputBlur}
                 />
               </div>
             </div>
-            <div class={styles["login-verify-item"]}>
+            <div class={styles.checkBoxItem}>
               <label>验证码</label>
               <div
-                class={classNames(styles["login-verify-input"], {
-                  [styles["focus"]]: "code" === this.$data.focusName
+                class={classNames(styles.checkBoxInput, {
+                  [styles.focus]: "code" === this.$data.focusName,
                 })}
               >
                 <input
                   type="number"
                   placeholder="请输入验证码"
                   value={this.$data.code}
-                  onChange={event => this.handleCodeChange(event)}
+                  onInput={this.handleCodeChange}
                   onFocus={() => this.handleInputFocus("code")}
-                  onBlur={() => this.handleInputBlur()}
+                  onBlur={this.handleInputBlur}
                 />
-                <div class={styles["login-verify-btn"]}>
+                <div class={styles.checkBoxBtn}>
                   <van-button
-                    type="info"
+                    type="primary"
                     size="small"
                     block
                     onClick={() => this.handleSendCode()}
@@ -183,19 +185,17 @@ export default Vue.extend({
                 </div>
               </div>
             </div>
-            <div class={styles["login-verify-bottom"]}>
-              <van-button
-                type="primary"
-                block
-                onClick={this.handleSubmit}
-                disabled={this.$data.submitStatus}
-              >
-                提交
-              </van-button>
-            </div>
+            <van-button
+              type="info"
+              block
+              onClick={this.handleSubmit}
+              disabled={this.$data.submitStatus}
+            >
+              提交
+            </van-button>
           </div>
         </div>
       </EContainer>
     );
-  }
+  },
 });

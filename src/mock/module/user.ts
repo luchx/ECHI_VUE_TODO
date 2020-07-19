@@ -10,5 +10,10 @@ export default {
       password: "xxx",
       token: "123456789"
     }
+  },
+  "/user/getVerify": {
+    code: 0,
+    timestamp: +new Date(),
+    result: 1234
   }
 };

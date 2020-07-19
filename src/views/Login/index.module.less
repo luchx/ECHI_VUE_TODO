@@ -1,7 +1,7 @@
 .loginWrapper {
   padding: 60px 40px 0;
 
-  .login-verify-logo {
+  .logo {
     width: 100px;
     height: 100px;
     margin: 0 auto;
@@ -13,19 +13,11 @@
     }
   }
 
-  .login-verify-check {
+  .checkBox {
     margin-top: 40px;
   }
 
-  // 输入项组件
-  input[type=number]::-webkit-inner-spin-button,
-  input[type=number]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    appearance: none;
-    margin: 0;
-  }
-
-  .login-verify-item {
+  .checkBoxItem {
     margin-bottom: 30px;
 
     &:first-child {
@@ -36,7 +28,7 @@
       font-size: 14px;
     }
 
-    .login-verify-input {
+    .checkBoxInput {
       position: relative;
       display: flex;
 
@@ -72,7 +64,7 @@
         border-bottom: 1px solid @disabled-color;
       }
 
-      .login-verify-btn {
+      .checkBoxBtn {
         position: absolute;
         top: 3px;
         right: 0;
@@ -84,7 +76,7 @@
       }
     }
 
-    .login-verify-input.focus {
+    .checkBoxInput.focus {
 
       &::after,
       &::before {
@@ -92,7 +84,7 @@
       }
     }
 
-    .login-verify-input.check input {
+    .checkBoxInput.check input {
       padding-right: 110px;
     }
   }

@@ -12,16 +12,14 @@ import components from "@/components";
 import "@/vant";
 
 // 接入 mockjs
-const mock = process.env.VUE_APP_MOCK;
-
-if (mock && process.env.NODE_ENV !== "production") {
+if (process.env.VUE_APP_MOCK && process.env.NODE_ENV !== "production") {
   require("@/mock");
 }
 
 import FastClick from "fastclick";
 if ("addEventListener" in document) {
   document.addEventListener(
-    "DOMContentLoaded",
+    "load",
     function() {
       FastClick.attach(document.body);
     },
