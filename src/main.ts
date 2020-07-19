@@ -12,7 +12,7 @@ import components from "@/components";
 import "@/vant";
 
 // 接入 mockjs
-if (process.env.VUE_APP_MOCK && process.env.NODE_ENV !== "production") {
+if (process.env.VUE_APP_MOCK) {
   require("@/mock");
 }
 

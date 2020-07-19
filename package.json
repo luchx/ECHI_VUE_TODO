@@ -9,6 +9,7 @@
     "serve:mock": "vue-cli-service serve --mode mock",
     "build": "vue-cli-service build",
     "build:report": "vue-cli-service build --report",
+    "build:page": "vue-cli-service build --mock page",
     "lint": "vue-cli-service lint --fix"
   },
   "dependencies": {
