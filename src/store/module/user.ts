@@ -13,10 +13,6 @@ const getters: GetterTree<State, any> = {};
 
 const actions: ActionTree<State, any> = {
   updateUser({ commit }, result) {
-    console.log({
-      result
-    });
-
     commit("change", {
       userInfo: result
     });
