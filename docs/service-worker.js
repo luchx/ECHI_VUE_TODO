@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.cf593141965fbb0795c4fa71a77c9332.js"
+  "ECHI_VUE_TODO/precache-manifest.fe14573f0444cb69ab0779df7bcc64f6.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "vue-todo"});

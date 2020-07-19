@@ -5,6 +5,7 @@ function resolve(dir) {
 }
 
 module.exports = {
+  publicPath: "ECHI_VUE_TODO",
   outputDir: "docs",
   lintOnSave: true,
   css: {
