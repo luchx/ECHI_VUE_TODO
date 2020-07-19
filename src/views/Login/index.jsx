@@ -111,6 +111,7 @@ export default Vue.extend({
         .then(resp => {
           if (resp.code === 0) {
             this.$toast("欢迎回来!!!");
+            local.set("token", resp.result.token);
             this.$store.dispatch("updateUser", resp.result);
             this.$router.replace({ path: "/" });
           }

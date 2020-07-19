@@ -10,7 +10,7 @@ import service from "@/axios/service";
  * @param {Number} data.priority
  */
 export function ApiSaveTodoList(data) {
-  return service.post("/todo/saveTodoList", data);
+  return service.post("/api/todo/saveTodoList", data);
 }
 
 /**
@@ -20,7 +20,7 @@ export function ApiSaveTodoList(data) {
  * @param {Number} data.pageSize
  */
 export function ApiGetTodoList(data) {
-  return service.get("/todo/getTodoList", data);
+  return service.get("/api/todo/getTodoList", data);
 }
 
 /**
@@ -28,7 +28,7 @@ export function ApiGetTodoList(data) {
  * @param {String} id
  */
 export function ApiGetTodoDetail(id) {
-  return service.get("/todo/getTodoDetail", {
+  return service.get("/api/todo/getTodoDetail", {
     id
   });
 }
@@ -38,7 +38,7 @@ export function ApiGetTodoDetail(id) {
  * @param {timestamp} day
  */
 export function ApiGetTodoListByDay(day) {
-  return service.get("/todo/getTodoListByDay", {
+  return service.get("/api/todo/getTodoListByDay", {
     day
   });
 }
@@ -47,7 +47,7 @@ export function ApiGetTodoListByDay(day) {
  * 获取本周事件回顾
  */
 export function ApiGetReviewTodoList() {
-  return service.get("/todo/getReviewTodoList");
+  return service.get("/api/todo/getReviewTodoList");
 }
 
 /**
@@ -57,7 +57,7 @@ export function ApiGetReviewTodoList() {
  * @param {Number} data.pageSize
  */
 export function ApiGetFinishedTodoList(data) {
-  return service.get("/todo/getFinishedTodoList", data);
+  return service.get("/api/todo/getFinishedTodoList", data);
 }
 
 /**
@@ -67,7 +67,7 @@ export function ApiGetFinishedTodoList(data) {
  * @param {Number} data.pageSize
  */
 export function ApiGetRecycleTodoList(data) {
-  return service.get("/todo/getRecycleTodoList", data);
+  return service.get("/api/todo/getRecycleTodoList", data);
 }
 
 /**
@@ -75,7 +75,7 @@ export function ApiGetRecycleTodoList(data) {
  * @param {String} id
  */
 export function ApiDeleteTodo(id) {
-  return service.delete("/todo/deleteTodo", id);
+  return service.delete("/api/todo/deleteTodo", id);
 }
 
 /**
@@ -83,7 +83,7 @@ export function ApiDeleteTodo(id) {
  * @param {String} id
  */
 export function ApiDeleteTodoToRecycle(id) {
-  return service.delete("/todo/deleteTodoToRecycle", id);
+  return service.delete("/api/todo/deleteTodoToRecycle", id);
 }
 
 /**
@@ -91,5 +91,5 @@ export function ApiDeleteTodoToRecycle(id) {
  * @param {String} id
  */
 export function ApiRestoreTodoFromRecycle(id) {
-  return service.put("/todo/rebackTodoToRecycle", id);
+  return service.put("/api/todo/rebackTodoToRecycle", id);
 }

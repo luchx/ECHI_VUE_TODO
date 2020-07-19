@@ -4,7 +4,7 @@
  */
 
 class Storage {
-  private prefixKey = "prefix_key_storage_";
+  private prefixKey = "echi_vue_todo_";
 
   constructor(strategy = "localStorage") {
     this["strategy"] = strategy;

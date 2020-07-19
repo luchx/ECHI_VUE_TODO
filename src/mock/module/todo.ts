@@ -1,10 +1,10 @@
 export default {
-  "POST | /todo/saveTodoList": {
+  "POST | /api/todo/saveTodoList": {
     code: 0,
     timestamp: +new Date(),
     result: true
   },
-  "/todo/getTodoList": () => {
+  "/api/todo/getTodoList": () => {
     return {
       code: 0,
       timestamp: +new Date(),
@@ -28,7 +28,7 @@ export default {
       }
     };
   },
-  "/todo/getTodoDetail": () => {
+  "/api/todo/getTodoDetail": () => {
     return {
       code: 0,
       timestamp: +new Date(),
@@ -45,7 +45,7 @@ export default {
       }
     };
   },
-  "/todo/getTodoListByDay": () => {
+  "/api/todo/getTodoListByDay": () => {
     return {
       code: 0,
       timestamp: +new Date(),
@@ -71,7 +71,7 @@ export default {
       }
     };
   },
-  "/todo/getReviewTodoList": () => {
+  "/api/todo/getReviewTodoList": () => {
     return {
       code: 0,
       timestamp: +new Date(),
@@ -95,7 +95,7 @@ export default {
       }
     };
   },
-  "/todo/getFinishedTodoList": () => {
+  "/api/todo/getFinishedTodoList": () => {
     return {
       code: 0,
       timestamp: +new Date(),
@@ -138,7 +138,7 @@ export default {
       }
     };
   },
-  "/todo/getRecycleTodoList": {
+  "/api/todo/getRecycleTodoList": {
     code: 0,
     timestamp: +new Date(),
     result: {
@@ -160,17 +160,17 @@ export default {
       ]
     }
   },
-  "DELETE | /todo/deleteTodo": {
+  "DELETE | /api/todo/deleteTodo": {
     code: 0,
     timestamp: +new Date(),
     result: true
   },
-  "DELETE | /todo/deleteTodoToRecycle": {
+  "DELETE | /api/todo/deleteTodoToRecycle": {
     code: 0,
     timestamp: +new Date(),
     result: true
   },
-  "PUT | /todo/rebackTodoToRecycle": {
+  "PUT | /api/todo/rebackTodoToRecycle": {
     code: 0,
     timestamp: +new Date(),
     result: true

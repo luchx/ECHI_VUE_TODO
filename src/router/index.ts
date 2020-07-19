@@ -1,5 +1,6 @@
 import Vue from "vue";
-import VueRouter, { RouteConfig } from "vue-router";
+import VueRouter, { RouteConfig, Route } from "vue-router";
+import { local } from "@/utils/storage";
 
 Vue.use(VueRouter);
 
@@ -32,12 +33,18 @@ const routes: RouteConfig[] = [
   {
     path: "/todo-detail",
     name: "TodoDetail",
+    meta: {
+      title: "待办详情"
+    },
     component: () =>
       import(/* webpackChunkName: "TodoDetail" */ "@/views/TodoDetail")
   },
   {
     path: "/todo-detail-view/:id",
     name: "TodoDetailView",
+    meta: {
+      title: "待办详情"
+    },
     component: () =>
       import(/* webpackChunkName: "TodoDetailView" */ "@/views/TodoDetailView")
   },
@@ -107,6 +114,25 @@ const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes
+});
+
+router.beforeEach((to: Route, from: Route, next) => {
+  // 不需要校验路由，防止死循环
+  const whiteList: (string | null | undefined)[] = [
+    "403",
+    "404",
+    "500",
+    "Login"
+  ];
+  if (whiteList.includes(to.name)) return next();
+
+  // 判断是否需要权限认证
+  const token = local.get("token");
+  if (!token) {
+    return next("/login");
+  }
+
+  next();
 });
 
 router.afterEach(route => {

@@ -1,5 +1,5 @@
 export default {
-  "POST | /user/login": {
+  "POST | /api/user/login": {
     code: 0,
     timestamp: +new Date(),
     result: {
@@ -11,7 +11,7 @@ export default {
       token: "123456789"
     }
   },
-  "/user/getVerify": {
+  "/api/user/getVerify": {
     code: 0,
     timestamp: +new Date(),
     result: 1234

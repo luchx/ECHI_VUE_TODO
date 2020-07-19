@@ -1,5 +1,4 @@
 import { GetterTree, ActionTree, MutationTree } from "vuex";
-import { ApiLogin } from "@/api/user";
 
 export interface State {
   userInfo: Record<string, any>;
