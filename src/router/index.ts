@@ -10,6 +10,11 @@ const routes: RouteConfig[] = [
   },
   {
     path: "/",
+    name: "Home",
+    redirect: "/todo"
+  },
+  {
+    path: "/login",
     name: "Login",
     meta: {
       title: "登录"

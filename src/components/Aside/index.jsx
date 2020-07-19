@@ -1,7 +1,8 @@
 import styles from "./index.module.less";
 import classNames from "classnames";
 import DEFAULT_USER_Male from "@/assets/image/male.jpg";
-// import DEFAULT_USER_FEMale from "@/assets/image/female.jpg";
+import DEFAULT_USER_FEMale from "@/assets/image/female.jpg";
+import { mapState } from "vuex";
 
 export default {
   name: "Aside",
@@ -9,11 +10,6 @@ export default {
   data() {
     return {
       show: false,
-      userInfo: {
-        avatar: "",
-        name: "Echi",
-        description: "记录生活的美好~"
-      },
       countData: {
         todo: 5,
         date: 3,
@@ -60,6 +56,11 @@ export default {
       ]
     };
   },
+  computed: {
+    ...mapState({
+      userInfo: state => state.user.userInfo
+    })
+  },
   methods: {
     handleToggle(event) {
       event.stopPropagation();
@@ -71,11 +72,18 @@ export default {
     },
     handleLeave() {
       this.show = false;
+    },
+    handleGoLogin() {
+      if (Object.keys(this.userInfo).length === 0) {
+        this.$router.replace({
+          name: "Login"
+        });
+      }
     }
   },
   render() {
     const { collapsed } = this.parent;
-    const { show, asideList, userInfo, countData } = this.$data;
+    const { show, asideList, countData } = this.$data;
 
     return (
       <transition
@@ -89,17 +97,24 @@ export default {
             <div
               class={classNames(styles.asideContent, { [styles.show]: show })}
             >
-              <div class={styles.asideUser}>
+              <div class={styles.asideUser} onClick={this.handleGoLogin}>
                 <div class={styles.asideUserImg}>
-                  <img src={userInfo.avatar || DEFAULT_USER_Male} />
+                  <img
+                    src={
+                      this.userInfo.avatar ||
+                      (this.userInfo.sex === 2
+                        ? DEFAULT_USER_FEMale
+                        : DEFAULT_USER_Male)
+                    }
+                  />
                 </div>
 
                 <div class={styles.asideUserInfo}>
                   <p class={styles.asideUserTitle}>
-                    {userInfo.name || "未登录"}
+                    {this.userInfo.userName || "未登录"}
                   </p>
                   <p class={styles.asideUserText}>
-                    {userInfo.description || "登录后可使用更多功能~"}
+                    {this.userInfo.description || "登录后可使用更多功能~"}
                   </p>
                 </div>
               </div>

@@ -2,8 +2,9 @@ import Vue from "vue";
 import Logo from "@/assets/image/logo.png";
 import classNames from "classnames";
 import styles from "./index.module.less";
-import { ApiGetVerify } from "@/api/user";
+import { ApiGetVerify, ApiLogin } from "@/api/user";
 import { TestPhone } from "@/utils/validate";
+import { local } from "@/utils/storage";
 
 export default Vue.extend({
   name: "Login",
@@ -16,7 +17,7 @@ export default Vue.extend({
       sendingCodeText: "",
       leftTime: 120,
       handleTimer: null,
-      submitStatus: false,
+      submitStatus: false
     };
   },
   methods: {
@@ -29,7 +30,7 @@ export default Vue.extend({
     handleCodeChange(event) {
       this.code = event.target.value;
       console.log({
-        event,
+        event
       });
     },
 
@@ -64,13 +65,13 @@ export default Vue.extend({
 
       this.getLeftTime();
       ApiGetVerify(phone)
-        .then((resp) => {
+        .then(resp => {
           if (resp.code === 0) {
             this.$toast("验证码为:" + resp.result);
             this.getLeftTime();
           }
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
     },
@@ -98,7 +99,7 @@ export default Vue.extend({
       this.handleTimer = handleTimer;
     },
 
-    handleSubmit() {
+    async handleSubmit() {
       const { phone, code } = this.$data;
       if (!this.validatePhone(phone)) {
         return;
@@ -106,28 +107,29 @@ export default Vue.extend({
       if (code.length === 0) {
         return this.$toast("请输入验证码");
       }
-      // ApiMemberLogin(phone, code)
-      //   .then(result => {
-      //     if (result.status) {
-      //       if (result.data.created) {
-      //         this.$toast("已为您自动创建帐号,正在登录...");
-      //       } else {
-      //         this.$toast("欢迎回来!!!");
-      //       }
-      //       local.set("echi_user_id", result.data.id);
-      //       setTimeout(() => {
-      //         this.props.history.replace({ pathname: "/member" });
-      //       }, 1500);
-      //     } else {
-      //       this.$toast(result.message);
-      //     }
-      //   })
-      //   .catch(err => {
-      //     console.log(err);
-      //   });
-    },
+      ApiLogin(phone, code)
+        .then(resp => {
+          if (resp.code === 0) {
+            this.$toast("欢迎回来!!!");
+            this.$store.dispatch("updateUser", resp.result);
+            this.$router.replace({ path: "/" });
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
   },
   render() {
+    const {
+      focusName,
+      phone,
+      code,
+      sendingCodeStatus,
+      sendingCodeText,
+      submitStatus
+    } = this.$data;
+
     return (
       <EContainer>
         <div class={styles.loginWrapper}>
@@ -141,14 +143,14 @@ export default Vue.extend({
               <label>手机号码</label>
               <div
                 class={classNames(styles.checkBoxInput, {
-                  [styles.focus]: "phone" === this.$data.focusName,
+                  [styles.focus]: "phone" === focusName
                 })}
               >
                 <input
                   type="number"
                   placeholder="请输入手机号码"
                   autoFocus
-                  value={this.$data.phone}
+                  value={phone}
                   onInput={this.handlePhoneChange}
                   onFocus={() => this.handleInputFocus("phone")}
                   onBlur={this.handleInputBlur}
@@ -159,13 +161,13 @@ export default Vue.extend({
               <label>验证码</label>
               <div
                 class={classNames(styles.checkBoxInput, {
-                  [styles.focus]: "code" === this.$data.focusName,
+                  [styles.focus]: "code" === focusName
                 })}
               >
                 <input
                   type="number"
                   placeholder="请输入验证码"
-                  value={this.$data.code}
+                  value={code}
                   onInput={this.handleCodeChange}
                   onFocus={() => this.handleInputFocus("code")}
                   onBlur={this.handleInputBlur}
@@ -176,11 +178,9 @@ export default Vue.extend({
                     size="small"
                     block
                     onClick={() => this.handleSendCode()}
-                    disabled={this.$data.sendingCodeStatus}
+                    disabled={sendingCodeStatus}
                   >
-                    {this.$data.sendingCodeStatus
-                      ? this.$data.sendingCodeText
-                      : "发送验证码"}
+                    {sendingCodeStatus ? sendingCodeText : "发送验证码"}
                   </van-button>
                 </div>
               </div>
@@ -189,7 +189,7 @@ export default Vue.extend({
               type="info"
               block
               onClick={this.handleSubmit}
-              disabled={this.$data.submitStatus}
+              disabled={submitStatus}
             >
               提交
             </van-button>
@@ -197,5 +197,5 @@ export default Vue.extend({
         </div>
       </EContainer>
     );
-  },
+  }
 });

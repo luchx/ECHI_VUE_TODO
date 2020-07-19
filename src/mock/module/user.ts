@@ -5,9 +5,9 @@ export default {
     result: {
       id: 1,
       userName: "Echi",
-      sex: "男",
+      "sex|1": [1, 2],
       avatar: "",
-      password: "xxx",
+      description: "记录生活的美好~",
       token: "123456789"
     }
   },

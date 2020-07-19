@@ -1,12 +1,8 @@
-import {
-  GetterTree,
-  ActionTree,
-  MutationTree
-} from 'vuex';
+import { GetterTree, ActionTree, MutationTree } from "vuex";
 import { ApiLogin } from "@/api/user";
 
 export interface State {
-  userInfo: Object;
+  userInfo: Record<string, any>;
 }
 
 const state: State = {
@@ -16,21 +12,13 @@ const state: State = {
 const getters: GetterTree<State, any> = {};
 
 const actions: ActionTree<State, any> = {
-  login({ commit }, params) {
-    return new Promise((resolve, reject) => {
-      ApiLogin(params)
-        .then(resp => {
-          if (resp.code === 0) {
-            commit("change", {
-              userInfo: resp.result
-            });
-            resolve(resp.result);
-          }
-        })
-        .catch(err => {
-          console.log(err);
-          reject(err);
-        });
+  updateUser({ commit }, result) {
+    console.log({
+      result
+    });
+
+    commit("change", {
+      userInfo: result
     });
   }
 };
@@ -49,5 +37,5 @@ export default {
   state,
   getters,
   actions,
-  mutations,
-}
+  mutations
+};

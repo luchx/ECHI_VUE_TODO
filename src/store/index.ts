@@ -2,16 +2,12 @@ import Vue from "vue";
 import user from "./module/user";
 import { ApiGetTimes } from "@/api/basic";
 
-import Vuex, {
-  GetterTree,
-  ActionTree,
-  MutationTree
-} from 'vuex';
+import Vuex, { GetterTree, ActionTree, MutationTree } from "vuex";
 
 Vue.use(Vuex);
 
 export interface State {
-  timestamp: Number;
+  timestamp: number;
 }
 
 const state: State = {
@@ -22,7 +18,7 @@ const getters: GetterTree<State, any> = {};
 
 const actions: ActionTree<State, any> = {
   getTimes({ commit }) {
-    return new Promise(async function (resolve, reject) {
+    return new Promise(async function(resolve, reject) {
       const resp = await ApiGetTimes();
       if (resp.code === 0) {
         resolve(resp.result);
@@ -53,5 +49,5 @@ export default new Vuex.Store({
   mutations,
   modules: {
     user
-  },
+  }
 });
