@@ -7,8 +7,16 @@ function resolve(dir: string) {
 
 const config: SharedConfig = {
   alias: {
-    "/@/": resolve("src")
+    "/@/": resolve("src"),
+    "/@styles/": resolve("src/assets/styles"),
   },
+  cssPreprocessOptions: {
+    less: {
+      modifyVars: {
+        'preprocess-custom-color': 'green'
+      }
+    }
+  }
 };
 
 module.exports = config;

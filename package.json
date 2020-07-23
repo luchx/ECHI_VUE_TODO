@@ -12,7 +12,7 @@
     "lib-flexible": "^0.3.2",
     "moment": "^2.27.0",
     "normalize.css": "^8.0.1",
-    "vue": "^3.0.0-beta.1",
+    "vue": "^v3.0.0-rc.4",
     "vue-router": "4.0.0-beta.2",
     "vuex": "4.0.0-beta.4"
   },
@@ -20,7 +20,7 @@
     "@types/node": "^14.0.24",
     "@typescript-eslint/eslint-plugin": "^3.6.1",
     "@typescript-eslint/parser": "^3.6.1",
-    "@vue/compiler-sfc": "^3.0.0-beta.1",
+    "@vue/compiler-sfc": "^v3.0.0-rc.4",
     "eslint": "^7.4.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.4",
@@ -30,7 +30,7 @@
     "mockjs": "^1.1.0",
     "prettier": "^2.0.5",
     "typescript": "^3.9.6",
-    "vite": "1.0.0-beta.11",
+    "vite": "^1.0.0-rc.3",
     "vue-eslint-parser": "^7.1.0"
   }
 }
