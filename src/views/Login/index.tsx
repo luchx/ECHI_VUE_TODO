@@ -5,12 +5,7 @@ import styles from "./index.module.less";
 import { ApiGetVerify, ApiLogin } from "/@/api/user";
 import { TestPhone } from "/@/utils/validate";
 import { local } from "/@/utils/storage";
-// import { Toast } from 'vant';
 import EContainer from '/@/components/Container';
-
-// console.log({
-//   Toast
-// })
 
 export default defineComponent({
   name: "Login",

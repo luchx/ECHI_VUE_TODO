@@ -1,6 +1,5 @@
 import { AxiosRequestConfig } from "axios";
 import axios from "./config";
-// import { Toast } from "vant";
 
 export interface RespondData {
   code: number;
