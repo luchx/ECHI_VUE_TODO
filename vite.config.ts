@@ -1,13 +1,13 @@
 import { SharedConfig } from 'vite';
 import path from 'path';
 
-const pathResolve = (pathStr: string) => {
-  return path.resolve(__dirname, pathStr);
-};
+function resolve(dir: string) {
+  return path.join(__dirname, dir);
+}
 
 const config: SharedConfig = {
   alias: {
-    "@": pathResolve("src"),
+    "/@/": resolve("src")
   },
 };
 
