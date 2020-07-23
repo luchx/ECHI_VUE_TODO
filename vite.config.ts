@@ -2,7 +2,7 @@ import { SharedConfig } from 'vite';
 import path from 'path';
 
 function resolve(dir: string) {
-  return path.join(__dirname, dir);
+  return path.resolve(__dirname, dir);
 }
 
 const config: SharedConfig = {
@@ -13,7 +13,7 @@ const config: SharedConfig = {
   cssPreprocessOptions: {
     less: {
       modifyVars: {
-        'preprocess-custom-color': 'green'
+        hack: `true; @import '${resolve("src/assets/styles/theme.less")}'`
       }
     }
   }
