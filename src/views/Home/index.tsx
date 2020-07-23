@@ -1,6 +1,6 @@
 import { defineComponent } from 'vue';
 import { useStore } from 'vuex';
-import EContainer from "../../components/Container"
+import EContainer from "/@/components/Container"
 
 export default defineComponent({
   name: 'App',
