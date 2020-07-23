@@ -1,5 +1,5 @@
 import styles from "./index.module.less";
-import { defineComponent, reactive } from 'vue';
+import { defineComponent, reactive, provide } from 'vue';
 
 export default defineComponent({
   name: "Container",
@@ -12,6 +12,9 @@ export default defineComponent({
     const data = reactive({
       collapsed: false,
     });
+    provide("parent", {
+      handleToggle,
+    })
 
     function handleToggle(status) {
       if (status !== undefined) {
