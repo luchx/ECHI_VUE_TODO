@@ -6,6 +6,7 @@ import { ApiGetVerify, ApiLogin } from "/@/api/user";
 import { TestPhone } from "/@/utils/validate";
 import { local } from "/@/utils/storage";
 import EContainer from '/@/components/Container';
+import EButton from '/@/components/Button';
 
 export default defineComponent({
   name: "Login",
@@ -164,7 +165,7 @@ export default defineComponent({
                   onBlur={handleInputBlur}
                 />
                 <div class={styles.checkBoxBtn}>
-                  <van-button
+                  <EButton
                     type="primary"
                     size="small"
                     block
@@ -172,18 +173,18 @@ export default defineComponent({
                     disabled={data.sendingCodeStatus}
                   >
                     {data.sendingCodeStatus ? data.sendingCodeText : "发送验证码"}
-                  </van-button>
+                  </EButton>
                 </div>
               </div>
             </div>
-            <van-button
+            <EButton
               type="info"
               block
               onClick={handleSubmit}
               disabled={data.submitStatus}
             >
               提交
-            </van-button>
+            </EButton>
           </div>
         </div>
       </EContainer>
