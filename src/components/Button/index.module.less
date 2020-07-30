@@ -36,23 +36,18 @@
     display: none;
   }
 
-  // &.button-loading {
-  //   pointer-events: none;
-  //   position: relative;
+  &[disabled] {
+    cursor: not-allowed;
+    position: relative;
 
-  //   &::before {
-  //     display: block;
-  //   }
-  // }
+    &::before {
+      display: block;
+    }
+  }
 
-  // &.button-disabled {
-  //   cursor: not-allowed;
-  //   position: relative;
-
-  //   &::before {
-  //     display: block;
-  //   }
-  // }
+  &.block {
+    width: 100%;
+  }
 
   &:link,
   &:visited,
@@ -61,199 +56,150 @@
     text-decoration: none;
   }
 
-  // &.button-default {
-  //   background-color: #aaa;
-  //   color: #fff;
+  &.button-primary {
+    background-color: @primary-color;
+    color: #fff;
 
-  //   &:link {
-  //     color: #fff;
-  //     background-color: #aaa;
-  //   }
+    &:link {
+      color: #fff;
+      background-color: @primary-color;
+    }
 
-  //   &:visited {
-  //     color: #fff;
-  //     background-color: #aaa;
-  //   }
+    &:visited {
+      color: #fff;
+      background-color: @primary-color;
+    }
 
-  //   &:hover {
-  //     color: #fff;
-  //     background-color: #aaa;
-  //   }
+    &:hover {
+      color: #fff;
+      background-color: @primary-color;
+    }
 
-  //   &:active {
-  //     color: #fff;
-  //     background-color: #aaa;
-  //   }
+    &:active {
+      color: #fff;
+      background-color: @primary-color;
+    }
 
-  //   &.button-plain {
-  //     background-color: #fff;
-  //     color: #aaa;
-  //     border: 1px solid #D8D8D8;
+    &.button-plain {
+      background-color: #fff;
+      color: @primary-color;
+      border: 1px solid @primary-color;
 
-  //     &:hover {
-  //       color: $color-tips;
-  //       background-color: $color-palin;
-  //     }
+      &:hover {
+        color: @primary-color;
+        background-color: #fff;
+      }
 
-  //     &:active {
-  //       color: $color-tips;
-  //       background-color: $color-palin;
-  //     }
+      &:active {
+        color: @primary-color;
+        background-color: #fff;
+      }
 
-  //     &.button-actived-border:active {
-  //       border-color: $color-tips !important;
-  //     }
+      &.button-actived-border:active {
+        border-color: @primary-color;
+      }
 
-  //     &.button-hover-border:hover {
-  //       border-color: $color-tips !important;
-  //     }
-  //   }
-  // }
+      &.button-hover-border:hover {
+        border-color: @primary-color;
+      }
+    }
+  }
 
-  // &.button-primary {
-  //   background-color: $color-tips;
-  //   color: #fff;
+  &.button-info {
+    background-color: @warning-color;
+    color: #fff;
 
-  //   &:link {
-  //     color: #fff;
-  //     background-color: $color-tips;
-  //   }
+    &:link {
+      color: #fff;
+      background-color: @warning-color;
+    }
 
-  //   &:visited {
-  //     color: #fff;
-  //     background-color: $color-tips;
-  //   }
+    &:visited {
+      color: #fff;
+      background-color: @warning-color;
+    }
 
-  //   &:hover {
-  //     color: #fff;
-  //     background-color: rgba(26, 179, 148, 0.85);
-  //   }
+    &:hover {
+      color: #fff;
+      background-color: @warning-color;
+    }
 
-  //   &:active {
-  //     color: #fff;
-  //     background-color: $color-tips;
-  //   }
+    &:active {
+      color: #fff;
+      background-color: @warning-color;
+    }
 
-  //   &.button-plain {
-  //     background-color: #fff;
-  //     color: $color-tips;
-  //     border: 1px solid $color-tips;
+    &.button-plain {
+      background-color: #fff;
+      color: @warning-color;
+      border: 1px solid @warning-color;
 
-  //     &:hover {
-  //       color: $color-tips;
-  //       background-color: $color-palin;
-  //     }
+      &:hover {
+        color: @warning-color;
+        background-color: rgba(255, 153, 0, 0.05);
+      }
 
-  //     &:active {
-  //       color: $color-tips;
-  //       background-color: $color-palin;
-  //     }
+      &:active {
+        color: @warning-color;
+        background-color: rgba(255, 153, 0, 0.05);
+      }
 
-  //     &.button-actived-border:active {
-  //       border-color: $color-tips !important;
-  //     }
+      &.button-actived-border:active {
+        border-color: @warning-color;
+      }
 
-  //     &.button-hover-border:hover {
-  //       border-color: $color-tips !important;
-  //     }
-  //   }
-  // }
+      &.button-hover-border:hover {
+        border-color: @warning-color;
+      }
+    }
+  }
 
-  // &.button-info {
-  //   background-color: $color-info;
-  //   color: #fff;
+  &.button-danger {
+    background-color: @error-color;
+    color: #fff;
 
-  //   &:link {
-  //     color: #fff;
-  //     background-color: $color-info;
-  //   }
+    &:link {
+      color: #fff;
+      background-color: @error-color;
+    }
 
-  //   &:visited {
-  //     color: #fff;
-  //     background-color: $color-info;
-  //   }
+    &:visited {
+      color: #fff;
+      background-color: @error-color;
+    }
 
-  //   &:hover {
-  //     color: #fff;
-  //     background-color: rgba(255, 153, 0, 0.85);
-  //   }
+    &:hover {
+      color: #fff;
+      background-color: @error-color;
+    }
 
-  //   &:active {
-  //     color: #fff;
-  //     background-color: $color-info;
-  //   }
+    &:active {
+      color: #fff;
+      background-color: @error-color;
+    }
 
-  //   &.button-plain {
-  //     background-color: #fff;
-  //     color: $color-info;
-  //     border: 1px solid $color-info;
+    &.button-plain {
+      background-color: #fff;
+      color: @error-color;
+      border: 1px solid @error-color;
 
-  //     &:hover {
-  //       color: $color-info;
-  //       background-color: rgba(255, 153, 0, 0.05);
-  //     }
+      &:hover {
+        color: @error-color;
+        background-color: rgba(245, 34, 45, 0.05);
+      }
 
-  //     &:active {
-  //       color: $color-info;
-  //       background-color: rgba(255, 153, 0, 0.05);
-  //     }
+      &:active {
+        color: @error-color;
+        background-color: rgba(245, 34, 45, 0.05);
+      }
 
-  //     &.button-actived-border:active {
-  //       border-color: $color-info !important;
-  //     }
+      &.button-actived-border:active {
+        border-color: @error-color;
+      }
 
-  //     &.button-hover-border:hover {
-  //       border-color: $color-info !important;
-  //     }
-  //   }
-  // }
-
-  // &.button-danger {
-  //   background-color: $color-danger;
-  //   color: #fff;
-
-  //   &:link {
-  //     color: #fff;
-  //     background-color: $color-danger;
-  //   }
-
-  //   &:visited {
-  //     color: #fff;
-  //     background-color: $color-danger;
-  //   }
-
-  //   &:hover {
-  //     color: #fff;
-  //     background-color: rgba(245, 34, 45, 0.85);
-  //   }
-
-  //   &:active {
-  //     color: #fff;
-  //     background-color: $color-danger;
-  //   }
-
-  //   &.button-plain {
-  //     background-color: #fff;
-  //     color: $color-danger;
-  //     border: 1px solid $color-danger;
-
-  //     &:hover {
-  //       color: $color-danger;
-  //       background-color: rgba(245, 34, 45, 0.05);
-  //     }
-
-  //     &:active {
-  //       color: $color-danger;
-  //       background-color: rgba(245, 34, 45, 0.05);
-  //     }
-
-  //     &.button-actived-border:active {
-  //       border-color: $color-danger !important;
-  //     }
-
-  //     &.button-hover-border:hover {
-  //       border-color: $color-danger !important;
-  //     }
-  //   }
-  // }
+      &.button-hover-border:hover {
+        border-color: @error-color;
+      }
+    }
+  }
 }

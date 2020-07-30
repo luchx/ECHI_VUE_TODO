@@ -10,6 +10,7 @@ import EButton from '/@/components/Button';
 
 export default defineComponent({
   name: "Login",
+
   setup() {
     const data: any = reactive({
       focusName: "",
@@ -82,6 +83,8 @@ export default defineComponent({
 
     // 发送验证码
     const handleSendCode = () => {
+      console.log(1111);
+      
       const { phone } = data;
       if (!validatePhone(phone)) {
         return;
@@ -166,7 +169,7 @@ export default defineComponent({
                 />
                 <div class={styles.checkBoxBtn}>
                   <EButton
-                    type="primary"
+                    type="danger"
                     block
                     onClick={handleSendCode}
                     disabled={data.sendingCodeStatus}
@@ -177,9 +180,9 @@ export default defineComponent({
               </div>
             </div>
             <EButton
-              type="info"
+              type="primary"
               block
-              onClick={handleSubmit}
+              click={handleSubmit}
               disabled={data.submitStatus}
             >
               提交

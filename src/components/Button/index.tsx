@@ -13,16 +13,21 @@ export default defineComponent({
       type: Boolean,
       default: false
     },
+    disabled: {
+      type: Boolean,
+      default: false
+    }
   },
-  setup(props, { slots, attrs }) {
-    console.log({
-      props,
-      attrs
-    });
-
+  setup(props, { slots }) {
 
     return () => (
-      <button class={classNames(styles.button)}>{slots}</button>
+      <button class={classNames([
+        styles.button,
+        styles[`button-${props.type}`],
+        {
+          [styles.block]: props.block,
+        }
+      ])} disabled={props.disabled}>{slots}</button>
     )
   }
 });
