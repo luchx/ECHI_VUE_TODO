@@ -1,0 +1,37 @@
+.tipsWrapper {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 99;
+  .tipsMain {
+    display: block;
+    min-width: 40px;
+    word-break: break-all;
+    max-width: 300px;
+    min-height: 32px;
+    padding: 6px 12px;
+    color: #fff;
+    text-align: left;
+    text-decoration: none;
+    word-wrap: break-word;
+    background-color: rgba(0, 0, 0, 0.75);
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+}
+
+:global {
+  .tips-enter-active,
+  .tips-leave-active {
+    opacity: 1;
+    transform: scale(1);
+    transform-origin: bottom;
+    transition: transform ease 0.2s;
+  }
+
+  .tips-enter,
+  .tips-leave-to {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+}

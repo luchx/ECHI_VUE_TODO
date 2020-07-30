@@ -167,7 +167,6 @@ export default defineComponent({
                 <div class={styles.checkBoxBtn}>
                   <EButton
                     type="primary"
-                    size="small"
                     block
                     onClick={handleSendCode}
                     disabled={data.sendingCodeStatus}

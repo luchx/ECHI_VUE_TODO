@@ -20,7 +20,12 @@ if ("addEventListener" in document) {
 import moment from "moment";
 moment.locale("zh-cn");
 
-createApp(App)
-  .use(router)
+const vm = createApp(App);
+
+// 引入全局挂载组件
+// import components from "/@/components";
+// vm.use(components)
+
+vm.use(router)
   .use(store)
   .mount('#app');
