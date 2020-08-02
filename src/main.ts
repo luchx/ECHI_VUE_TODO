@@ -1,17 +1,27 @@
 import "lib-flexible";
 import "normalize.css";
-import "/@/assets/styles/global.less";
-import { createApp } from 'vue';
-import App from '/@/App';
-import router from '/@/router';
-import store from '/@/store';
+import "@/assets/styles/global.less";
+import Vue from "vue";
+import App from "@/App.vue";
+import "@/registerServiceWorker";
+import router from "@/router";
+import store from "@/store";
+import components from "@/components";
 
-// 添加 fastclick
+// 引入 vant 组件库
+import "@/vant";
+
+// 接入 mockjs
+if (process.env.VUE_APP_MOCK) {
+  require("@/mock");
+}
+
+import FastClick from "fastclick";
 if ("addEventListener" in document) {
   document.addEventListener(
     "load",
     function() {
-      require("fastclick").attach(document.body);
+      FastClick.attach(document.body);
     },
     false
   );
@@ -19,13 +29,17 @@ if ("addEventListener" in document) {
 
 import moment from "moment";
 moment.locale("zh-cn");
+Vue.prototype.$moment = moment;
 
-const vm = createApp(App);
+// 注册全局的组件
+Object.keys(components).forEach(key => {
+  Vue.component(key, components[key]);
+});
 
-// 引入全局挂载组件
-// import components from "/@/components";
-// vm.use(components)
+Vue.config.productionTip = false;
 
-vm.use(router)
-  .use(store)
-  .mount('#app');
+new Vue({
+  router,
+  store,
+  render: h => h(App)
+}).$mount("#app");

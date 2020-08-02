@@ -1,5 +1,4 @@
 import Mock from "mockjs";
-// 更多示例请查看 http://mockjs.com/examples.html
 
 // 模拟请求延时
 Mock.setup({

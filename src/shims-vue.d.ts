@@ -3,6 +3,6 @@ declare module "*.vue" {
   export default Vue;
 }
 
-declare module "*.less";
+declare module "fastclick";
 
-declare module "*.png";
+declare module "*.less";

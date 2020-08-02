@@ -1,7 +1,10 @@
+import Vue from "vue";
 import user from "./module/user";
-import { ApiGetTimes } from "/@/api/basic";
+import { ApiGetTimes } from "@/api/basic";
 
-import { createStore, GetterTree, ActionTree, MutationTree } from "vuex";
+import Vuex, { GetterTree, ActionTree, MutationTree } from "vuex";
+
+Vue.use(Vuex);
 
 export interface State {
   timestamp: number;
@@ -39,7 +42,7 @@ const mutations: MutationTree<State> = {
   }
 };
 
-export default createStore({
+export default new Vuex.Store({
   state,
   getters,
   actions,

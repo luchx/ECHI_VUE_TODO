@@ -13,14 +13,11 @@
     "baseUrl": ".",
     "types": [
       "node",
-      "webpack-env"
+      "webpack-env",
     ],
     "paths": {
-      "/@/*": [
+      "@/*": [
         "src/*"
-      ],
-      "/@styles/*": [
-        "src/assets/styles/*"
       ]
     },
     "lib": [
@@ -33,7 +30,12 @@
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
+    "src/**/*.js",
+    "src/**/*.jsx",
     "src/**/*.vue",
+    "tests/**/*.ts",
+    "tests/**/*.tsx",
+    "typings/index.d.ts" 
   ],
   "exclude": [
     "node_modules"

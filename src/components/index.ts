@@ -1,11 +1,13 @@
-import Button from "./Button";
-import Container from "./Container";
-
-export default {
-  install(app) {
-    console.log(app, Button)
-    
-    app.component("EButton", Button);
-    app.component("EContainer", Container);
-  }
+interface Modules {
+  [key: string]: object;
 }
+
+const modules: Modules = {};
+
+const files = require.context(".", true, /\.(vue|jsx)$/);
+files.keys().forEach(key => {
+  const component = files(key).default;
+  modules[`E${component.name}`] = component;
+});
+
+export default modules;

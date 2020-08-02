@@ -1,4 +1,4 @@
-import service from "/@/axios/service";
+import service from "@/axios/service";
 
 /**
  * 新增/编辑待办

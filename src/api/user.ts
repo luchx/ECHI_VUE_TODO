@@ -1,4 +1,4 @@
-import service from "/@/axios/service";
+import service from "@/axios/service";
 
 /**
  * 登录操作
