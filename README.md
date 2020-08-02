@@ -1,30 +1,26 @@
-# vue-todo
+# Vue-todo 应用
 
-## Project setup
+> 使用 Vue 开发的一款 TODO 应用，包含登录、待办、日程、历史事项、回收站。项目较为小型，适合进阶学习使用（💡请注意，项目大量使用 jsx 进行开发）。
 
-```bash
-yarn install
-```
+## 项目分支说明
 
-### Compiles and hot-reloads for development
+> 目前项目 vue2 版的前端部分已完善（后端接口暂时使用 mockjs）。接下来将会使用 node 进行后端的开发。
+> Vue3 版的正在调整中，感兴趣的可以拉取 vite-vue3 分支查看😍。
 
-```bash
-yarn serve
-```
+🍂主分支应用使用 vue-cli 创建，搭配技术栈为 vue2.6 + jsx、ts、less、vant-ui、mockjs
 
-### Compiles and minifies for production
+🚀vite-vue3 分支应用使用 vite 创建，搭配技术栈为 vue3 + jsx、ts、less、mockjs
 
-```bash
-yarn build
-```
-
-### Lints and fixes files
+## 开发使用
 
 ```bash
-yarn lint
+  git clone git@github.com:luchx/ECHI_VUE_TODO.git
+  cd ECHI_VUE_TODO
+  npm install
+  npm run serve:mock         # 访问 http://localhost:9000
 ```
 
-### Customize configuration
+## 项目中使用自适应方案
 
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
