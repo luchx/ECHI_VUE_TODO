@@ -110,6 +110,11 @@ export default {
                 <i class={classNames("iconfont", styles.icon)}>&#xe611;</i>
                 <span>
                   {this.$moment(item.date).calendar(null, {
+                    sameDay: "[今天]",
+                    nextDay: "[明天]",
+                    nextWeek: "MM-DD HH:mm",
+                    lastDay: "[昨天]",
+                    lastWeek: "MM-DD HH:mm",
                     sameElse: "MM-DD HH:mm"
                   })}
                 </span>
