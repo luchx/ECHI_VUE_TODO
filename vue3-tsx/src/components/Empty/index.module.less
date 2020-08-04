@@ -1,0 +1,19 @@
+.emptyBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: @primary-gap 0;
+  height: 400px;
+  :global {
+    .van-empty__image {
+      width: 90px;
+      height: 90px;
+    }
+    .van-empty__description {
+      font-size: @font-size-base; /*px*/
+      color: @text-color-secondary;
+      margin: 0;
+      padding-top: @primary-gap;
+    }
+  }
+}

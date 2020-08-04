@@ -1,0 +1,38 @@
+{
+  "name": "echi-todo",
+  "version": "1.0.1",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "dependencies": {
+    "axios": "^0.19.2",
+    "classnames": "^2.2.6",
+    "fastclick": "^1.0.6",
+    "lib-flexible": "^0.3.2",
+    "moment": "^2.27.0",
+    "normalize.css": "^8.0.1",
+    "vue": "^v3.0.0-rc.4",
+    "vue-router": "4.0.0-beta.2",
+    "vuex": "4.0.0-beta.4"
+  },
+  "devDependencies": {
+    "@types/node": "^14.0.24",
+    "@typescript-eslint/eslint-plugin": "^3.8.0",
+    "@typescript-eslint/parser": "^3.8.0",
+    "@vue/compiler-sfc": "^v3.0.0-rc.5",
+    "autoprefixer": "^9.8.6",
+    "eslint": "^7.6.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-vue": "^7.0.0-alpha.10",
+    "less": "^3.12.2",
+    "less-loader": "^6.2.0",
+    "mockjs": "^1.1.0",
+    "postcss-px2rem": "^0.3.0",
+    "prettier": "^2.0.5",
+    "typescript": "^3.9.6",
+    "vite": "^1.0.0-rc.4",
+    "vue-eslint-parser": "^7.1.0"
+  }
+}
