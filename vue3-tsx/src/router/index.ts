@@ -12,7 +12,7 @@ const routes: RouteRecordRaw[] = [
     meta: {
       title: "登录"
     },
-    component: () => import(/* webpackChunkName: "Login" */ "/@/views/Login")
+    component: () => import("/@/views/Login")
   },
 ];
 

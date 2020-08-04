@@ -15,14 +15,9 @@ export default defineComponent({
     },
   },
   setup(props, { slots, attrs }) {
-    console.log({
-      props,
-      attrs
-    });
-
 
     return () => (
-      <button class={classNames(styles.button)}>{slots}</button>
+      <button class={classNames(styles.button)}>{slots.default && slots.default()}</button>
     )
   }
 });

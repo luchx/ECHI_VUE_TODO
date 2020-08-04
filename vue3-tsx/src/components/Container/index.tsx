@@ -25,7 +25,7 @@ export default defineComponent({
     }
 
     return () => (
-      <section class={styles.wrapper}>{slots}</section>
+      <section class={styles.wrapper}>{slots.default && slots.default()}</section>
     )
   }
 });
