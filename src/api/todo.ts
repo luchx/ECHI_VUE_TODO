@@ -1,5 +1,13 @@
 import service from "@/axios/service";
 
+type TodoData = {
+  id: number;
+  title: string;
+  description: string;
+  date: Date;
+  priority: number;
+}
+
 /**
  * 新增/编辑待办
  * @param {Object} data
@@ -9,7 +17,7 @@ import service from "@/axios/service";
  * @param {timestamp} data.date
  * @param {Number} data.priority
  */
-export function ApiSaveTodoList(data) {
+export function ApiSaveTodoList(data: TodoData) {
   return service.post("/api/todo/saveTodoList", data);
 }
 

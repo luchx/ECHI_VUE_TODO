@@ -107,7 +107,7 @@ export default Vue.extend({
       if (code.length === 0) {
         return this.$toast("请输入验证码");
       }
-      ApiLogin(phone, code)
+      ApiLogin({ phone, code })
         .then(resp => {
           if (resp.code === 0) {
             this.$toast("欢迎回来!!!");
