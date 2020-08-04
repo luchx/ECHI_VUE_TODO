@@ -45,14 +45,20 @@
   //   }
   // }
 
-  // &.button-disabled {
-  //   cursor: not-allowed;
-  //   position: relative;
+  &[disabled],
+  &.button-disabled {
+    cursor: not-allowed;
+    position: relative;
+    opacity: 0.6;
 
-  //   &::before {
-  //     display: block;
-  //   }
-  // }
+    &::before {
+      display: block;
+    }
+  }
+
+  &.button-block {
+    width: 100%;
+  }
 
   &:link,
   &:visited,
