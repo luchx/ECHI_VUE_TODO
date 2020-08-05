@@ -10,7 +10,7 @@ import store from '/@/store';
 if ("addEventListener" in document) {
   document.addEventListener(
     "load",
-    function() {
+    function () {
       require("fastclick").attach(document.body);
     },
     false
@@ -20,7 +20,10 @@ if ("addEventListener" in document) {
 import moment from "moment";
 moment.locale("zh-cn");
 
-createApp(App)
-  .use(router)
+const app = createApp(App);
+
+app.config.globalProperties.$moment = moment;
+
+app.use(router)
   .use(store)
   .mount('#app');

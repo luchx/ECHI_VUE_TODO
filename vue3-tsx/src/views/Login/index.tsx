@@ -122,8 +122,28 @@ export default defineComponent({
         });
     }
 
+    return {
+      data,
+      handlePhoneChange,
+      handleInputFocus,
+      handleInputBlur,
+      handleCodeChange,
+      handleSendCode,
+      handleSubmit
+    }
+  },
+  render() {
+    const {
+      data,
+      handlePhoneChange,
+      handleInputFocus,
+      handleInputBlur,
+      handleCodeChange,
+      handleSendCode,
+      handleSubmit,
+    } = this;
 
-    return () => (
+    return (
       <EContainer>
         <div class={styles.loginWrapper}>
           <div class={styles.content}>
