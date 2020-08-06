@@ -8,10 +8,21 @@ import { local } from "/@/utils/storage";
 import EContainer from '/@/components/Container';
 import EButton from '/@/components/Button';
 
+type State = {
+  focusName: string;
+  phone: string;
+  code: string;
+  sendingCodeStatus: boolean,
+  sendingCodeText: string;
+  leftTime: number,
+  handleTimer: any,
+  submitStatus: boolean
+}
+
 export default defineComponent({
   name: "Login",
   setup() {
-    const data: any = reactive({
+    const data: State = reactive({
       focusName: "",
       phone: "",
       code: "",

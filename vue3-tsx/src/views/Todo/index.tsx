@@ -1,8 +1,15 @@
-import Vue from "vue";
-import { ApiGetTodoList, ApiDeleteTodoToRecycle } from "@/api/todo";
+import { defineComponent } from "vue";
+import { ApiGetTodoList, ApiDeleteTodoToRecycle } from "/@/api/todo";
+import EContainer from '/@/components/Container';
+import EHeader from '/@/components/Header';
+import EContent from '/@/components/Content';
+import EAside from '/@/components/Aside';
+import EFooter from '/@/components/Footer';
+import ETodoCard from '/@/components/TodoCard';
+
 import styles from "./index.module.less";
 
-export default Vue.extend({
+export default defineComponent({
   name: "Todo",
   data() {
     return {
