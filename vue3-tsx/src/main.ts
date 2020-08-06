@@ -1,4 +1,5 @@
 import "lib-flexible";
+import "animate.css";
 import "normalize.css";
 import "/@/assets/styles/global.less";
 import { createApp } from 'vue';
