@@ -7,6 +7,7 @@ import { TestPhone } from "/@/utils/validate";
 import { local } from "/@/utils/storage";
 import EContainer from '/@/components/Container';
 import EButton from '/@/components/Button';
+import { Toast } from '/@/components/Toast';
 
 type State = {
   focusName: string;
@@ -22,7 +23,7 @@ type State = {
 export default defineComponent({
   name: "Login",
   setup() {
-    const data: State = reactive({
+    const state = reactive<State>({
       focusName: "",
       phone: "",
       code: "",
@@ -35,22 +36,22 @@ export default defineComponent({
 
     // 手机号码输入操作
     const handlePhoneChange = (event) => {
-      data.phone = event.target.value;
+      state.phone = event.target.value;
     }
 
     // 输入框获取焦点
     const handleInputFocus = (key) => {
-      data.focusName = key;
+      state.focusName = key;
     }
 
     // 输入框失去焦点
     const handleInputBlur = () => {
-      data.focusName = "";
+      state.focusName = "";
     }
 
     // 验证码输入操作
     const handleCodeChange = (event) => {
-      data.code = event.target.value;
+      state.code = event.target.value;
       console.log({
         event
       });
@@ -58,11 +59,11 @@ export default defineComponent({
 
     const validatePhone = (phone) => {
       if (!phone) {
-        // Toast("请输入您的手机号码");
+        Toast("请输入您的手机号码");
         return false;
       }
       if (!TestPhone(phone)) {
-        // Toast("您的号码输入错误");
+        Toast("您的号码输入错误");
         return false;
       }
       return true;
@@ -70,30 +71,30 @@ export default defineComponent({
 
     // 倒计时获取剩余时间
     const getLeftTime = () => {
-      let leftTime = data.leftTime;
-      data.sendingCodeStatus = true;
-      data.sendingCodeText = `${leftTime} s`;
-      if (data.handleTimer !== undefined) {
-        clearInterval(data.handleTimer);
-        data.handleTimer = null;
+      let leftTime = state.leftTime;
+      state.sendingCodeStatus = true;
+      state.sendingCodeText = `${leftTime} s`;
+      if (state.handleTimer !== undefined) {
+        clearInterval(state.handleTimer);
+        state.handleTimer = null;
       }
       const handleTimer = setInterval(() => {
         leftTime--;
         if (leftTime < 0) {
-          data.sendingCodeStatus = false;
-          data.sendingCodeText = "获取验证码";
-          leftTime = data.leftTime;
+          state.sendingCodeStatus = false;
+          state.sendingCodeText = "获取验证码";
+          leftTime = state.leftTime;
           clearInterval(handleTimer);
         } else {
-          data.sendingCodeText = `${leftTime} s`;
+          state.sendingCodeText = `${leftTime} s`;
         }
       }, 1000);
-      data.handleTimer = handleTimer;
+      state.handleTimer = handleTimer;
     }
 
     // 发送验证码
     const handleSendCode = () => {
-      const { phone } = data;
+      const { phone } = state;
       if (!validatePhone(phone)) {
         return;
       }
@@ -102,7 +103,7 @@ export default defineComponent({
       ApiGetVerify(phone)
         .then(resp => {
           if (resp.code === 0) {
-            // Toast("验证码为:" + resp.result);
+            Toast("验证码为:" + resp.result);
             getLeftTime();
           }
         })
@@ -112,17 +113,17 @@ export default defineComponent({
     }
 
     const handleSubmit = () => {
-      const { phone, code } = data;
+      const { phone, code } = state;
       if (!validatePhone(phone)) {
         return;
       }
-      // if (code.length === 0) {
-      //   return Toast("请输入验证码");
-      // }
+      if (code.length === 0) {
+        return Toast("请输入验证码");
+      }
       ApiLogin({ phone, code })
         .then(resp => {
           if (resp.code === 0) {
-            // Toast("欢迎回来!!!");
+            Toast("欢迎回来!!!");
             local.set("token", resp.result.token);
             // dispatch("updateUser", resp.result);
             // router.replace({ path: "/" });
@@ -134,7 +135,7 @@ export default defineComponent({
     }
 
     return {
-      data,
+      state,
       handlePhoneChange,
       handleInputFocus,
       handleInputBlur,
@@ -145,7 +146,7 @@ export default defineComponent({
   },
   render() {
     const {
-      data,
+      state,
       handlePhoneChange,
       handleInputFocus,
       handleInputBlur,
@@ -167,13 +168,13 @@ export default defineComponent({
               <label>手机号码</label>
               <div
                 class={classNames(styles.checkBoxInput, {
-                  [styles.focus]: "phone" === data.focusName
+                  [styles.focus]: "phone" === state.focusName
                 })}
               >
                 <input
                   type="number"
                   placeholder="请输入手机号码"
-                  value={data.phone}
+                  value={state.phone}
                   onInput={handlePhoneChange}
                   onFocus={() => handleInputFocus("phone")}
                   onBlur={handleInputBlur}
@@ -184,13 +185,13 @@ export default defineComponent({
               <label>验证码</label>
               <div
                 class={classNames(styles.checkBoxInput, {
-                  [styles.focus]: "code" === data.focusName
+                  [styles.focus]: "code" === state.focusName
                 })}
               >
                 <input
                   type="number"
                   placeholder="请输入验证码"
-                  value={data.code}
+                  value={state.code}
                   onInput={handleCodeChange}
                   onFocus={() => handleInputFocus("code")}
                   onBlur={handleInputBlur}
@@ -201,9 +202,9 @@ export default defineComponent({
                     size="small"
                     block
                     onClick={handleSendCode}
-                    disabled={data.sendingCodeStatus}
+                    disabled={state.sendingCodeStatus}
                   >
-                    {data.sendingCodeStatus ? data.sendingCodeText : "发送验证码"}
+                    {state.sendingCodeStatus ? state.sendingCodeText : "发送验证码"}
                   </EButton>
                 </div>
               </div>
@@ -212,7 +213,7 @@ export default defineComponent({
               type="info"
               block
               onClick={handleSubmit}
-              disabled={data.submitStatus}
+              disabled={state.submitStatus}
             >
               提交
             </EButton>
