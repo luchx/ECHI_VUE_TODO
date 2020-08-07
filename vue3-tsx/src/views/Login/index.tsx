@@ -1,13 +1,15 @@
 import { defineComponent, reactive } from "vue";
 import Logo from "/@/assets/image/logo.png";
 import classNames from "classnames";
-import styles from "./index.module.less";
+import { useStore } from 'vuex';
 import { ApiGetVerify, ApiLogin } from "/@/api/user";
 import { TestPhone } from "/@/utils/validate";
 import { local } from "/@/utils/storage";
 import EContainer from '/@/components/Container';
 import EButton from '/@/components/Button';
 import { Toast } from '/@/components/Toast';
+import styles from "./index.module.less";
+import { useRouter } from 'vue-router';
 
 type State = {
   focusName: string;
@@ -23,6 +25,9 @@ type State = {
 export default defineComponent({
   name: "Login",
   setup() {
+    const store = useStore();
+    const router = useRouter();
+
     const state = reactive<State>({
       focusName: "",
       phone: "",
@@ -52,12 +57,9 @@ export default defineComponent({
     // 验证码输入操作
     const handleCodeChange = (event) => {
       state.code = event.target.value;
-      console.log({
-        event
-      });
     }
 
-    const validatePhone = (phone) => {
+    const validatePhone = (phone: string): boolean => {
       if (!phone) {
         Toast("请输入您的手机号码");
         return false;
@@ -114,19 +116,21 @@ export default defineComponent({
 
     const handleSubmit = () => {
       const { phone, code } = state;
+
       if (!validatePhone(phone)) {
         return;
       }
       if (code.length === 0) {
         return Toast("请输入验证码");
       }
+
       ApiLogin({ phone, code })
         .then(resp => {
           if (resp.code === 0) {
             Toast("欢迎回来!!!");
             local.set("token", resp.result.token);
-            // dispatch("updateUser", resp.result);
-            // router.replace({ path: "/" });
+            store.dispatch("updateUser", resp.result);
+            router.replace({ path: "/" });
           }
         })
         .catch(err => {
