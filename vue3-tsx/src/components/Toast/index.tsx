@@ -41,7 +41,7 @@ const ToastComponent = defineComponent({
       if (isType(options) === "string") {
         defaultOptions.title = options
       } else {
-        defaultOptions = Object.assign(options, options)
+        defaultOptions = Object.assign(defaultOptions, options)
       }
 
       state.visible = true;

@@ -3,9 +3,13 @@ import { useStore } from 'vuex';
 import EContainer from "/@/components/Container"
 import { Toast } from "/@/components/Toast"
 
-Toast.open({
+const toast = Toast({
   title: '111'
-})
+});
+
+setTimeout(() => {
+  toast.close()
+}, 500)
 
 export default defineComponent({
   name: 'App',
