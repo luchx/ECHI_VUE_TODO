@@ -202,8 +202,7 @@ export default defineComponent({
                 />
                 <div class={styles.checkBoxBtn}>
                   <EButton
-                    type="primary"
-                    size="small"
+                    type="success"
                     block
                     onClick={handleSendCode}
                     disabled={state.sendingCodeStatus}
@@ -214,8 +213,9 @@ export default defineComponent({
               </div>
             </div>
             <EButton
-              type="info"
+              type="primary"
               block
+              size="large"
               onClick={handleSubmit}
               disabled={state.submitStatus}
             >

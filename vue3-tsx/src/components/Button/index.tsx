@@ -7,7 +7,7 @@ export default defineComponent({
   props: {
     type: {
       type: String,
-      default: ""
+      default: "default"
     },
     disabled: {
       type: Boolean,
