@@ -3,19 +3,13 @@ import { defineComponent, reactive, provide } from 'vue';
 
 export default defineComponent({
   name: "Container",
-  provide() {
-    return {
-      parent: this
-    };
-  },
-  setup(props, { slots }) {
+  setup() {
+    provide("parent", this);
+
     const data = reactive({
       collapsed: false,
     });
-    provide("parent", {
-      handleToggle,
-    })
-
+    
     function handleToggle(status) {
       if (status !== undefined) {
         data.collapsed = status;
@@ -24,8 +18,13 @@ export default defineComponent({
       data.collapsed = !data.collapsed;
     }
 
-    return () => (
-      <section class={styles.wrapper}>{slots.default && slots.default()}</section>
+    return {
+      handleToggle
+    }
+  },
+  render() {
+    return (
+      <section class={styles.wrapper}>{this.$slots.default && this.$slots.default()}</section>
     )
   }
 });

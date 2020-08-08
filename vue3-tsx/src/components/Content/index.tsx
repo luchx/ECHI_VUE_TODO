@@ -3,9 +3,9 @@ import { defineComponent } from 'vue';
 
 export default defineComponent({
   name: "Content",
-  setup(props, { slots }) {
-    return () => (
-      <section class={styles.content}>{slots.default && slots.default()}</section>
+  render() {
+    return (
+      <section class={styles.content}>{this.$slots.default && this.$slots.default()}</section>
     )
   }
 });
