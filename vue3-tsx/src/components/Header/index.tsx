@@ -42,6 +42,7 @@ export default defineComponent({
     }
   },
   render() {
+    const { handleBack, setToggle } = this;
     const { type, title, extra } = this.$props;
 
     return (
@@ -49,14 +50,14 @@ export default defineComponent({
         {type === "back" ? (
           <i
             class={classNames("iconfont", styles.icon)}
-            onClick={this.handleBack}
+            onClick={handleBack}
           >
             &#xe60f;
           </i>
         ) : (
             <i
               class={classNames("iconfont", styles.icon)}
-              onClick={this.setToggle}
+              onClick={setToggle}
             >
               &#xe61f;
             </i>

@@ -6,6 +6,7 @@ import EContent from '/@/components/Content';
 import EAside from '/@/components/Aside';
 import EFooter from '/@/components/Footer';
 import ETodoCard from '/@/components/TodoCard';
+import EButton from '/@/components/Button';
 import styles from "./index.module.less";
 import { Toast } from '/@/components/Toast';
 import { useRouter, useRoute } from 'vue-router';
@@ -104,9 +105,9 @@ export default defineComponent({
                 name: "TodoDetail"
               }}
             >
-              <van-button plain type="info" class={styles.addBtn}>
+              <EButton size="small" type="success" class={styles.addBtn}>
                 新增
-              </van-button>
+              </EButton>
             </router-link>
           }
         />
