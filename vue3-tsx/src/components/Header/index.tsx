@@ -1,9 +1,10 @@
-import styles from "./index.module.less";
+import { defineComponent, inject } from 'vue';
+import { useRouter } from 'vue-router';
 import classNames from "classnames";
+import styles from "./index.module.less";
 
-export default {
+export default defineComponent({
   name: "Header",
-  inject: ["parent"],
   props: {
     title: {
       type: String,
@@ -22,18 +23,22 @@ export default {
       default: null
     }
   },
-  methods: {
-    handleToggle() {
-      const { handleToggle } = this.parent;
-      handleToggle(true);
-    },
-    handleBack() {
-      const { goBack } = this.$props;
+  setup(props) {
+    const [, setToggle] = inject<any>("parent");
+    const router = useRouter();
+
+    function handleBack() {
+      const { goBack } = props;
       if (typeof goBack === "function") {
         goBack();
         return;
       }
-      this.$router.back();
+      router.back();
+    }
+
+    return {
+      handleBack,
+      setToggle
     }
   },
   render() {
@@ -49,16 +54,16 @@ export default {
             &#xe60f;
           </i>
         ) : (
-          <i
-            class={classNames("iconfont", styles.icon)}
-            onClick={this.handleToggle}
-          >
-            &#xe61f;
-          </i>
-        )}
+            <i
+              class={classNames("iconfont", styles.icon)}
+              onClick={this.setToggle}
+            >
+              &#xe61f;
+            </i>
+          )}
         <span class={styles.title}>{title}</span>
         <span class={styles.extra}>{extra}</span>
       </header>
     );
   }
-};
+});

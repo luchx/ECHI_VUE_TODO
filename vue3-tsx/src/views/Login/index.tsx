@@ -130,7 +130,7 @@ export default defineComponent({
             Toast("欢迎回来!!!");
             local.set("token", resp.result.token);
             store.dispatch("updateUser", resp.result);
-            router.replace({ path: "/" });
+            router.replace({ path: "/todo" });
           }
         })
         .catch(err => {

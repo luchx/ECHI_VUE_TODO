@@ -65,7 +65,7 @@ const ToastComponent = defineComponent({
     return state.visible ? (
       <section class={classNames({
         [styles.toastWrapper]: true,
-        "animate__animated animate__pulse": true
+        "animate__animated animate__zoomIn": true
       })}>
         {state.showMask && (
           <div class={styles.toastMask} onClick={close} />

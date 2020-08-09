@@ -1,26 +1,26 @@
 import styles from "./index.module.less";
-import { defineComponent, reactive, provide } from 'vue';
+import { defineComponent, provide, ref } from 'vue';
+
+function useCollapsed() {
+  const collapsed = ref(true);
+
+  function setToggle(status) {
+    if (status !== undefined) {
+      collapsed.value = status;
+      return;
+    }
+    collapsed.value = !collapsed;
+  }
+  provide("parent", [
+    collapsed,
+    setToggle
+  ]);
+}
 
 export default defineComponent({
   name: "Container",
   setup() {
-    provide("parent", this);
-
-    const data = reactive({
-      collapsed: false,
-    });
-    
-    function handleToggle(status) {
-      if (status !== undefined) {
-        data.collapsed = status;
-        return;
-      }
-      data.collapsed = !data.collapsed;
-    }
-
-    return {
-      handleToggle
-    }
+    useCollapsed()
   },
   render() {
     return (

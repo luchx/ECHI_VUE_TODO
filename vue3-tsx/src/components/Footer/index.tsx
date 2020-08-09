@@ -1,10 +1,12 @@
-import styles from "./index.module.less";
+import { defineComponent, reactive } from 'vue';
+import { RouterLink } from 'vue-router';
 import classNames from "classnames";
+import styles from "./index.module.less";
 
-export default {
+export default defineComponent({
   name: "Footer",
-  data() {
-    return {
+  setup() {
+    const state = reactive({
       list: [
         {
           title: "待办",
@@ -25,27 +27,33 @@ export default {
           icon: "&#xe68a;"
         }
       ]
-    };
+    })
+
+    return {
+      state
+    }
   },
   render() {
-    const { list } = this.$data;
+    const { list } = this.state;
+    
     return (
       <section class={styles.footer}>
         {list.map(item => (
-          <router-link
+          <RouterLink
             to={item.path}
-            activeClass={styles.active}
-            class={styles.iconItem}
+            router-link-active={styles.active}
             key={item.key}
           >
-            <i
-              class={classNames("iconfont", styles.icon)}
-              domPropsInnerHTML={item.icon}
-            ></i>
-            <p>{item.title}</p>
-          </router-link>
+            <div class={styles.iconItem}>
+              <i
+                class={classNames("iconfont", styles.icon)}
+                domPropsInnerHTML={item.icon}
+              ></i>
+              <p>{item.title}</p>
+            </div>
+          </RouterLink>
         ))}
       </section>
     );
   }
-};
+});

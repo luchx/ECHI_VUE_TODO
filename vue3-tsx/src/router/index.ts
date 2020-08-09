@@ -14,6 +14,14 @@ const routes: RouteRecordRaw[] = [
     },
     component: () => import("/@/views/Login")
   },
+  {
+    path: "/todo",
+    name: "Todo",
+    meta: {
+      title: "待办"
+    },
+    component: () => import("/@/views/Todo")
+  },
 ];
 
 const router = createRouter({

@@ -1,4 +1,4 @@
-import { defineComponent } from "vue";
+import { defineComponent, onMounted, reactive } from "vue";
 import { ApiGetTodoList, ApiDeleteTodoToRecycle } from "/@/api/todo";
 import EContainer from '/@/components/Container';
 import EHeader from '/@/components/Header';
@@ -6,75 +6,97 @@ import EContent from '/@/components/Content';
 import EAside from '/@/components/Aside';
 import EFooter from '/@/components/Footer';
 import ETodoCard from '/@/components/TodoCard';
-
 import styles from "./index.module.less";
+import { Toast } from '/@/components/Toast';
+import { useRouter, useRoute } from 'vue-router';
+
+type TodoState = {
+  currentPage: number;
+  pageSize: number;
+  total: number;
+  todoList: any[];
+  loading: boolean;
+}
 
 export default defineComponent({
   name: "Todo",
-  data() {
-    return {
+  setup() {
+    const router = useRouter();
+    const route = useRoute();
+
+    const state = reactive<TodoState>({
       currentPage: 1,
       pageSize: 10,
       total: 0,
       todoList: [],
       loading: false
-    };
-  },
-  methods: {
-    async getTodoList(page = 1, pageSize = 10) {
-      if (this.loading) return;
-      this.loading = true;
-      this.currentPage = page;
-      this.pageSize = pageSize;
+    })
+
+    async function getTodoList(page = 1, pageSize = 10) {
+      if (state.loading) return;
+      state.loading = true;
+      state.currentPage = page;
+      state.pageSize = pageSize;
       const data = {
         page,
         pageSize
       };
       const resp = await ApiGetTodoList(data);
-      this.loading = false;
+      state.loading = false;
       if (resp.code === 0) {
         const { list, pagination } = resp.result;
         const { total } = pagination;
-        this.todoList = list;
-        this.total = total;
+        state.todoList = list;
+        state.total = total;
       }
-    },
-    handleCheck(item) {
+    }
+
+    function handleCheck(item) {
       const { id, isFinished } = item;
-      this.todoList = this.todoList.filter(todo => todo.id !== id);
+      state.todoList = state.todoList.filter(todo => todo.id !== id);
       if (isFinished) {
-        this.todoList.push(item);
+        state.todoList.push(item);
       } else {
-        this.todoList.unshift(item);
+        state.todoList.unshift(item);
       }
-    },
-    handleGoDetail(item) {
-      this.$router.push({
+    }
+
+    function handleGoDetail(item) {
+      router.push({
         name: "TodoDetail",
         query: {
           id: item.id
         }
       });
-    },
-    async handleDelete(item) {
+    }
+
+    async function handleDelete(item) {
       const { id } = item;
       const resp = await ApiDeleteTodoToRecycle(id);
       if (resp.code === 0) {
-        this.$toast.success("删除成功");
-        this.todoList = this.todoList.filter(todo => todo.id !== id);
+        Toast("删除成功");
+        state.todoList = state.todoList.filter(todo => todo.id !== id);
       }
     }
-  },
-  mounted() {
-    this.getTodoList();
+
+    onMounted(() => {
+      // getTodoList()
+    });
+
+    return {
+      state,
+      route,
+      handleCheck, handleGoDetail, handleDelete
+    }
   },
   render() {
-    const { todoList, loading } = this.$data;
+    const { state, route, handleCheck, handleGoDetail, handleDelete } = this;
+    const { todoList, loading } = state;
 
     return (
       <EContainer>
         <EHeader
-          title={this.$route.meta.title}
+          title={route.meta.title}
           type="menu"
           extra={
             <router-link
@@ -90,13 +112,13 @@ export default defineComponent({
         />
         <EAside />
         <EContent>
-          <ETodoCard
+          {/* <ETodoCard
             loading={loading}
             todoList={todoList}
-            onCheck={this.handleCheck}
-            onGoDetail={this.handleGoDetail}
-            onDel={this.handleDelete}
-          />
+            onCheck={handleCheck}
+            onGoDetail={handleGoDetail}
+            onDel={handleDelete}
+          /> */}
         </EContent>
         <EFooter />
       </EContainer>
