@@ -1,6 +1,7 @@
 import styles from "./index.module.less";
+import { defineComponent } from 'vue';
 
-export default {
+export default defineComponent({
   name: "CardSkeleton",
   props: {
     loading: {
@@ -21,10 +22,10 @@ export default {
       loading && (
         <div class={styles.emptyCard}>
           {defaultList.map(() => (
-            <van-skeleton class={styles.emptyCardItem} row={2} />
+            // <van-skeleton class={styles.emptyCardItem} row={2} />
           ))}
         </div>
       )
     );
   }
-};
+});
