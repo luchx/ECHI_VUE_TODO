@@ -96,6 +96,8 @@ export default defineComponent({
 
     // 发送验证码
     const handleSendCode = () => {
+      console.log(45456);
+      
       const { phone } = state;
       if (!validatePhone(phone)) {
         return;
@@ -130,7 +132,7 @@ export default defineComponent({
             Toast("欢迎回来!!!");
             local.set("token", resp.result.token);
             store.dispatch("updateUser", resp.result);
-            router.replace({ path: "/todo" });
+            router.replace({ path: "/" });
           }
         })
         .catch(err => {
@@ -216,7 +218,7 @@ export default defineComponent({
               type="primary"
               block
               size="large"
-              onClick={handleSubmit}
+              on-click={handleSubmit}
               disabled={state.submitStatus}
             >
               提交
