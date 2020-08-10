@@ -12,6 +12,15 @@ moment.locale("zh-cn");
 
 import Toast from "/@/components/Toast";
 
+console.log(process.env);
+
+
+// 接入 mockjs
+// require("@/mock");
+// if (process.env.VITE_MOCK) {
+//   require("@/mock");
+// }
+
 // 添加 fastclick
 if ("addEventListener" in document) {
   document.addEventListener(
