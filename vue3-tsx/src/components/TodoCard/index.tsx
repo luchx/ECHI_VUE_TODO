@@ -1,9 +1,10 @@
+import { defineComponent } from 'vue';
 import styles from "./index.module.less";
 import classNames from "classnames";
 import ECardSkeleton from '/@/components/CardSkeleton';
 import EEmpty from '/@/components/Empty';
 
-export default {
+export default defineComponent({
   name: "TodoCard",
   props: {
     loading: {
@@ -26,30 +27,46 @@ export default {
       default: true
     }
   },
-  methods: {
-    handleToggleCheck(event, item) {
+  setup(props, { emit }) {
+    function handleToggleCheck(event, item) {
       event.stopPropagation();
       item.isFinished = !item.isFinished;
-      this.$emit("check", item);
-    },
-    goDetail(item) {
-      this.$emit("goDetail", item);
-    },
-    handleDelete(item) {
-      const { recycle } = this.$props;
-      this.$dialog
-        .confirm({
-          message: recycle ? "确认彻底删除此记录?" : "确定删除吗?"
-        })
-        .then(() => {
-          this.$emit("del", item);
-        });
-    },
-    handleRestore(item) {
-      this.$emit("restore", item);
+      emit("check", item);
+    }
+
+    function  goDetail(item) {
+      emit("goDetail", item);
+    }
+
+    function handleDelete(item) {
+      const { recycle } = props;
+      // this.$dialog
+      //   .confirm({
+      //     message: recycle ? "确认彻底删除此记录?" : "确定删除吗?"
+      //   })
+      //   .then(() => {
+      //     this.$emit("del", item);
+      //   });
+    }
+
+    function handleRestore(item) {
+      emit("restore", item);
+    }
+
+    return {
+      handleToggleCheck,
+      goDetail,
+      handleDelete,
+      handleRestore
     }
   },
   render() {
+    const {
+      handleToggleCheck,
+      goDetail,
+      handleDelete,
+      handleRestore
+    } = this;
     const { todoList, recycle, showCheck, loading } = this.$props;
 
     if (loading) {
@@ -92,7 +109,7 @@ export default {
                 {!recycle && showCheck && (
                   <span
                     class={styles.cardCheck}
-                    onClick={event => this.handleToggleCheck(event, item)}
+                    onClick={event => handleToggleCheck(event, item)}
                   >
                     <i
                       class={classNames("iconfont", styles.icon)}
@@ -122,4 +139,4 @@ export default {
       </transition-group>
     );
   }
-};
+});

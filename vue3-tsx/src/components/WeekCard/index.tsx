@@ -1,7 +1,8 @@
+import { defineComponent } from "vue";
 import styles from "./index.module.less";
 import classNames from "classnames";
 
-export default {
+export default defineComponent({
   name: "WeekCard",
   props: {
     weekDate: {
@@ -13,15 +14,24 @@ export default {
       default: new Date().getTime()
     }
   },
-  methods: {
-    handleShowCalender() {
-      this.$emit("showMore");
-    },
-    handleChangeDate(date) {
-      this.$emit("updateDate", date);
+  setup(props, { emit }) {
+    function handleShowCalender() {
+      emit("showMore");
+    }
+
+    function handleChangeDate(date) {
+      emit("updateDate", date);
+    }
+    return {
+      handleShowCalender,
+      handleChangeDate
     }
   },
   render() {
+    const {
+      handleShowCalender,
+      handleChangeDate
+    } = this
     const { weekDate, currentDate } = this.$props;
 
     return (
@@ -32,7 +42,7 @@ export default {
               <div class={classNames(styles.dateBoxItem)} key={index}>
                 {
                   ["日", "一", "二", "三", "四", "五", "六"][
-                    this.$moment(date).day()
+                  this.$moment(date).day()
                   ]
                 }
               </div>
@@ -46,7 +56,7 @@ export default {
                 class={classNames(styles.dayBoxItem, {
                   [styles.active]: this.$moment(date).isSame(currentDate, "day")
                 })}
-                onClick={() => this.handleChangeDate(date)}
+                onClick={() => handleChangeDate(date)}
                 key={date}
               >
                 <span>{this.$moment(date).date()}</span>
@@ -54,10 +64,10 @@ export default {
             );
           })}
         </div>
-        <div class={styles.dateBoxMore} onClick={this.handleShowCalender}>
+        <div class={styles.dateBoxMore} onClick={handleShowCalender}>
           <i class="iconfont">&#xe756;</i>
         </div>
       </div>
     );
   }
-};
+});
