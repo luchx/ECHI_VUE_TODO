@@ -1,8 +1,9 @@
 import styles from "./index.module.less";
 import { ApiGetTodoListByDay, ApiDeleteTodoToRecycle } from "@/api/todo";
 import { mapState } from "vuex";
+import { defineComponent } from 'vue';
 
-export default {
+export default defineComponent({
   name: "Date",
   data() {
     return {
@@ -159,4 +160,4 @@ export default {
       </EContainer>
     );
   }
-};
+});

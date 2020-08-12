@@ -3,8 +3,9 @@ import {
   ApiDeleteTodo,
   ApiRestoreTodoFromRecycle
 } from "@/api/todo";
+import { defineComponent } from 'vue';
 
-export default {
+export default defineComponent({
   name: "Recycle",
   data() {
     return {
@@ -83,4 +84,4 @@ export default {
       </EContainer>
     );
   }
-};
+});

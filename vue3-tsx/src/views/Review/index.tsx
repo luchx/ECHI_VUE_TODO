@@ -1,7 +1,8 @@
 import styles from "./index.module.less";
 import { ApiGetReviewTodoList, ApiDeleteTodoToRecycle } from "@/api/todo";
+import { defineComponent } from 'vue';
 
-export default {
+export default defineComponent({
   name: "Review",
   data() {
     return {
@@ -106,4 +107,4 @@ export default {
       </EContainer>
     );
   }
-};
+});

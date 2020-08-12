@@ -1,7 +1,8 @@
 import styles from "./index.module.less";
 import { ApiGetFinishedTodoList, ApiDeleteTodoToRecycle } from "@/api/todo";
+import { defineComponent } from 'vue';
 
-export default {
+export default defineComponent({
   name: "Finished",
   data() {
     return {
@@ -80,4 +81,4 @@ export default {
       </EContainer>
     );
   }
-};
+});

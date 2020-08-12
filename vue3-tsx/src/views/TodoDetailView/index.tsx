@@ -1,8 +1,9 @@
 import styles from "./index.module.less";
 import classNames from "classnames";
 import { ApiGetTodoDetail } from "@/api/todo";
+import { defineComponent } from 'vue';
 
-export default {
+export default defineComponent({
   name: "TodoDetailView",
   data() {
     return {
@@ -116,4 +117,4 @@ export default {
       </EContainer>
     );
   }
-};
+});
