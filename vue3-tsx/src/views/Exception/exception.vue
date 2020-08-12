@@ -18,10 +18,10 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
+import { defineComponent, toRefs, computed } from "vue";
 import config from "./config";
 
-export default Vue.extend({
+export default defineComponent({
   props: {
     type: {
       type: String,
@@ -40,16 +40,14 @@ export default Vue.extend({
       default: null
     }
   },
-  data() {
+  setup(props) {
+    const pageType = computed(() => props.type in config ? props.type : "404");
+
     return {
-      config
-    };
-  },
-  computed: {
-    pageType(): string {
-      return this.type in this.config ? this.type : "404";
+      config: toRefs(config),
+      pageType,
     }
-  }
+  },
 });
 </script>
 
