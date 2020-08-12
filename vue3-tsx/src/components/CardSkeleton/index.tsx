@@ -22,7 +22,10 @@ export default defineComponent({
       loading && (
         <div class={styles.emptyCard}>
           {defaultList.map(() => (
-            // <van-skeleton class={styles.emptyCardItem} row={2} />
+            <div class={styles.emptyCardItem}>
+              <p></p>
+              <div></div>
+            </div>
           ))}
         </div>
       )
