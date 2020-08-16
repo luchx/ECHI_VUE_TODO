@@ -18,16 +18,7 @@
       "/@/*": [
         "src/*"
       ],
-      "/@styles/*": [
-        "src/assets/styles/*"
-      ]
     },
-    "lib": [
-      "esnext",
-      "dom",
-      "dom.iterable",
-      "scripthost"
-    ]
   },
   "include": [
     "src/**/*.ts",

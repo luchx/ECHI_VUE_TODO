@@ -22,19 +22,7 @@ export default defineComponent({
       default: 'normal'
     },
   },
-  setup(props, { emit }) {
-    function handleClick(event) {
-      console.log(123);
-      
-      emit("tap", event)
-    }
-
-    return {
-      handleClick
-    }
-  },
   render() {
-    const { handleClick } = this;
     const { block, size, disabled, type } = this.$props;
 
     return (
@@ -46,7 +34,6 @@ export default defineComponent({
           [styles["button-block"]]: block,
           [styles["button-disabled"]]: disabled,
         })}
-        onClick={handleClick}
         disabled={disabled}
       >{this.$slots.default && this.$slots.default()}</button>
     )

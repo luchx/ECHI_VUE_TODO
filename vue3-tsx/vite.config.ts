@@ -8,7 +8,6 @@ function resolve(dir) {
 const config: SharedConfig = {
   alias: {
     "/@/": resolve("src"),
-    "/@styles/": resolve("src/assets/styles"),
   },
   cssPreprocessOptions: {
     less: {

@@ -16,9 +16,8 @@ console.log(process.env);
 
 
 // 接入 mockjs
-// require("@/mock");
 // if (process.env.VITE_MOCK) {
-//   require("@/mock");
+//   require("/@/mock");
 // }
 
 // 添加 fastclick
