@@ -2,6 +2,7 @@ import { defineComponent, reactive, App, createApp } from 'vue';
 import classNames from 'classnames';
 import styles from "./index.modules.less";
 import { isType } from '/@/utils';
+import EButton from '/@/components/Button';
 
 type State = {
   visible: boolean;
@@ -71,7 +72,20 @@ const ModalComponent = defineComponent({
           <div class={styles.modalMask} onClick={close} />
         )}
         <div class={styles.modalContent}>
-          {state.title}
+          <header class={styles.modalHeader}>
+            {state.title}
+          </header>
+          <main class={styles.modalMain}>
+            {this.$slots.default}
+          </main>
+          <footer class={styles.modalFooter}>
+            {this.$slots.footer ? this.$slots.footer() : (
+              <div>
+                <EButton size="small">取消</EButton>
+                <EButton size="small" type="primary">确定</EButton>
+              </div>
+            )}
+          </footer>
         </div>
       </section>
     ) : null
