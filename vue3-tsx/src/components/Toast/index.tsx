@@ -102,10 +102,4 @@ class ToastFn {
   }
 }
 
-export const Toast = (options) => new ToastFn(options)
-
-export default {
-  install(app: App) {
-    app.config.globalProperties.$Toast = Toast
-  }
-}
+export default (options) => new ToastFn(options)

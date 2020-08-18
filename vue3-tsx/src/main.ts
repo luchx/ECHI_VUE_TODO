@@ -7,14 +7,6 @@ import App from '/@/App';
 import router from '/@/router';
 import store from '/@/store';
 
-import moment from "moment";
-moment.locale("zh-cn");
-
-import Toast from "/@/components/Toast";
-
-console.log(process.env);
-
-
 // 接入 mockjs
 // if (process.env.VITE_MOCK) {
 //   require("/@/mock");
@@ -33,9 +25,12 @@ if ("addEventListener" in document) {
 
 const app = createApp(App);
 
+import moment from "moment";
+moment.locale("zh-cn");
 app.config.globalProperties.$moment = moment;
 
-app.use(Toast)
+import component from "/@/components";
+app.use(component)
 
 app.use(router)
   .use(store)

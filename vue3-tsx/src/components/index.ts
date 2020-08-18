@@ -1,3 +1,4 @@
+import { App } from 'vue';
 import Container from "./Container";
 import Header from "./Header";
 import Content from "./Content";
@@ -10,7 +11,7 @@ import Button from "./Button";
 import CardSkeleton from "./CardSkeleton";
 import Toast from "./Toast";
 
-export default {
+const components = {
   Container,
   Header,
   Content,
@@ -21,5 +22,11 @@ export default {
   WeekCard,
   Button,
   CardSkeleton,
-  Toast
 }
+
+export default {
+  install(app: App) {
+    app.config.globalProperties.$Toast = Toast;
+  }
+}
+

@@ -7,7 +7,7 @@ import { TestPhone } from "/@/utils/validate";
 import { local } from "/@/utils/storage";
 import EContainer from '/@/components/Container';
 import EButton from '/@/components/Button';
-import { Toast } from '/@/components/Toast';
+import Toast from '/@/components/Toast';
 import styles from "./index.module.less";
 import { useRouter } from 'vue-router';
 
