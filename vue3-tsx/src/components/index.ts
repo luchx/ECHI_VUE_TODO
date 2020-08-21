@@ -10,6 +10,7 @@ import WeekCard from "./WeekCard";
 import Button from "./Button";
 import CardSkeleton from "./CardSkeleton";
 import Toast from "./Toast";
+import Modal from "./Modal";
 
 const components = {
   Container,
@@ -27,6 +28,7 @@ const components = {
 export default {
   install(app: App) {
     app.config.globalProperties.$Toast = Toast;
+    app.config.globalProperties.$Modal = Modal;
   }
 }
 

@@ -48,10 +48,10 @@ const ModalComponent = defineComponent({
       state.visible = true;
       state.title = defaultOptions.title;
       state.showMask = defaultOptions.showMask;
-      clearTimeout(state.timer);
-      state.timer = setTimeout(() => {
-        close()
-      }, defaultOptions.delay)
+      // clearTimeout(state.timer);
+      // state.timer = setTimeout(() => {
+      //   close()
+      // }, defaultOptions.delay)
     }
 
     return {
@@ -81,7 +81,7 @@ const ModalComponent = defineComponent({
           <footer class={styles.modalFooter}>
             {this.$slots.footer ? this.$slots.footer() : (
               <div>
-                <EButton size="small">取消</EButton>
+                <EButton size="small" style="margin-right: 16px">取消</EButton>
                 <EButton size="small" type="primary">确定</EButton>
               </div>
             )}
@@ -116,10 +116,4 @@ class ModalFn {
   }
 }
 
-export const Modal = (options) => new ModalFn(options)
-
-export default {
-  install(app: App) {
-    app.config.globalProperties.$Modal = Modal
-  }
-}
+export default (options) => new ModalFn(options)

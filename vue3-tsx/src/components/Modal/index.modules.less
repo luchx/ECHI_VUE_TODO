@@ -25,16 +25,27 @@
   position: relative;
   z-index: @zIndex-top;
   display: block;
-  min-width: 80px;
+  min-width: 200px;
   word-break: break-all;
-  max-width: 300px;
-  padding: 8px 16px;
+  padding: 16px;
   font-size: @font-size-base; /*px*/
   color: #fff;
   text-align: center;
   text-decoration: none;
   word-wrap: break-word;
-  background-color: rgba(0, 0, 0, 0.75);
+  background-color: #fff;
   border-radius: @border-radius-base;
   box-shadow: @box-shadow-base;
+}
+
+.modalHeader {
+  display: block;
+  color: @text-color;
+  margin-bottom: @primary-gap;
+}
+
+.modalFooter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
