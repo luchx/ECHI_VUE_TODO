@@ -21,7 +21,7 @@ type Options = string & DefaultOption;
 
 const ModalComponent = defineComponent({
   name: "Modal",
-  setup() {
+  setup(props, { emit }) {
     const state = reactive<State>({
       visible: false,
       title: "",
@@ -54,14 +54,19 @@ const ModalComponent = defineComponent({
       // }, defaultOptions.delay)
     }
 
+    const confirm = () => {
+      emit("confirm")
+    }
+
     return {
       state,
       open,
-      close
+      close,
+      confirm,
     }
   },
   render() {
-    const { state, close } = this;
+    const { state, close, confirm } = this;
 
     return state.visible ? (
       <section class={classNames({
@@ -81,8 +86,8 @@ const ModalComponent = defineComponent({
           <footer class={styles.modalFooter}>
             {this.$slots.footer ? this.$slots.footer() : (
               <div>
-                <EButton size="small" style="margin-right: 16px">取消</EButton>
-                <EButton size="small" type="primary">确定</EButton>
+                <EButton size="small" style="margin-right: 16px" onClick={close}>取消</EButton>
+                <EButton size="small" type="primary" onClick={confirm}>确定</EButton>
               </div>
             )}
           </footer>
