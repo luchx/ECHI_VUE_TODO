@@ -84,12 +84,10 @@ const ModalComponent = defineComponent({
             {this.$slots.default}
           </main>
           <footer class={styles.modalFooter}>
-            {this.$slots.footer ? this.$slots.footer() : (
-              <div>
-                <EButton size="small" style="margin-right: 16px" onClick={close}>取消</EButton>
-                <EButton size="small" type="primary" onClick={confirm}>确定</EButton>
-              </div>
-            )}
+            {this.$slots.footer ? this.$slots.footer() : ([
+              <EButton size="small" style="margin-right: 16px" onClick={close}>取消</EButton>,
+              <EButton size="small" type="primary" onClick={confirm}>确定</EButton>
+            ])}
           </footer>
         </div>
       </section>
