@@ -3,7 +3,6 @@
   "version": "1.0.1",
   "scripts": {
     "serve": "vite serve",
-    "serve:mock": "vite serve",
     "build": "vite build"
   },
   "dependencies": {
