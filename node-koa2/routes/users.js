@@ -1,13 +1,21 @@
-const router = require('koa-router')()
+const router = require('koa-router')();
+const { UserController } = require('../controller/user');
 
 router.prefix('/users')
 
-router.get('/', function (ctx, next) {
-  ctx.body = 'this is a users response!'
-})
+router.post('/login', async (ctx) => {
+  // const params = ctx.params;
 
-router.get('/bar', function (ctx, next) {
-  ctx.body = 'this is a users/bar response'
-})
+  // 创建管理员
+  const admin = await UserController.create({
+    email: "test123@gmail.com",
+    password: "123456",
+    nickname: "Echi"
+  });
+
+  // 返回结果
+  ctx.response.status = 200;
+  ctx.body = admin;
+});
 
 module.exports = router
