@@ -1,7 +1,7 @@
 const router = require('koa-router')();
 const { UserController } = require('../controller/user');
 
-router.prefix('/users')
+router.prefix('/user')
 
 router.post('/login', async (ctx) => {
   // const params = ctx.params;

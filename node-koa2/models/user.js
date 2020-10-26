@@ -2,7 +2,7 @@ const moment = require('moment');
 const bcrypt = require('bcryptjs')
 const {
   sequelize
-} = require('../core/db')
+} = require('../helper/db')
 const {
   Sequelize,
   Model
