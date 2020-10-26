@@ -4,18 +4,21 @@ const bcrypt = require("bcryptjs");
 // 登录
 exports.login = async (ctx) => {
   const { phone, password, nickname } = ctx.request.body;
-  const findUser = await UserModel.findOne({
+  const existUser = await UserModel.findOne({
     where: {
       phone,
       is_deleted: 0,
     },
   });
 
-  if (findUser) {
+  if (existUser) {
     ctx.body = {
       code: 500,
       message: "账号已存在",
-      data: findUser
+      data: {
+        phone: existUser.phone,
+        nickname: existUser.nickname,
+      }
     };
     return;
   }

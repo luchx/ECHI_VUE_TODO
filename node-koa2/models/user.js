@@ -16,7 +16,6 @@ UserModel.init(
     },
     nickname: {
       type: Sequelize.STRING(50),
-      unique: true,
       allowNull: false,
       comment: "用户名称",
     },
