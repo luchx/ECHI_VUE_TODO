@@ -3,26 +3,26 @@ const bcrypt = require("bcryptjs");
 
 // 登录
 exports.login = async (ctx) => {
-  const { email, password, nickname } = ctx.request.body;
-  const hasUser = await UserModel.findOne({
+  const { phone, password, nickname } = ctx.request.body;
+  const findUser = await UserModel.findOne({
     where: {
-      email,
-      deleted_at: null,
+      phone,
+      is_deleted: 0,
     },
   });
 
-  if (hasUser) {
+  if (findUser) {
     ctx.body = {
       code: 500,
       message: "账号已存在",
-      data: null
+      data: findUser
     };
     return;
   }
 
   const user = new UserModel();
   user.nickname = nickname;
-  user.email = email;
+  user.phone = phone;
   user.password = password;
   user.save();
 
@@ -30,18 +30,18 @@ exports.login = async (ctx) => {
     code: 0,
     message: "登录成功",
     data: {
-      email: user.email,
+      phone: user.phone,
       nickname: user.nickname,
     }
   };
 };
 
 exports.verify = async (ctx) => {
-  const { email } = ctx.request.body;
+  const { phone } = ctx.request.body;
   // 查询用户是否存在
   const user = await UserModel.findOne({
     where: {
-      email,
+      phone,
     },
   });
 
