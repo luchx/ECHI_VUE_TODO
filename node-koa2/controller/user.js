@@ -1,9 +1,16 @@
-const UserModel = require("../models/user");
 const bcrypt = require("bcryptjs");
+const {
+  getToken
+} = require("../helper/jwt");
+const UserModel = require("../models/user");
 
 // 登录
 exports.login = async (ctx) => {
-  const { phone, password, nickname } = ctx.request.body;
+  const {
+    phone,
+    password,
+    nickname
+  } = ctx.request.body;
   const existUser = await UserModel.findOne({
     where: {
       phone,
@@ -15,10 +22,10 @@ exports.login = async (ctx) => {
     ctx.body = {
       code: 500,
       message: "账号已存在",
-      data: {
+      data: getToken({
         phone: existUser.phone,
         nickname: existUser.nickname,
-      }
+      })
     };
     return;
   }
@@ -32,15 +39,17 @@ exports.login = async (ctx) => {
   ctx.body = {
     code: 0,
     message: "登录成功",
-    data: {
+    data: getToken({
       phone: user.phone,
       nickname: user.nickname,
-    }
+    })
   };
 };
 
 exports.verify = async (ctx) => {
-  const { phone } = ctx.request.body;
+  const {
+    phone
+  } = ctx.request.body;
   // 查询用户是否存在
   const user = await UserModel.findOne({
     where: {
@@ -63,7 +72,9 @@ exports.verify = async (ctx) => {
 };
 
 exports.detail = async (ctx) => {
-  const { id } = ctx.request.params;
+  const {
+    id
+  } = ctx.request.params;
   const scope = "bh";
   // 查询管理员是否存在
   const user = await UserModel.scope(scope).findOne({

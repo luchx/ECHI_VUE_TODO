@@ -5,21 +5,31 @@ const json = require('koa-json')
 const onerror = require('koa-onerror')
 const koaBody = require('koa-body')
 const logger = require('koa-logger')
+const jwtKoa = require('koa-jwt')
+const {
+  secret,
+  errorHandle,
+  whiteList
+} = require("./helper/jwt");
 
-const index = require('./routes/index')
-const users = require('./routes/users')
+// jwt
+app.use(errorHandle)
+  .use(jwtKoa({
+    secret
+  }).unless({
+    path: whiteList
+  }))
 
 // error handler
 onerror(app)
 
-// middlewares
 app.use(koaBody({
-  enableTypes:['json', 'form', 'text']
+  enableTypes: ['json', 'form', 'text']
 }))
 app.use(json())
 app.use(logger())
-app.use(require('koa-static')(__dirname + '/public'))
 
+app.use(require('koa-static')(__dirname + '/public'))
 app.use(views(__dirname + '/views', {
   extension: 'pug'
 }))
@@ -33,8 +43,11 @@ app.use(async (ctx, next) => {
 })
 
 // routes
-app.use(index.routes(), index.allowedMethods())
-app.use(users.routes(), users.allowedMethods())
+const Index = require('./routes/index')
+const Users = require('./routes/users')
+
+app.use(Index.routes(), Index.allowedMethods())
+app.use(Users.routes(), Users.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {
