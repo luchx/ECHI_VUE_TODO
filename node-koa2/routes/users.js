@@ -1,5 +1,5 @@
 const router = require('koa-router')();
-const { UserController } = require('../controller/user');
+const UserController = require('../controller/user');
 
 router.prefix('/user')
 
@@ -8,7 +8,7 @@ router.post('/login', async (ctx) => {
 
   // 创建管理员
   const admin = await UserController.create({
-    email: "test123@gmail.com",
+    email: "test1232@gmail.com",
     password: "123456",
     nickname: "Echi"
   });

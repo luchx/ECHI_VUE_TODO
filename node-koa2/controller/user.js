@@ -1,6 +1,4 @@
-const {
-  User
-} = require('../models/user')
+const UserModel = require('../models/user')
 const bcrypt = require('bcryptjs')
 
 class UserController {
@@ -12,7 +10,7 @@ class UserController {
       nickname
     } = params;
 
-    const hasUser = await User.findOne({
+    const hasUser = await UserModel.findOne({
       where: {
         email,
         deleted_at: null
@@ -23,7 +21,7 @@ class UserController {
       throw new global.errs.Existing('管理员已存在');
     }
 
-    const user = new User();
+    const user = new UserModel();
     user.nickname = nickname
     user.email = email
     user.password = password
@@ -39,7 +37,7 @@ class UserController {
   static async verify(email, plainPassword) {
 
     // 查询用户是否存在
-    const user = await User.findOne({
+    const user = await UserModel.findOne({
       where: {
         email
       }
@@ -63,7 +61,7 @@ class UserController {
   static async detail(id) {
     const scope = 'bh';
     // 查询管理员是否存在
-    const user = await User.scope(scope).findOne({
+    const user = await UserModel.scope(scope).findOne({
       where: {
         id
       }
@@ -77,6 +75,4 @@ class UserController {
   }
 }
 
-module.exports = {
-  UserController
-}
+module.exports = UserController

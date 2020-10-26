@@ -9,12 +9,12 @@ const {
 } = require('sequelize')
 
 // 定义用户模型
-class User extends Model {
+class UserModel extends Model {
 
 }
 
 // 初始用户模型
-User.init({
+UserModel.init({
   id: {
     type: Sequelize.INTEGER,
     primaryKey: true,
@@ -61,6 +61,4 @@ User.init({
   tableName: 'user'
 })
 
-module.exports = {
-  User
-}
+module.exports = UserModel
