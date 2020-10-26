@@ -1,78 +1,77 @@
-const UserModel = require('../models/user')
-const bcrypt = require('bcryptjs')
+const UserModel = require("../models/user");
+const bcrypt = require("bcryptjs");
 
-class UserController {
-  // 创建用管理员
-  static async create(params) {
-    const {
+// 登录
+exports.login = async (ctx) => {
+  const { email, password, nickname } = ctx.request.body;
+  const hasUser = await UserModel.findOne({
+    where: {
       email,
-      password,
-      nickname
-    } = params;
+      deleted_at: null,
+    },
+  });
 
-    const hasUser = await UserModel.findOne({
-      where: {
-        email,
-        deleted_at: null
-      }
-    });
+  if (hasUser) {
+    ctx.body = {
+      code: 500,
+      message: "账号已存在",
+      data: null
+    };
+    return;
+  }
 
-    if (hasUser) {
-      throw new global.errs.Existing('管理员已存在');
-    }
+  const user = new UserModel();
+  user.nickname = nickname;
+  user.email = email;
+  user.password = password;
+  user.save();
 
-    const user = new UserModel();
-    user.nickname = nickname
-    user.email = email
-    user.password = password
-    user.save();
-
-    return {
+  ctx.body = {
+    code: 0,
+    message: "登录成功",
+    data: {
       email: user.email,
-      nickname: user.nickname
+      nickname: user.nickname,
     }
+  };
+};
+
+exports.verify = async (ctx) => {
+  const { email } = ctx.request.body;
+  // 查询用户是否存在
+  const user = await UserModel.findOne({
+    where: {
+      email,
+    },
+  });
+
+  if (!user) {
+    throw new global.errs.AuthFailed("账号不存在或者密码不正确");
   }
 
-  // 验证密码
-  static async verify(email, plainPassword) {
+  // 验证密码是否正确
+  const correct = bcrypt.compareSync(plainPassword, user.password);
 
-    // 查询用户是否存在
-    const user = await UserModel.findOne({
-      where: {
-        email
-      }
-    })
-
-    if (!user) {
-      throw new global.errs.AuthFailed('账号不存在或者密码不正确')
-    }
-
-    // 验证密码是否正确
-    const correct = bcrypt.compareSync(plainPassword, user.password);
-
-    if (!correct) {
-      throw new global.errs.AuthFailed('账号不存在或者密码不正确')
-    }
-
-    return user
+  if (!correct) {
+    throw new global.errs.AuthFailed("账号不存在或者密码不正确");
   }
 
-  // 查询管理员信息
-  static async detail(id) {
-    const scope = 'bh';
-    // 查询管理员是否存在
-    const user = await UserModel.scope(scope).findOne({
-      where: {
-        id
-      }
-    })
+  return user;
+};
 
-    if (!user) {
-      throw new global.errs.AuthFailed('账号不存在或者密码不正确')
-    }
+exports.detail = async (ctx) => {
+  const { id } = ctx.request.params;
+  const scope = "bh";
+  // 查询管理员是否存在
+  const user = await UserModel.scope(scope).findOne({
+    where: {
+      id,
+    },
+  });
 
-    return user
+  if (!user) {
+    throw new global.errs.AuthFailed("账号不存在或者密码不正确");
   }
-}
 
-module.exports = UserController
+  return user;
+};

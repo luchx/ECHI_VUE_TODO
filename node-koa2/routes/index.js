@@ -1,9 +1,6 @@
-const router = require('koa-router')()
+const router = require("koa-router")();
+const IndexController = require("../controller/index");
 
-router.get('/', async (ctx, next) => {
-  await ctx.render('index', {
-    title: 'Hello Koa 2!'
-  })
-})
+router.get("/", IndexController.home);
 
-module.exports = router
+module.exports = router;
