@@ -28,3 +28,8 @@ exports.getToken = (payload) => {
     expiresIn: "2h"
   })
 }
+
+// 生成 token
+exports.verifyToken = (payload) => {
+  return jwt.verify(payload, secret)
+}

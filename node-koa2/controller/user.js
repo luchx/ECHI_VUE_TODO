@@ -1,6 +1,7 @@
 const bcrypt = require("bcryptjs");
 const {
-  getToken
+  getToken,
+  verifyToken
 } = require("../helper/jwt");
 const UserModel = require("../models/user");
 
@@ -19,14 +20,17 @@ exports.login = async (ctx) => {
   });
 
   if (existUser) {
+    const token = getToken({
+      phone: existUser.phone,
+      nickname: existUser.nickname,
+    })
     ctx.body = {
       code: 500,
       message: "账号已存在",
-      data: getToken({
-        phone: existUser.phone,
-        nickname: existUser.nickname,
-      })
+      data: token,
+      jj: verifyToken(token)
     };
+
     return;
   }
 
