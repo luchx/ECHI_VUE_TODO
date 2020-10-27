@@ -1,17 +1,11 @@
 const bcrypt = require("bcryptjs");
-const {
-  getToken,
-  verifyToken
-} = require("../helper/jwt");
+const { getToken, verifyToken } = require("../helper/jwt");
 const UserModel = require("../models/user");
 
 // 登录
 exports.login = async (ctx) => {
-  const {
-    phone,
-    password,
-    nickname
-  } = ctx.request.body;
+  const { phone, password, nickname } = ctx.request.body;
+
   const existUser = await UserModel.findOne({
     where: {
       phone,
@@ -20,18 +14,7 @@ exports.login = async (ctx) => {
   });
 
   if (existUser) {
-    const token = getToken({
-      phone: existUser.phone,
-      nickname: existUser.nickname,
-    })
-    ctx.body = {
-      code: 500,
-      message: "账号已存在",
-      data: token,
-      jj: verifyToken(token)
-    };
-
-    return;
+    return ctx.fail("账号已存在");
   }
 
   const user = new UserModel();
@@ -40,20 +23,15 @@ exports.login = async (ctx) => {
   user.password = password;
   user.save();
 
-  ctx.body = {
-    code: 0,
-    message: "登录成功",
-    data: getToken({
-      phone: user.phone,
-      nickname: user.nickname,
-    })
-  };
+  const token = getToken({
+    phone: user.phone,
+    password: user.password,
+  });
+  ctx.success("登录成功", token);
 };
 
 exports.verify = async (ctx) => {
-  const {
-    phone
-  } = ctx.request.body;
+  const { phone } = ctx.request.body;
   // 查询用户是否存在
   const user = await UserModel.findOne({
     where: {
@@ -76,9 +54,7 @@ exports.verify = async (ctx) => {
 };
 
 exports.detail = async (ctx) => {
-  const {
-    id
-  } = ctx.request.params;
+  const { id } = ctx.request.params;
   const scope = "bh";
   // 查询管理员是否存在
   const user = await UserModel.scope(scope).findOne({

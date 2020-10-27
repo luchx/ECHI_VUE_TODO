@@ -6,6 +6,7 @@ const onerror = require('koa-onerror')
 const koaBody = require('koa-body')
 const logger = require('koa-logger')
 const jwtKoa = require('koa-jwt')
+const context = require('./helper/context')
 const {
   secret,
   errorHandle,
@@ -28,6 +29,9 @@ app.use(koaBody({
 }))
 app.use(json())
 app.use(logger())
+
+// 添加执行上下文参数
+app.use(context)
 
 app.use(require('koa-static')(__dirname + '/public'))
 app.use(views(__dirname + '/views', {
