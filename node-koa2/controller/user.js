@@ -1,10 +1,18 @@
 const bcrypt = require("bcryptjs");
 const { getToken, verifyToken } = require("../helper/jwt");
+const { TestPhone } = require("../helper/validator");
 const UserModel = require("../models/user");
 
 // 登录
 exports.login = async (ctx) => {
   const { phone, password, nickname } = ctx.request.body;
+  
+  if(!TestPhone(phone)) {
+    return ctx.fail("手机号码不正确", 400)
+  }
+  if(!password) {
+    return ctx.fail("请输入密码", 400)
+  }
 
   const existUser = await UserModel.findOne({
     where: {

@@ -25,7 +25,8 @@
     "moment": "^2.29.1",
     "mysql2": "^2.2.5",
     "pug": "^2.0.3",
-    "sequelize": "^6.3.5"
+    "sequelize": "^6.3.5",
+    "validator": "^13.1.17"
   },
   "devDependencies": {
     "nodemon": "^1.19.1"

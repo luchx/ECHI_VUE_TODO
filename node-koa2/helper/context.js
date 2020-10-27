@@ -3,7 +3,7 @@
  */
 function success(message, result = null) {
   this.body = {
-    code,
+    code: 0,
     result,
     message,
     timestamp: +new Date(),
