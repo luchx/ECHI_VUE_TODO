@@ -40,14 +40,14 @@ exports.verify = async (ctx) => {
   });
 
   if (!user) {
-    throw new global.errs.AuthFailed("账号不存在或者密码不正确");
+    return ctx.fail("账号不存在");
   }
 
   // 验证密码是否正确
   const correct = bcrypt.compareSync(plainPassword, user.password);
 
   if (!correct) {
-    throw new global.errs.AuthFailed("账号不存在或者密码不正确");
+    return ctx.fail("密码不正确");
   }
 
   return user;
