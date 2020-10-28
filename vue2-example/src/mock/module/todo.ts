@@ -4,7 +4,7 @@ export default {
     timestamp: +new Date(),
     result: true
   },
-  "/api/todo/getTodoList": () => {
+  "/api/todo/getList": () => {
     return {
       code: 0,
       timestamp: +new Date(),

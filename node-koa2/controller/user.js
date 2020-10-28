@@ -1,5 +1,5 @@
 const bcrypt = require("bcryptjs");
-const { getToken, verifyToken } = require("../helper/jwt");
+const { getToken } = require("../helper/jwt");
 const { TestPhone } = require("../helper/validator");
 const UserModel = require("../models/user");
 
@@ -33,7 +33,7 @@ async function login(ctx) {
     });
 
     const token = getToken({
-      uid: user.uid,
+      userId: user.id,
       phone: user.phone,
     });
     ctx.currentUser = user;
@@ -49,7 +49,7 @@ async function login(ctx) {
   }
 
   const token = getToken({
-    uid: existUser.uid,
+    userId: existUser.id,
     phone: existUser.phone,
   });
   ctx.currentUser = existUser;
@@ -70,7 +70,6 @@ async function verify(ctx) {
 
 async function detail(ctx) {
   const { id } = ctx.params;
-  console.log(ctx.params)
   const user = await UserModel.findOne({
     where: {
       id,

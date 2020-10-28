@@ -6,7 +6,7 @@ export default {
   name: "TodoDetail",
   data() {
     return {
-      id: null,
+      id: undefined,
       statusVisible: false,
       statusData: {},
       statusOptions: [
@@ -37,7 +37,7 @@ export default {
       title: "",
       description: "",
       date: +new Date(),
-      priority: null
+      priority: undefined
     };
   },
   methods: {
@@ -167,7 +167,7 @@ export default {
                 >
                   <i class={classNames("iconfont", styles.icon)}>&#xe668;</i>
                   <span>
-                    {this.$moment(date).calendar(null, {
+                    {this.$moment(date).calendar(undefined, {
                       sameDay: "[今天]",
                       nextDay: "[明天]",
                       nextWeek: "MM-DD HH:mm",

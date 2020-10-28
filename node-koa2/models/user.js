@@ -14,11 +14,6 @@ UserModel.init(
       autoIncrement: true,
       comment: "主键id",
     },
-    uid: {
-      type: Sequelize.UUID,
-      defaultValue: Sequelize.UUIDV4,
-      comment: "用户 uuid"
-    },
     nickname: {
       type: Sequelize.STRING(50),
       comment: "用户昵称",
