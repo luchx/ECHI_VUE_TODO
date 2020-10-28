@@ -1,13 +1,10 @@
 const jwt = require("jsonwebtoken");
-const secret = "toto_jwt";
+const { secretKey, whiteList, expired } = require("../config").secret;
 // jwt 令牌
-exports.secret = secret;
+exports.secret = secretKey;
 
 // jwt 白名单
-exports.whiteList = [
-  /^\/api\/user\/login/,
-  /^\/api\/user\/getVerify/,
-];
+exports.whiteList = whiteList;
 
 // jwt 错误处理方法
 exports.errorHandle = function (ctx, next) {
@@ -15,7 +12,7 @@ exports.errorHandle = function (ctx, next) {
     if (401 == err.status) {
       ctx.status = 401;
       ctx.body = {
-        code: 401,
+        code: 1001,
         message: "token效验错误",
         data: null,
       };
@@ -27,12 +24,12 @@ exports.errorHandle = function (ctx, next) {
 
 // 生成 token
 exports.getToken = (payload) => {
-  return jwt.sign(payload, secret, {
-    expiresIn: "2h",
+  return jwt.sign(payload, secretKey, {
+    expiresIn: expired,
   });
 };
 
 // 校验 token
 exports.verifyToken = (payload) => {
-  return jwt.verify(payload, secret);
+  return jwt.verify(payload.split(" ")[1], secretKey);
 };

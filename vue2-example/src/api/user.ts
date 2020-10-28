@@ -20,7 +20,7 @@ export function ApiLogin(data: Login) {
  * @param {Number} data.phone 手机号码
  */
 export function ApiGetVerify(phone: number) {
-  return service.get("/api/user/getVerify", {
+  return service.get("/api/user/verify", {
     phone
   });
 }

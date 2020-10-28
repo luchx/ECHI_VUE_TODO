@@ -102,7 +102,7 @@ export default {
                   <img
                     src={
                       this.userInfo.avatar ||
-                      (this.userInfo.sex === 2
+                      (this.userInfo.gender === "2"
                         ? DEFAULT_USER_FEMale
                         : DEFAULT_USER_Male)
                     }
@@ -111,10 +111,10 @@ export default {
 
                 <div class={styles.asideUserInfo}>
                   <p class={styles.asideUserTitle}>
-                    {this.userInfo.userName || "未登录"}
+                    {this.userInfo.userName || "工号001"}
                   </p>
                   <p class={styles.asideUserText}>
-                    {this.userInfo.description || "登录后可使用更多功能~"}
+                    {this.userInfo.description || "记录生活的美好~"}
                   </p>
                 </div>
               </div>

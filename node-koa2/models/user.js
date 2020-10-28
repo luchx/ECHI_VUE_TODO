@@ -61,6 +61,7 @@ UserModel.init(
     gender: {
       type: Sequelize.ENUM,
       values: ["1", "2"],
+      defaultValue: "1",
       comment: "用户性别 【1 - 男 2 - 女】",
     },
     isDeleted: {
@@ -73,7 +74,7 @@ UserModel.init(
       type: Sequelize.DATE,
       allowNull: false,
       get() {
-        return moment(this.getDataValue("createdAt")).format("YYYY-MM-DD");
+        return moment(this.getDataValue("createdAt")).format("YYYY-MM-DD hh:dd:ss");
       },
     },
   },

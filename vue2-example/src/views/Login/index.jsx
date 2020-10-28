@@ -5,6 +5,7 @@ import styles from "./index.module.less";
 import { ApiGetVerify, ApiLogin } from "@/api/user";
 import { TestPhone } from "@/utils/validate";
 import { local } from "@/utils/storage";
+import { setToken } from "@/utils";
 
 export default Vue.extend({
   name: "Login",
@@ -111,8 +112,9 @@ export default Vue.extend({
         .then(resp => {
           if (resp.code === 0) {
             this.$toast("欢迎回来!!!");
-            local.set("token", resp.result.token);
-            this.$store.dispatch("updateUser", resp.result);
+            const { token, user } = resp.result;
+            setToken(token);
+            this.$store.dispatch("updateUser", user);
             this.$router.replace({ path: "/" });
           }
         })

@@ -1,3 +1,4 @@
+import { local } from '@/utils/storage';
 import axios, { AxiosRequestConfig, AxiosError } from "axios";
 
 // 超时重新请求配置
@@ -5,21 +6,14 @@ const VUE_APP_URL = process.env.VUE_APP_URL;
 
 const axiosConfig: AxiosRequestConfig = {
   baseURL: VUE_APP_URL,
-  // // 请求后的数据处理
-  // transformResponse: [
-  //   (data: AxiosResponse) => {
-  //     return data;
-  //   }
-  // ],
   // 超时设置20s
   timeout: 20000,
-  // 跨域是否带Token
-  withCredentials: true,
   responseType: "json",
   headers: {
     "Content-Type": "application/json",
-    "X-Requested-With": "XMLHttpRequest"
-  }
+    "X-Requested-With": "XMLHttpRequest",
+    "If-Modified-Since": 0,                 // 防止get请求在IE下被缓存
+  },
 };
 
 // 修改axios配置信息
@@ -38,6 +32,12 @@ service.interceptors.request.use(
 // 返回状态判断(添加响应拦截器)
 service.interceptors.response.use(
   response => {
+    const data = response.data;
+    // 1001: token失效
+    if (data.code === 1001) {
+      // 需要重新获取token
+      local.remove("token");
+    }
     return response;
   },
   (error: AxiosError) => {

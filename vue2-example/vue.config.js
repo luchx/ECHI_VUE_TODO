@@ -34,14 +34,6 @@ module.exports = {
     }
   },
   devServer: {
-    port: "9000",
-    open: true,
-    historyApiFallback: true,
-    disableHostCheck: true,
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "*",
-      "Access-Control-Allow-Headers": "*"
-    }
+    port: "9000"
   }
 };

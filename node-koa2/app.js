@@ -6,12 +6,27 @@ const onerror = require('koa-onerror')
 const koaBody = require('koa-body')
 const logger = require('koa-logger')
 const jwtKoa = require('koa-jwt')
+const cors = require('koa2-cors')
 const context = require('./helper/context')
 const {
   secret,
   errorHandle,
   whiteList
 } = require("./helper/jwt");
+
+// error handler
+onerror(app)
+
+app.use(
+  cors({
+    origin: "*",
+    maxAge: 5, //指定本次预检请求的有效期，单位为秒。
+    credentials: true, //是否允许发送Cookie
+    allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], //设置所允许的HTTP请求方法
+    allowHeaders: ['x-requested-with', 'if-modified-since', 'Content-Type', 'Authorization', 'Accept'], //设置服务器支持的所有头信息字段
+    exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'] //设置获取其他自定义字段
+  })
+);
 
 // jwt
 app.use(errorHandle)
@@ -20,9 +35,6 @@ app.use(errorHandle)
   }).unless({
     path: whiteList
   }))
-
-// error handler
-onerror(app)
 
 app.use(koaBody({
   enableTypes: ['json', 'form', 'text']

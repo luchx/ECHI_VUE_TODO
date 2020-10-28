@@ -1,3 +1,4 @@
+import { local } from '@/utils/storage';
 import { GetterTree, ActionTree, MutationTree } from "vuex";
 
 export interface State {
@@ -5,13 +6,14 @@ export interface State {
 }
 
 const state: State = {
-  userInfo: {}
+  userInfo: local.get("userInfo") || {}
 };
 
 const getters: GetterTree<State, any> = {};
 
 const actions: ActionTree<State, any> = {
   updateUser({ commit }, result) {
+    local.set("userInfo", result);
     commit("change", {
       userInfo: result
     });
