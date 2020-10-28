@@ -59,7 +59,7 @@ async function login(ctx) {
   });
 }
 
-async function getVerify(ctx) {
+async function verify(ctx) {
   const { phone } = ctx.query;
   if (!TestPhone(phone)) {
     return ctx.fail("手机号码不正确", 400);
@@ -68,24 +68,24 @@ async function getVerify(ctx) {
   ctx.success("获取验证码成功", "1234");
 }
 
-exports.detail = async (ctx) => {
-  const { id } = ctx.request.params;
-  const scope = "bh";
-  // 查询管理员是否存在
-  const user = await UserModel.scope(scope).findOne({
+async function detail(ctx) {
+  const { id } = ctx.params;
+  console.log(ctx.params)
+  const user = await UserModel.findOne({
     where: {
       id,
     },
   });
 
   if (!user) {
-    throw new global.errs.AuthFailed("账号不存在或者密码不正确");
+    throw ctx.fail("账号不存在");
   }
 
-  return user;
+  return ctx.success("获取用户成功", user);
 };
 
 module.exports = {
   login,
-  getVerify,
+  verify,
+  detail,
 };
