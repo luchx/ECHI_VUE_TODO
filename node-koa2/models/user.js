@@ -14,9 +14,17 @@ UserModel.init(
       autoIncrement: true,
       comment: "主键id",
     },
+    uid: {
+      type: Sequelize.UUID,
+      defaultValue: Sequelize.UUIDV4,
+      comment: "用户 uuid"
+    },
     nickname: {
       type: Sequelize.STRING(50),
-      allowNull: false,
+      comment: "用户昵称",
+    },
+    userName: {
+      type: Sequelize.STRING(50),
       comment: "用户名称",
     },
     email: {
@@ -30,21 +38,6 @@ UserModel.init(
       allowNull: false,
       comment: "用户手机号",
     },
-    avatar: {
-      type: Sequelize.TEXT,
-      comment: "用户头像",
-    },
-    description: {
-      type: Sequelize.STRING(100),
-      comment: "用户描述签名",
-    },
-    gender: {
-      type: Sequelize.ENUM,
-      values: ["1", "2"],
-      defaultValue: "1",
-      allowNull: false,
-      comment: "用户性别 【1 - 男 2 - 女】",
-    },
     password: {
       type: Sequelize.STRING,
       set(val) {
@@ -57,17 +50,30 @@ UserModel.init(
       allowNull: false,
       comment: "用户密码",
     },
-    is_deleted: {
+    avatar: {
+      type: Sequelize.TEXT,
+      comment: "用户头像",
+    },
+    description: {
+      type: Sequelize.STRING(100),
+      comment: "用户描述签名",
+    },
+    gender: {
+      type: Sequelize.ENUM,
+      values: ["1", "2"],
+      comment: "用户性别 【1 - 男 2 - 女】",
+    },
+    isDeleted: {
       type: Sequelize.BOOLEAN,
       allowNull: false,
       defaultValue: 0,
       comment: "是否删除",
     },
-    created_at: {
+    createdAt: {
       type: Sequelize.DATE,
       allowNull: false,
       get() {
-        return moment(this.getDataValue("created_at")).format("YYYY-MM-DD");
+        return moment(this.getDataValue("createdAt")).format("YYYY-MM-DD");
       },
     },
   },

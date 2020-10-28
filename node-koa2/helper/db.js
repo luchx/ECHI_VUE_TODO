@@ -14,20 +14,15 @@ const sequelize = new Sequelize(dbName, user, password, {
     timestamps: true,
     // delete_time
     paranoid: true,
-    createdAt: "created_at",
-    updatedAt: "updated_at",
-    deletedAt: "deleted_at",
+    created_at: "createdAt",
+    updated_at: "updatedAt",
+    deleted_at: "deletedAt",
     // 把驼峰命名转换为下划线
     underscored: true,
     scopes: {
       bh: {
         attributes: {
-          exclude: ["password", "updated_at", "deleted_at", "created_at"],
-        },
-      },
-      iv: {
-        attributes: {
-          exclude: ["content", "password", "updated_at", "deleted_at"],
+          exclude: ["password", "updatedAt", "deletedAt", "createdAt"],
         },
       },
     },

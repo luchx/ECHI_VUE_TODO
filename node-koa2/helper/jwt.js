@@ -4,7 +4,10 @@ const secret = "toto_jwt";
 exports.secret = secret;
 
 // jwt 白名单
-exports.whiteList = [/^\/api\/user\/login/];
+exports.whiteList = [
+  /^\/api\/user\/login/,
+  /^\/api\/user\/getVerify/,
+];
 
 // jwt 错误处理方法
 exports.errorHandle = function (ctx, next) {

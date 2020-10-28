@@ -4,14 +4,19 @@ const { TestPhone } = require("../helper/validator");
 const UserModel = require("../models/user");
 
 // 登录
-exports.login = async (ctx) => {
-  const { phone, password, nickname } = ctx.request.body;
-  
-  if(!TestPhone(phone)) {
-    return ctx.fail("手机号码不正确", 400)
+async function login(ctx) {
+  const { phone, password = "", code = "" } = ctx.request.body;
+
+  if (!TestPhone(phone)) {
+    return ctx.fail("手机号码不正确", 400);
   }
-  if(!password) {
-    return ctx.fail("请输入密码", 400)
+
+  if (password === "" && code !== "1234") {
+    return ctx.fail("验证码不正确", 400);
+  }
+
+  if (password === "" && code === "") {
+    return ctx.fail("请输入密码", 400);
   }
 
   const existUser = await UserModel.findOne({
@@ -21,45 +26,47 @@ exports.login = async (ctx) => {
     },
   });
 
-  if (existUser) {
-    return ctx.fail("账号已存在");
-  }
-
-  const user = new UserModel();
-  user.nickname = nickname;
-  user.phone = phone;
-  user.password = password;
-  user.save();
-
-  const token = getToken({
-    phone: user.phone,
-    password: user.password,
-  });
-  ctx.success("登录成功", token);
-};
-
-exports.verify = async (ctx) => {
-  const { phone } = ctx.request.body;
-  // 查询用户是否存在
-  const user = await UserModel.findOne({
-    where: {
+  if (!existUser) {
+    const user = await UserModel.create({
       phone,
-    },
-  });
+      password,
+    });
 
-  if (!user) {
-    return ctx.fail("账号不存在");
+    const token = getToken({
+      uid: user.uid,
+      phone: user.phone,
+    });
+    ctx.currentUser = user;
+    return ctx.success("登录成功", {
+      token,
+      user,
+    });
   }
 
-  // 验证密码是否正确
-  const correct = bcrypt.compareSync(plainPassword, user.password);
-
-  if (!correct) {
+  const correct = bcrypt.compareSync(password, existUser.password);
+  if (code === "" && !correct) {
     return ctx.fail("密码不正确");
   }
 
-  return user;
-};
+  const token = getToken({
+    uid: existUser.uid,
+    phone: existUser.phone,
+  });
+  ctx.currentUser = existUser;
+  ctx.success("欢迎回来", {
+    token,
+    user: existUser,
+  });
+}
+
+async function getVerify(ctx) {
+  const { phone } = ctx.request.body;
+  if (!TestPhone(phone)) {
+    return ctx.fail("手机号码不正确", 400);
+  }
+
+  ctx.success("1234");
+}
 
 exports.detail = async (ctx) => {
   const { id } = ctx.request.params;
@@ -76,4 +83,9 @@ exports.detail = async (ctx) => {
   }
 
   return user;
+};
+
+module.exports = {
+  login,
+  getVerify,
 };
