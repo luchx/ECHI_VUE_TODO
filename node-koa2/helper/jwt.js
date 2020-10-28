@@ -16,7 +16,7 @@ exports.errorHandle = function (ctx, next) {
       ctx.status = 401;
       ctx.body = {
         code: 401,
-        message: "token效验 错误",
+        message: "token效验错误",
         data: null,
       };
     } else {

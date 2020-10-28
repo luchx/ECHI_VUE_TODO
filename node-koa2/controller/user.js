@@ -60,12 +60,12 @@ async function login(ctx) {
 }
 
 async function getVerify(ctx) {
-  const { phone } = ctx.request.body;
+  const { phone } = ctx.query;
   if (!TestPhone(phone)) {
     return ctx.fail("手机号码不正确", 400);
   }
 
-  ctx.success("1234");
+  ctx.success("获取验证码成功", "1234");
 }
 
 exports.detail = async (ctx) => {
