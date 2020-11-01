@@ -81,7 +81,7 @@ export function ApiGetRecycleTodoList(data) {
  * @param {String} id
  */
 export function ApiDeleteTodo(id) {
-  return service.delete("/api/todo/deleteTodo", id);
+  return service.delete(`/api/todo/deleteTodo/${id}`);
 }
 
 /**
@@ -89,7 +89,7 @@ export function ApiDeleteTodo(id) {
  * @param {String} id
  */
 export function ApiDeleteTodoToRecycle(id) {
-  return service.delete("/api/todo/deleteToRecycle", { id });
+  return service.delete(`/api/todo/deleteToRecycle/${id}`);
 }
 
 /**
@@ -97,5 +97,5 @@ export function ApiDeleteTodoToRecycle(id) {
  * @param {String} id
  */
 export function ApiRestoreTodoFromRecycle(id) {
-  return service.put("/api/todo/rebackToRecycle", id);
+  return service.put(`/api/todo/rebackToRecycle/${id}`);
 }

@@ -288,7 +288,7 @@ async function deleteTodo(ctx) {}
 async function deleteToRecycle(ctx) {
   const {
     id
-  } = ctx.query;
+  } = ctx.params;
   // 检测是否
   const todo = await TodoModel.findOne({
     where: {
@@ -306,7 +306,9 @@ async function deleteToRecycle(ctx) {
   ctx.success("删除成功");
 }
 
-async function rebackToRecycle(ctx) {}
+async function rebackToRecycle(ctx) {
+
+}
 
 
 module.exports = {

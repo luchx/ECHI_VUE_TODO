@@ -10,8 +10,8 @@ router.get("/getListByDay", TodoController.getListByDay);
 router.get("/getReviewList", TodoController.getReviewList);
 router.get("/getFinishedList", TodoController.getFinishedList);
 router.get("/getRecycleList", TodoController.getRecycleList);
-router.delete("/deleteTodo", TodoController.deleteTodo);
-router.delete("/deleteToRecycle", TodoController.deleteToRecycle);
-router.put("/rebackToRecycle", TodoController.rebackToRecycle);
+router.delete("/deleteTodo/:id", TodoController.deleteTodo);
+router.delete("/deleteToRecycle/:id", TodoController.deleteToRecycle);
+router.put("/rebackToRecycle/:id", TodoController.rebackToRecycle);
 
 module.exports = router;
