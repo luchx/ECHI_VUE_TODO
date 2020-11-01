@@ -12,7 +12,7 @@ async function getList(ctx) {
     pageSize
   } = ctx.query;
 
-  const todoData = await TodoModel.findAndCountAll({
+  const todo = await TodoModel.findAndCountAll({
     [Op.and]: [{
       status: 1,
     }],
@@ -30,10 +30,10 @@ async function getList(ctx) {
     pagination: {
       page: Number(pageSize),
       pageSize: Number(pageSize),
-      total: todoData.count,
-      totalPage: Math.ceil(todoData.count / pageSize)
+      total: todo.count,
+      totalPage: Math.ceil(todo.count / pageSize)
     },
-    list: todoData.rows.map(item => ({
+    list: todo.rows.map(item => ({
       date: item.date,
       description: item.description,
       id: item.id,
@@ -132,10 +132,157 @@ async function getDetail(ctx) {
     userId: todo.userId,
   })
 }
-async function getListByDay(ctx) {}
-async function getReviewList(ctx) {}
-async function getFinishedList(ctx) {}
-async function getRecycleList(ctx) {}
+async function getListByDay(ctx) {
+  const {
+    page,
+    pageSize
+  } = ctx.query;
+
+  const todo = await TodoModel.findAndCountAll({
+    [Op.and]: [{
+      status: 1,
+    }],
+    where: {
+      deletedAt: null
+    },
+    order: [
+      ['id', 'desc']
+    ],
+    limit: Number(pageSize),
+    offset: Number(pageSize) * (Number(page) - 1)
+  });
+
+  ctx.success("获取成功", {
+    pagination: {
+      page: Number(pageSize),
+      pageSize: Number(pageSize),
+      total: todo.count,
+      totalPage: Math.ceil(todo.count / pageSize)
+    },
+    list: todo.rows.map(item => ({
+      date: item.date,
+      description: item.description,
+      id: item.id,
+      priority: item.priority,
+      status: Number(item.status),
+      title: item.title,
+      userId: item.userId,
+    }))
+  })
+}
+
+async function getReviewList(ctx) {
+  const {
+    page,
+    pageSize
+  } = ctx.query;
+
+  const todo = await TodoModel.findAndCountAll({
+    [Op.and]: [{
+      status: 1,
+    }],
+    where: {
+      deletedAt: null
+    },
+    order: [
+      ['id', 'desc']
+    ],
+    limit: Number(pageSize),
+    offset: Number(pageSize) * (Number(page) - 1)
+  });
+
+  ctx.success("获取成功", {
+    pagination: {
+      page: Number(pageSize),
+      pageSize: Number(pageSize),
+      total: todo.count,
+      totalPage: Math.ceil(todo.count / pageSize)
+    },
+    list: todo.rows.map(item => ({
+      date: item.date,
+      description: item.description,
+      id: item.id,
+      priority: item.priority,
+      status: Number(item.status),
+      title: item.title,
+      userId: item.userId,
+    }))
+  })
+}
+
+async function getFinishedList(ctx) {
+  const {
+    page,
+    pageSize
+  } = ctx.query;
+
+  const todo = await TodoModel.findAndCountAll({
+    [Op.and]: [{
+      status: 2,
+    }],
+    where: {
+      deletedAt: null
+    },
+    order: [
+      ['id', 'desc']
+    ],
+    limit: Number(pageSize),
+    offset: Number(pageSize) * (Number(page) - 1)
+  });
+
+  ctx.success("获取成功", {
+    pagination: {
+      page: Number(pageSize),
+      pageSize: Number(pageSize),
+      total: todo.count,
+      totalPage: Math.ceil(todo.count / pageSize)
+    },
+    list: todo.rows.map(item => ({
+      date: item.date,
+      description: item.description,
+      id: item.id,
+      priority: item.priority,
+      status: Number(item.status),
+      title: item.title,
+      userId: item.userId,
+    }))
+  })
+}
+
+async function getRecycleList(ctx) {
+  const {
+    page,
+    pageSize
+  } = ctx.query;
+
+  const todo = await TodoModel.findAndCountAll({
+    order: [
+      ['id', 'desc']
+    ],
+    limit: Number(pageSize),
+    offset: Number(pageSize) * (Number(page) - 1),
+    paranoid: false
+  });
+
+  ctx.success("获取成功", {
+    pagination: {
+      page: Number(pageSize),
+      pageSize: Number(pageSize),
+      total: todo.count,
+      totalPage: Math.ceil(todo.count / pageSize)
+    },
+    list: todo.rows.map(item => ({
+      date: item.date,
+      description: item.description,
+      id: item.id,
+      priority: item.priority,
+      status: Number(item.status),
+      title: item.title,
+      userId: item.userId,
+    }))
+  })
+}
+
 async function deleteTodo(ctx) {}
 
 async function deleteToRecycle(ctx) {
