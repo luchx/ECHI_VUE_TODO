@@ -60,10 +60,12 @@ app.use(async (ctx, next) => {
 
 // routes
 const Index = require('./routes/index')
+const Basic = require('./routes/basic')
 const Users = require('./routes/users')
 const Todo = require('./routes/todo')
 
 app.use(Index.routes(), Index.allowedMethods())
+app.use(Basic.routes(), Basic.allowedMethods())
 app.use(Users.routes(), Users.allowedMethods())
 app.use(Todo.routes(), Todo.allowedMethods())
 

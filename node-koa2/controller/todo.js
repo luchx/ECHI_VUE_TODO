@@ -107,43 +107,28 @@ async function getDetail(ctx) {
 }
 async function getListByDay(ctx) {
   const {
-    page,
-    pageSize
+    day
   } = ctx.query;
 
-  const todo = await TodoModel.findAndCountAll({
+  const todo = await TodoModel.findAll({
     [Op.and]: [{
       status: 1,
     }],
     where: {
+      date: day,
       deletedAt: null
     },
     order: [
       ['id', 'desc']
     ],
-    limit: Number(pageSize),
-    offset: Number(pageSize) * (Number(page) - 1),
     attributes: ["date", "description", "id", "priority", "status", "title"]
   });
 
-  ctx.success("获取成功", {
-    pagination: {
-      page: Number(pageSize),
-      pageSize: Number(pageSize),
-      total: todo.count,
-      totalPage: Math.ceil(todo.count / pageSize)
-    },
-    list: todo.rows
-  })
+  ctx.success("获取成功", todo.rows)
 }
 
 async function getReviewList(ctx) {
-  const {
-    page,
-    pageSize
-  } = ctx.query;
-
-  const todo = await TodoModel.findAndCountAll({
+  const todo = await TodoModel.findAll({
     [Op.and]: [{
       status: 1,
     }],
@@ -153,20 +138,10 @@ async function getReviewList(ctx) {
     order: [
       ['id', 'desc']
     ],
-    limit: Number(pageSize),
-    offset: Number(pageSize) * (Number(page) - 1),
     attributes: ["date", "description", "id", "priority", "status", "title"]
   });
 
-  ctx.success("获取成功", {
-    pagination: {
-      page: Number(pageSize),
-      pageSize: Number(pageSize),
-      total: todo.count,
-      totalPage: Math.ceil(todo.count / pageSize)
-    },
-    list: todo.rows
-  })
+  ctx.success("获取成功", todo.rows)
 }
 
 async function getFinishedList(ctx) {
