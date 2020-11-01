@@ -27,6 +27,11 @@ const sequelize = new Sequelize(dbName, user, password, {
       },
     },
   },
+  // 添加这个配置 
+  dialectOptions: {
+    dateStrings: true,
+    typeCast: true
+  }
 });
 
 // 创建模型

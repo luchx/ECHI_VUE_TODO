@@ -23,7 +23,8 @@ async function getList(ctx) {
       ['id', 'desc']
     ],
     limit: Number(pageSize),
-    offset: Number(pageSize) * (Number(page) - 1)
+    offset: Number(pageSize) * (Number(page) - 1),
+    attributes: ["date", "description", "id", "priority", "status", "title"]
   });
 
   ctx.success("获取成功", {
@@ -33,15 +34,7 @@ async function getList(ctx) {
       total: todo.count,
       totalPage: Math.ceil(todo.count / pageSize)
     },
-    list: todo.rows.map(item => ({
-      date: item.date,
-      description: item.description,
-      id: item.id,
-      priority: item.priority,
-      status: Number(item.status),
-      title: item.title,
-      userId: item.userId,
-    }))
+    list: todo.rows
   })
 }
 
@@ -69,18 +62,11 @@ async function saveList(ctx) {
       where: {
         id,
         deletedAt: null
-      }
+      },
+      attributes: ["date", "description", "id", "priority", "status", "title"]
     })
 
-    return ctx.success("更新成功", {
-      date: todo.date,
-      description: todo.description,
-      id: todo.id,
-      priority: todo.priority,
-      status: Number(todo.status),
-      title: todo.title,
-      userId: todo.userId,
-    })
+    return ctx.success("更新成功", todo[0])
   }
 
   const todo = await TodoModel.create({
@@ -89,17 +75,11 @@ async function saveList(ctx) {
     priority,
     title,
     userId: userData.userId
+  }, {
+    attributes: ["date", "description", "id", "priority", "status", "title"]
   })
 
-  return ctx.success("创建成功", {
-    date: todo.date,
-    description: todo.description,
-    id: todo.id,
-    priority: todo.priority,
-    status: Number(todo.status),
-    title: todo.title,
-    userId: todo.userId,
-  })
+  return ctx.success("创建成功", todo.id)
 }
 
 async function getDetail(ctx) {
@@ -116,21 +96,14 @@ async function getDetail(ctx) {
       id,
       userId: userData.userId,
       deletedAt: null
-    }
+    },
+    attributes: ["date", "description", "id", "priority", "status", "title"]
   })
   if (!todo) {
     return ctx.fail("没有找到该记录")
   }
 
-  ctx.success("获取成功", {
-    date: todo.date,
-    description: todo.description,
-    id: todo.id,
-    priority: todo.priority,
-    status: Number(todo.status),
-    title: todo.title,
-    userId: todo.userId,
-  })
+  ctx.success("获取成功", todo)
 }
 async function getListByDay(ctx) {
   const {
@@ -149,7 +122,8 @@ async function getListByDay(ctx) {
       ['id', 'desc']
     ],
     limit: Number(pageSize),
-    offset: Number(pageSize) * (Number(page) - 1)
+    offset: Number(pageSize) * (Number(page) - 1),
+    attributes: ["date", "description", "id", "priority", "status", "title"]
   });
 
   ctx.success("获取成功", {
@@ -159,15 +133,7 @@ async function getListByDay(ctx) {
       total: todo.count,
       totalPage: Math.ceil(todo.count / pageSize)
     },
-    list: todo.rows.map(item => ({
-      date: item.date,
-      description: item.description,
-      id: item.id,
-      priority: item.priority,
-      status: Number(item.status),
-      title: item.title,
-      userId: item.userId,
-    }))
+    list: todo.rows
   })
 }
 
@@ -188,7 +154,8 @@ async function getReviewList(ctx) {
       ['id', 'desc']
     ],
     limit: Number(pageSize),
-    offset: Number(pageSize) * (Number(page) - 1)
+    offset: Number(pageSize) * (Number(page) - 1),
+    attributes: ["date", "description", "id", "priority", "status", "title"]
   });
 
   ctx.success("获取成功", {
@@ -198,15 +165,7 @@ async function getReviewList(ctx) {
       total: todo.count,
       totalPage: Math.ceil(todo.count / pageSize)
     },
-    list: todo.rows.map(item => ({
-      date: item.date,
-      description: item.description,
-      id: item.id,
-      priority: item.priority,
-      status: Number(item.status),
-      title: item.title,
-      userId: item.userId,
-    }))
+    list: todo.rows
   })
 }
 
@@ -227,7 +186,8 @@ async function getFinishedList(ctx) {
       ['id', 'desc']
     ],
     limit: Number(pageSize),
-    offset: Number(pageSize) * (Number(page) - 1)
+    offset: Number(pageSize) * (Number(page) - 1),
+    attributes: ["date", "description", "id", "priority", "status", "title"]
   });
 
   ctx.success("获取成功", {
@@ -237,15 +197,7 @@ async function getFinishedList(ctx) {
       total: todo.count,
       totalPage: Math.ceil(todo.count / pageSize)
     },
-    list: todo.rows.map(item => ({
-      date: item.date,
-      description: item.description,
-      id: item.id,
-      priority: item.priority,
-      status: Number(item.status),
-      title: item.title,
-      userId: item.userId,
-    }))
+    list: todo.rows
   })
 }
 
@@ -256,13 +208,19 @@ async function getRecycleList(ctx) {
   } = ctx.query;
 
   const todo = await TodoModel.findAndCountAll({
+    where: {
+      deletedAt: {
+        [Op.not]: null,
+      }
+    },
     order: [
       ['id', 'desc']
     ],
     limit: Number(pageSize),
     offset: Number(pageSize) * (Number(page) - 1),
+    attributes: ["date", "description", "id", "priority", "status", "title"],
     paranoid: false
-  });
+  }); 
 
   ctx.success("获取成功", {
     pagination: {
@@ -271,15 +229,7 @@ async function getRecycleList(ctx) {
       total: todo.count,
       totalPage: Math.ceil(todo.count / pageSize)
     },
-    list: todo.rows.map(item => ({
-      date: item.date,
-      description: item.description,
-      id: item.id,
-      priority: item.priority,
-      status: Number(item.status),
-      title: item.title,
-      userId: item.userId,
-    }))
+    list: todo.rows
   })
 }
 
@@ -307,6 +257,9 @@ async function deleteToRecycle(ctx) {
 }
 
 async function rebackToRecycle(ctx) {
+  const {
+    id
+  } = ctx.params;
 
 }
 

@@ -30,8 +30,7 @@ TodoModel.init({
     comment: "任务描述",
   },
   priority: {
-    type: Sequelize.ENUM,
-    values: ["1", "2", "3", "4"],
+    type: Sequelize.INTEGER,
     allowNull: false,
     defaultValue: 1,
     comment: "任务优先级 【1 - 低 2 - 中 3 - 高 4 - 最高】",
@@ -41,8 +40,7 @@ TodoModel.init({
     allowNull: false,
   },
   status: {
-    type: Sequelize.ENUM,
-    values: ["1", "2"],
+    type: Sequelize.INTEGER,
     allowNull: false,
     defaultValue: 1,
     comment: "任务状态 【1 - 待办 2 - 已完成】",

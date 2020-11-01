@@ -54,9 +54,8 @@ UserModel.init(
       comment: "用户描述签名",
     },
     gender: {
-      type: Sequelize.ENUM,
-      values: ["1", "2"],
-      defaultValue: "1",
+      type: Sequelize.INTEGER,
+      defaultValue: 1,
       comment: "用户性别 【1 - 男 2 - 女】",
     },
     createdAt: {
