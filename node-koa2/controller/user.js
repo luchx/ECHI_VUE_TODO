@@ -19,43 +19,51 @@ async function login(ctx) {
     return ctx.fail("请输入密码", 400);
   }
 
-  const existUser = await UserModel.findOne({
+  const [existUser, created] = await UserModel.findOrCreate({
     where: {
       phone,
-      is_deleted: 0,
+      deletedAt: null
     },
-  });
-
-  if (!existUser) {
-    const user = await UserModel.create({
+    defaults: {
       phone,
       password,
-    });
+    }
+  });
 
-    const token = getToken({
-      userId: user.id,
-      phone: user.phone,
-    });
-    ctx.currentUser = user;
-    return ctx.success("登录成功", {
-      token,
-      user,
-    });
-  }
-
-  const correct = bcrypt.compareSync(password, existUser.password);
-  if (code === "" && !correct) {
-    return ctx.fail("密码不正确");
+  // 返回格式化数据
+  const userData = {
+    id: existUser.id,
+    nickname: existUser.nickname || `代号：${10000 + Number(existUser.id)}`,
+    userName: existUser.userName || "",
+    email: existUser.email || "",
+    phone: existUser.phone,
+    avatar: existUser.avatar || "",
+    description: existUser.description || "记录生活的美好~",
+    gender: Number(existUser.gender),
   }
 
   const token = getToken({
-    userId: existUser.id,
-    phone: existUser.phone,
+    userId: userData.id,
+    phone: userData.phone,
   });
-  ctx.currentUser = existUser;
+
+  // 初次登录，创建用户
+  if (created) {    
+    return ctx.success("登录成功", {
+      token,
+      user: userData,
+    });
+  }
+
+  // 对比已存在的密码，code 方式登录不校验
+  const correct = bcrypt.compareSync(password, userData.password);
+  if (code === "" && !correct) {
+    return ctx.fail("密码不正确");
+  }
+  
   ctx.success("欢迎回来", {
     token,
-    user: existUser,
+    user: userData,
   });
 }
 
@@ -73,6 +81,7 @@ async function detail(ctx) {
   const user = await UserModel.findOne({
     where: {
       id,
+      deletedAt: null
     },
   });
 

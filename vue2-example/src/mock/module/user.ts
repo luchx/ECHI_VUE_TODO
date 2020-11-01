@@ -7,7 +7,7 @@ export default {
       user: {
         id: 1,
         uid: "1213131sdasd",
-        userName: "工号001",
+        nickname: "工号001",
         "gender|1": [1, 2],
         avatar: "",
         description: "记录生活的美好~"

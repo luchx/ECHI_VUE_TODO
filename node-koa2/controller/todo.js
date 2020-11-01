@@ -14,8 +14,11 @@ async function getList(ctx) {
 
   const todoData = await TodoModel.findAndCountAll({
     [Op.and]: [{
-      status: 1
+      status: 1,
     }],
+    where: {
+      deletedAt: null
+    },
     order: [
       ['id', 'desc']
     ],
@@ -25,12 +28,20 @@ async function getList(ctx) {
 
   ctx.success("获取成功", {
     pagination: {
-      page,
-      pageSize,
+      page: Number(pageSize),
+      pageSize: Number(pageSize),
       total: todoData.count,
       totalPage: Math.ceil(todoData.count / pageSize)
     },
-    list: todoData.rows
+    list: todoData.rows.map(item => ({
+      date: item.date,
+      description: item.description,
+      id: item.id,
+      priority: item.priority,
+      status: Number(item.status),
+      title: item.title,
+      userId: item.userId,
+    }))
   })
 }
 
@@ -48,7 +59,7 @@ async function saveList(ctx) {
   const userData = verifyToken(authorization);
 
   if (id) {
-    const todoData = await TodoModel.update({
+    const todo = await TodoModel.update({
       date,
       description,
       priority,
@@ -56,14 +67,23 @@ async function saveList(ctx) {
       userId: userData.userId
     }, {
       where: {
-        id
+        id,
+        deletedAt: null
       }
     })
 
-    return ctx.success("更新成功", todoData)
+    return ctx.success("更新成功", {
+      date: todo.date,
+      description: todo.description,
+      id: todo.id,
+      priority: todo.priority,
+      status: Number(todo.status),
+      title: todo.title,
+      userId: todo.userId,
+    })
   }
 
-  const todoData = await TodoModel.create({
+  const todo = await TodoModel.create({
     date,
     description,
     priority,
@@ -71,7 +91,15 @@ async function saveList(ctx) {
     userId: userData.userId
   })
 
-  return ctx.success("创建成功", todoData)
+  return ctx.success("创建成功", {
+    date: todo.date,
+    description: todo.description,
+    id: todo.id,
+    priority: todo.priority,
+    status: Number(todo.status),
+    title: todo.title,
+    userId: todo.userId,
+  })
 }
 
 async function getDetail(ctx) {
@@ -82,19 +110,27 @@ async function getDetail(ctx) {
     authorization
   } = ctx.header;
   const userData = verifyToken(authorization);
-  
-  const todoData = await TodoModel.findOne({
+
+  const todo = await TodoModel.findOne({
     where: {
       id,
       userId: userData.userId,
-      isDeleted: 0
+      deletedAt: null
     }
   })
-  if (!todoData) {
+  if (!todo) {
     return ctx.fail("没有找到该记录")
   }
 
-  ctx.success("获取成功", todoData)
+  ctx.success("获取成功", {
+    date: todo.date,
+    description: todo.description,
+    id: todo.id,
+    priority: todo.priority,
+    status: Number(todo.status),
+    title: todo.title,
+    userId: todo.userId,
+  })
 }
 async function getListByDay(ctx) {}
 async function getReviewList(ctx) {}
@@ -102,7 +138,26 @@ async function getFinishedList(ctx) {}
 async function getRecycleList(ctx) {}
 async function deleteTodo(ctx) {}
 
-async function deleteToRecycle(ctx) {}
+async function deleteToRecycle(ctx) {
+  const {
+    id
+  } = ctx.query;
+  // 检测是否
+  const todo = await TodoModel.findOne({
+    where: {
+      id,
+      deletedAt: null
+    }
+  });
+  // 不存在抛出错误
+  if (!todo) {
+    ctx.fail("没有找到待办记录")
+  }
+
+  // 软删除待办记录
+  await todo.destroy();
+  ctx.success("删除成功");
+}
 
 async function rebackToRecycle(ctx) {}
 

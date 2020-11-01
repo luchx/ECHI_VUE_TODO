@@ -89,7 +89,7 @@ export function ApiDeleteTodo(id) {
  * @param {String} id
  */
 export function ApiDeleteTodoToRecycle(id) {
-  return service.delete("/api/todo/deleteToRecycle", id);
+  return service.delete("/api/todo/deleteToRecycle", { id });
 }
 
 /**

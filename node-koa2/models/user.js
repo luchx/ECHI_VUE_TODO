@@ -59,17 +59,11 @@ UserModel.init(
       defaultValue: "1",
       comment: "用户性别 【1 - 男 2 - 女】",
     },
-    isDeleted: {
-      type: Sequelize.BOOLEAN,
-      allowNull: false,
-      defaultValue: 0,
-      comment: "是否删除",
-    },
     createdAt: {
       type: Sequelize.DATE,
       allowNull: false,
       get() {
-        return moment(this.getDataValue("createdAt")).format("YYYY-MM-DD hh:dd:ss");
+        return moment(this.getDataValue("createdAt")).format("YYYY-MM-DD HH:mm:ss");
       },
     },
   },

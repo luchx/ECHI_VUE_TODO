@@ -42,28 +42,16 @@ TodoModel.init({
   },
   status: {
     type: Sequelize.ENUM,
-    values: ["1", "2", "3"],
+    values: ["1", "2"],
     allowNull: false,
     defaultValue: 1,
-    comment: "任务状态 【1 - 待办 2 - 已完成 3 - 处于回收站】",
-  },
-  isFinished: {
-    type: Sequelize.BOOLEAN,
-    allowNull: false,
-    defaultValue: 0,
-    comment: "是否已完成",
-  },
-  isDeleted: {
-    type: Sequelize.BOOLEAN,
-    allowNull: false,
-    defaultValue: 0,
-    comment: "是否删除",
+    comment: "任务状态 【1 - 待办 2 - 已完成】",
   },
   createdAt: {
     type: Sequelize.DATE,
     allowNull: false,
     get() {
-      return moment(this.getDataValue("createdAt")).format("YYYY-MM-DD hh:dd:ss");
+      return moment(this.getDataValue("createdAt")).format("YYYY-MM-DD HH:mm:ss");
     },
   },
 }, {
