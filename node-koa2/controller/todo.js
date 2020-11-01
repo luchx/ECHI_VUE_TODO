@@ -233,13 +233,32 @@ async function getRecycleList(ctx) {
   })
 }
 
-async function deleteTodo(ctx) {}
+async function deleteTodo(ctx) {
+  const {
+    id
+  } = ctx.params;
+  
+  const todo = await TodoModel.findByPk(id, {
+    paranoid: false
+  });
+
+  // 不存在抛出错误
+  if (!todo) {
+    ctx.fail("没有找到待办记录")
+  }
+
+  // 软删除待办记录
+  await todo.destroy({
+    force: true
+  });
+  ctx.success("删除成功");
+}
 
 async function deleteToRecycle(ctx) {
   const {
     id
   } = ctx.params;
-  // 检测是否
+  // 检测是否存在
   const todo = await TodoModel.findOne({
     where: {
       id,
@@ -261,6 +280,16 @@ async function rebackToRecycle(ctx) {
     id
   } = ctx.params;
 
+  const todo = await TodoModel.findByPk(id, {
+    paranoid: false
+  });
+
+  if (!todo) {
+    ctx.fail("没有找到待办记录")
+  }
+
+  await todo.restore();
+  ctx.success("数据已恢复")
 }
 
 
