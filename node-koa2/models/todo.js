@@ -17,7 +17,7 @@ TodoModel.init({
   },
   userId: {
     type: Sequelize.INTEGER,
-    defaultValue: Sequelize.UUIDV4,
+    allowNull: false,
     comment: "用户 id"
   },
   title: {
