@@ -1,17 +1,18 @@
 const router = require("koa-router")();
 const TodoController = require("../controller/todo");
+const { verifyToken } = require("../helper/jwt");
 
 router.prefix("/api/todo");
 
-router.get("/getList", TodoController.getList);
-router.post("/saveList", TodoController.saveList);
-router.get("/getDetail/:id", TodoController.getDetail);
-router.get("/getListByDay", TodoController.getListByDay);
-router.get("/getReviewList", TodoController.getReviewList);
-router.get("/getFinishedList", TodoController.getFinishedList);
-router.get("/getRecycleList", TodoController.getRecycleList);
-router.delete("/deleteTodo/:id", TodoController.deleteTodo);
-router.delete("/deleteToRecycle/:id", TodoController.deleteToRecycle);
-router.put("/restoreToRecycle/:id", TodoController.restoreToRecycle);
+router.get("/getList", verifyToken, TodoController.getList);
+router.post("/saveList", verifyToken, TodoController.saveList);
+router.get("/getDetail/:id", verifyToken, TodoController.getDetail);
+router.get("/getListByDay", verifyToken, TodoController.getListByDay);
+router.get("/getReviewList", verifyToken, TodoController.getReviewList);
+router.get("/getFinishedList", verifyToken, TodoController.getFinishedList);
+router.get("/getRecycleList", verifyToken, TodoController.getRecycleList);
+router.delete("/deleteTodo/:id", verifyToken, TodoController.deleteTodo);
+router.delete("/deleteToRecycle/:id", verifyToken, TodoController.deleteToRecycle);
+router.put("/restoreToRecycle/:id", verifyToken, TodoController.restoreToRecycle);
 
 module.exports = router;

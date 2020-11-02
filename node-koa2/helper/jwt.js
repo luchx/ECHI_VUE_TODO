@@ -30,6 +30,9 @@ exports.getToken = (payload) => {
 };
 
 // 校验 token
-exports.verifyToken = (payload) => {
-  return jwt.verify(payload.split(" ")[1], secretKey);
+exports.verifyToken = async (ctx, next) => {
+  const { authorization } = ctx.header;
+  const auth = jwt.verify(authorization.split(" ")[1], secretKey);
+  ctx.currentUser = auth;
+  await next()
 };

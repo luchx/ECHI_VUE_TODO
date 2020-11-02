@@ -1,27 +1,25 @@
 const { Op } = require("sequelize");
-const { verifyToken } = require("../helper/jwt");
 const TodoModel = require("../models/todo");
 
 async function getList(ctx) {
   const { page, pageSize } = ctx.query;
 
-  const { authorization } = ctx.header;
-  const userData = verifyToken(authorization);
+  const currentUser = ctx.currentUser;
   const todo = await TodoModel.findAndCountAll({
     where: {
       status: 1,
-      userId: userData.userId,
+      userId: currentUser.userId,
       deletedAt: null,
     },
     order: [["id", "desc"]],
-    limit: Number(pageSize),
+    limit: Number(page),
     offset: Number(pageSize) * (Number(page) - 1),
     attributes: ["date", "description", "id", "priority", "status", "title"],
   });
 
   ctx.success("获取成功", {
     pagination: {
-      page: Number(pageSize),
+      page: Number(page),
       pageSize: Number(pageSize),
       total: todo.count,
       totalPage: Math.ceil(todo.count / pageSize),
@@ -33,8 +31,7 @@ async function getList(ctx) {
 async function saveList(ctx) {
   const { id, date, description, priority, title } = ctx.request.body;
 
-  const { authorization } = ctx.header;
-  const userData = verifyToken(authorization);
+  const currentUser = ctx.currentUser;
 
   if (id) {
     const todo = await TodoModel.update(
@@ -43,7 +40,7 @@ async function saveList(ctx) {
         description,
         priority,
         title,
-        userId: userData.userId,
+        userId: currentUser.userId,
       },
       {
         where: {
@@ -70,7 +67,7 @@ async function saveList(ctx) {
       description,
       priority,
       title,
-      userId: userData.userId,
+      userId: currentUser.userId,
     },
     {
       attributes: ["date", "description", "id", "priority", "status", "title"],
@@ -83,13 +80,12 @@ async function saveList(ctx) {
 async function getDetail(ctx) {
   const { id } = ctx.params;
 
-  const { authorization } = ctx.header;
-  const userData = verifyToken(authorization);
+  const currentUser = ctx.currentUser;
 
   const todo = await TodoModel.findOne({
     where: {
       id,
-      userId: userData.userId,
+      userId: currentUser.userId,
       deletedAt: null,
     },
     attributes: ["date", "description", "id", "priority", "status", "title"],
@@ -103,13 +99,12 @@ async function getDetail(ctx) {
 async function getListByDay(ctx) {
   const { day } = ctx.query;
 
-  const { authorization } = ctx.header;
-  const userData = verifyToken(authorization);
+  const currentUser = ctx.currentUser;
   const todo = await TodoModel.findAll({
     where: {
       date: day,
       status: 1,
-      userId: userData.userId,
+      userId: currentUser.userId,
       deletedAt: null,
     },
     order: [["id", "desc"]],
@@ -120,12 +115,11 @@ async function getListByDay(ctx) {
 }
 
 async function getReviewList(ctx) {
-  const { authorization } = ctx.header;
-  const userData = verifyToken(authorization);
+  const currentUser = ctx.currentUser;
   const todo = await TodoModel.findAll({
     where: {
       status: 1,
-      userId: userData.userId,
+      userId: currentUser.userId,
       deletedAt: null,
     },
     order: [["id", "desc"]],
@@ -138,16 +132,15 @@ async function getReviewList(ctx) {
 async function getFinishedList(ctx) {
   const { page, pageSize } = ctx.query;
 
-  const { authorization } = ctx.header;
-  const userData = verifyToken(authorization);
+  const currentUser = ctx.currentUser;
   const todo = await TodoModel.findAndCountAll({
     where: {
       status: 2,
-      userId: userData.userId,
+      userId: currentUser.userId,
       deletedAt: null,
     },
     order: [["id", "desc"]],
-    limit: Number(pageSize),
+    limit: Number(page),
     offset: Number(pageSize) * (Number(page) - 1),
     attributes: ["date", "description", "id", "priority", "status", "title"],
   });
@@ -166,17 +159,16 @@ async function getFinishedList(ctx) {
 async function getRecycleList(ctx) {
   const { page, pageSize } = ctx.query;
 
-  const { authorization } = ctx.header;
-  const userData = verifyToken(authorization);
+  const currentUser = ctx.currentUser;
   const todo = await TodoModel.findAndCountAll({
     where: {
-      userId: userData.userId,
+      userId: currentUser.userId,
       deletedAt: {
         [Op.not]: null,
       },
     },
     order: [["id", "desc"]],
-    limit: Number(pageSize),
+    limit: Number(page),
     offset: Number(pageSize) * (Number(page) - 1),
     attributes: ["date", "description", "id", "priority", "status", "title"],
     paranoid: false,
@@ -196,11 +188,10 @@ async function getRecycleList(ctx) {
 async function deleteTodo(ctx) {
   const { id } = ctx.params;
 
-  const { authorization } = ctx.header;
-  const userData = verifyToken(authorization);
+  const currentUser = ctx.currentUser;
   const todo = await TodoModel.findByPk(id, {
     where: {
-      userId: userData.userId,
+      userId: currentUser.userId,
     },
     paranoid: false,
   });
@@ -220,13 +211,12 @@ async function deleteTodo(ctx) {
 async function deleteToRecycle(ctx) {
   const { id } = ctx.params;
 
-  const { authorization } = ctx.header;
-  const userData = verifyToken(authorization);
+  const currentUser = ctx.currentUser;
   // 检测是否存在
   const todo = await TodoModel.findOne({
     where: {
       id,
-      userId: userData.userId,
+      userId: currentUser.userId,
       deletedAt: null,
     },
   });
@@ -243,11 +233,10 @@ async function deleteToRecycle(ctx) {
 async function restoreToRecycle(ctx) {
   const { id } = ctx.params;
 
-  const { authorization } = ctx.header;
-  const userData = verifyToken(authorization);
+  const currentUser = ctx.currentUser;
   const todo = await TodoModel.findByPk(id, {
     where: {
-      userId: userData.userId,
+      userId: currentUser.userId,
     },
     paranoid: false,
   });
