@@ -1,5 +1,5 @@
 import styles from "./index.module.less";
-import { ApiGetTodoListByDay, ApiDeleteTodoToRecycle, ApiToggleFinishTodo } from "@/api/todo";
+import { ApiGetTodoListByDay, ApiDeleteTodoToRecycle, ApiToggleFinishTodo, ApiGetTodoDate } from "@/api/todo";
 import { mapState } from "vuex";
 
 export default {
@@ -10,6 +10,7 @@ export default {
       weekDate: [],
       currentDate: +new Date(),
       todoList: [],
+      dateList: [],
       loading: false
     };
   },
@@ -33,13 +34,13 @@ export default {
       }
       this.weekDate = weekDate;
     },
-    formatterCalender(day) {
-      const isTodo = this.$moment(this.currentDate).isSame(day.date, "day");
+    formatterCalender(item) {
+      const isTodo = this.dateList.some(date => this.$moment(date).isSame(item.date, "day"));
       if (isTodo) {
-        day.bottomInfo = "待办";
+        item.bottomInfo = "待办";
       }
 
-      return day;
+      return item;
     },
     async getTodoListByDay() {
       this.loading = true;
@@ -96,15 +97,22 @@ export default {
         this.$toast.success("删除成功");
         this.todoList = this.todoList.filter(todo => todo.id !== id);
       }
+    },
+    async getTodoDate() {
+      const resp = await ApiGetTodoDate();
+      if (resp.code === 0) {
+        this.dateList = resp.result;
+      }
     }
   },
-  async mounted() {
+  async created() {
     this.loading = true;
     this.formatDate(this.currentDate);
     const times = await this.$store.dispatch("getTimes");
     this.currentDate = times;
     this.formatDate(times);
     this.getTodoListByDay();
+    this.getTodoDate();
   },
   render() {
     const {

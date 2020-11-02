@@ -4,6 +4,7 @@ const { verifyToken } = require("../helper/jwt");
 
 router.prefix("/api/todo");
 
+router.get("/getDateList", verifyToken, TodoController.getDateList);
 router.get("/getList", verifyToken, TodoController.getList);
 router.post("/saveList", verifyToken, TodoController.saveList);
 router.get("/getDetail/:id", verifyToken, TodoController.getDetail);

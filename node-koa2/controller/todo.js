@@ -1,6 +1,19 @@
 const { Op, fn, where, col } = require("sequelize");
 const TodoModel = require("../models/todo");
 
+async function getDateList(ctx) {
+  const currentUser = ctx.currentUser;
+  const todo = await TodoModel.findAll({
+    where: {
+      userId: currentUser.userId,
+      deletedAt: null,
+    },
+    attributes: ["date"]
+  });
+
+  ctx.success("获取成功", todo.map(item => item.date));
+}
+
 async function getList(ctx) {
   const { page, pageSize } = ctx.query;
 
@@ -295,6 +308,7 @@ async function finishTodo(ctx) {
 }
 
 module.exports = {
+  getDateList,
   getList,
   saveList,
   getDetail,

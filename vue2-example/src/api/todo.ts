@@ -22,6 +22,13 @@ export function ApiSaveTodoList(data: TodoData) {
 }
 
 /**
+ * 获取日程
+ */
+export function ApiGetTodoDate() {
+  return service.get("/api/todo/getDateList");
+}
+
+/**
  * 获取待办列表
  * @param {Object} data
  * @param {Number} data.page
