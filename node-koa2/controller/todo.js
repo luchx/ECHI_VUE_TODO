@@ -11,7 +11,7 @@ async function getList(ctx) {
       userId: currentUser.userId,
       deletedAt: null,
     },
-    order: [["id", "desc"]],
+    order: [["updatedAt", "desc"]],
     limit: Number(page),
     offset: Number(pageSize) * (Number(page) - 1),
     attributes: ["date", "description", "id", "priority", "status", "title"],
@@ -109,7 +109,7 @@ async function getListByDay(ctx) {
       userId: currentUser.userId,
       deletedAt: null,
     },
-    order: [["id", "desc"]],
+    order: [["updatedAt", "desc"]],
     attributes: ["date", "description", "id", "priority", "status", "title"],
   });
   
@@ -138,7 +138,7 @@ async function getReviewList(ctx) {
       ...weekWhere,
       status: 2,
     },
-    order: [["id", "desc"]],
+    order: [["updatedAt", "desc"]],
     attributes: ["date", "description", "id", "priority", "status", "title"],
   });
 
@@ -162,7 +162,7 @@ async function getFinishedList(ctx) {
       userId: currentUser.userId,
       deletedAt: null,
     },
-    order: [["id", "desc"]],
+    order: [["updatedAt", "desc"]],
     limit: Number(page),
     offset: Number(pageSize) * (Number(page) - 1),
     attributes: ["date", "description", "id", "priority", "status", "title"],
@@ -272,6 +272,19 @@ async function restoreToRecycle(ctx) {
   ctx.success("数据已恢复");
 }
 
+async function finishTodo(ctx) {
+  const { id } = ctx.params;
+  await TodoModel.update({
+    status: 2
+  }, {
+    where: {
+      id
+    }
+  });
+
+  ctx.success("任务已完成")
+}
+
 module.exports = {
   getList,
   saveList,
@@ -283,4 +296,5 @@ module.exports = {
   deleteTodo,
   deleteToRecycle,
   restoreToRecycle,
+  finishTodo
 };
