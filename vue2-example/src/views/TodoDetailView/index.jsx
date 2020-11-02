@@ -87,14 +87,14 @@ export default {
             <van-divider />
             <div
               class={classNames(styles.todoDetailTitle, {
-                [styles.finished]: todoData.isFinished
+                [styles.finished]: todoData.status === 2
               })}
             >
               <span class={styles.todoDetailCheck}>
                 <i
                   class={classNames("iconfont", styles.icon)}
                   domPropsInnerHTML={
-                    todoData.isFinished ? "&#xe606;" : "&#xe6ca;"
+                    todoData.status === 2 ? "&#xe606;" : "&#xe6ca;"
                   }
                 ></i>
               </span>

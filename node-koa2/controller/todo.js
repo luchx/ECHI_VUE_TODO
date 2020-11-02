@@ -12,7 +12,7 @@ async function getList(ctx) {
       deletedAt: null,
     },
     order: [["updatedAt", "desc"]],
-    limit: Number(page),
+    limit: Number(pageSize),
     offset: Number(pageSize) * (Number(page) - 1),
     attributes: ["date", "description", "id", "priority", "status", "title"],
   });
@@ -96,6 +96,7 @@ async function getDetail(ctx) {
 
   ctx.success("获取成功", todo);
 }
+
 async function getListByDay(ctx) {
   const { day } = ctx.query;
 
@@ -162,15 +163,15 @@ async function getFinishedList(ctx) {
       userId: currentUser.userId,
       deletedAt: null,
     },
-    order: [["updatedAt", "desc"]],
-    limit: Number(page),
+    order: [["date", "desc"]],
+    limit: Number(pageSize),
     offset: Number(pageSize) * (Number(page) - 1),
     attributes: ["date", "description", "id", "priority", "status", "title"],
   });
 
   ctx.success("获取成功", {
     pagination: {
-      page: Number(pageSize),
+      page: Number(page),
       pageSize: Number(pageSize),
       total: todo.count,
       totalPage: Math.ceil(todo.count / pageSize),
@@ -191,7 +192,7 @@ async function getRecycleList(ctx) {
       },
     },
     order: [["id", "desc"]],
-    limit: Number(page),
+    limit: Number(pageSize),
     offset: Number(pageSize) * (Number(page) - 1),
     attributes: ["date", "description", "id", "priority", "status", "title"],
     paranoid: false,
@@ -199,7 +200,7 @@ async function getRecycleList(ctx) {
 
   ctx.success("获取成功", {
     pagination: {
-      page: Number(pageSize),
+      page: Number(page),
       pageSize: Number(pageSize),
       total: todo.count,
       totalPage: Math.ceil(todo.count / pageSize),
