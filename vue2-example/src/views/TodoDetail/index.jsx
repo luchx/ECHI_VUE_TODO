@@ -1,6 +1,7 @@
 import styles from "./index.module.less";
 import classNames from "classnames";
 import { ApiGetTodoDetail, ApiSaveTodoList } from "@/api/todo";
+import { priorityOption } from "@/utils/constant";
 
 export default {
   name: "TodoDetail",
@@ -9,28 +10,6 @@ export default {
       id: undefined,
       statusVisible: false,
       statusData: {},
-      statusOptions: [
-        {
-          name: "低优先级",
-          key: 1,
-          color: "#1890ff"
-        },
-        {
-          name: "中优先级",
-          key: 2,
-          color: "#52c41a"
-        },
-        {
-          name: "高优先级",
-          key: 3,
-          color: "#faad14"
-        },
-        {
-          name: "最高优先级",
-          key: 4,
-          color: "#f5222d"
-        }
-      ],
       currentDate: new Date(),
       visibleDate: false,
       todoData: {},
@@ -55,8 +34,7 @@ export default {
         this.description = data.description;
         this.date = data.date;
         this.priority = data.priority;
-        this.statusData =
-          this.statusOptions.find(item => item.key === data.priority) || {};
+        this.statusData = priorityOption.find(item => item.key === data.priority) || {};
       }
     },
     handleOpenDate() {
@@ -116,7 +94,6 @@ export default {
     const {
       statusVisible,
       statusData,
-      statusOptions,
       currentDate,
       visibleDate,
       todoData,
@@ -218,7 +195,7 @@ export default {
         <van-action-sheet
           value={statusVisible}
           onInput={this.handleCloseStatus}
-          actions={statusOptions}
+          actions={priorityOption}
           round={false}
           onSelect={this.handleSelectStatus}
         />

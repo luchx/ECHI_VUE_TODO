@@ -1,34 +1,13 @@
 import styles from "./index.module.less";
 import classNames from "classnames";
 import { ApiGetTodoDetail } from "@/api/todo";
+import { priorityOption } from "@/utils/constant";
 
 export default {
   name: "TodoDetailView",
   data() {
     return {
       statusData: {},
-      statusOptions: [
-        {
-          name: "低优先级",
-          key: "low",
-          color: "#1890ff"
-        },
-        {
-          name: "中优先级",
-          key: "middle",
-          color: "#52c41a"
-        },
-        {
-          name: "高优先级",
-          key: "height",
-          color: "#faad14"
-        },
-        {
-          name: "最高优先级",
-          key: "heightest",
-          color: "#f5222d"
-        }
-      ],
       currentDate: new Date(),
       todoData: {}
     };
@@ -41,8 +20,7 @@ export default {
       if (resp.code === 0) {
         const data = resp.result;
         this.todoData = data;
-        this.statusData =
-          this.statusOptions.find(item => item.key === data.priority) || {};
+        this.statusData = priorityOption.find(item => item.key === data.priority) || {};
       }
     }
   },

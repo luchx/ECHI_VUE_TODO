@@ -85,9 +85,9 @@ async function getDetail(ctx) {
   const todo = await TodoModel.findOne({
     where: {
       id,
-      userId: currentUser.userId,
-      deletedAt: null,
+      userId: currentUser.userId
     },
+    paranoid: false,
     attributes: ["date", "description", "id", "priority", "status", "title"],
   });
   if (!todo) {
