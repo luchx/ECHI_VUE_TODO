@@ -59,9 +59,6 @@ export default {
           this.statusOptions.find(item => item.key === data.priority) || {};
       }
     },
-    handleToggleCheck(item) {
-      item.isFinished = !item.isFinished;
-    },
     handleOpenDate() {
       this.visibleDate = true;
     },
@@ -69,7 +66,6 @@ export default {
       this.visibleDate = false;
     },
     handleConfirmDate(value) {
-      console.log(value);
       this.date = this.$moment(value);
       this.handleCloseDate();
     },
@@ -100,7 +96,6 @@ export default {
       if (this.id) {
         data["id"] = this.id;
       }
-      console.log(data);
       const resp = await ApiSaveTodoList(data);
       if (resp.code === 0) {
         this.$toast.success("提交成功");
@@ -182,18 +177,17 @@ export default {
             <van-divider />
             <div
               class={classNames(styles.todoDetailTitle, {
-                [styles.finished]: todoData.isFinished
+                [styles.finished]: todoData.status === 2
               })}
             >
               {id && (
                 <span
                   class={styles.todoDetailCheck}
-                  onClick={() => this.handleToggleCheck(todoData)}
                 >
                   <i
                     class={classNames("iconfont", styles.icon)}
                     domPropsInnerHTML={
-                      todoData.isFinished ? "&#xe606;" : "&#xe6ca;"
+                      todoData.status === 2 ? "&#xe606;" : "&#xe6ca;"
                     }
                   ></i>
                 </span>
