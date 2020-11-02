@@ -1,5 +1,5 @@
 import styles from "./index.module.less";
-import { ApiGetReviewTodoList, ApiDeleteTodoToRecycle } from "@/api/todo";
+import { ApiGetReviewTodoList, ApiDeleteTodoToRecycle, ApiToggleFinishTodo } from "@/api/todo";
 
 export default {
   name: "Review",
@@ -33,13 +33,12 @@ export default {
         this.todoList = resp.result.list;
       }
     },
-    handleCheck(item) {
-      const { id, isFinished } = item;
-      this.todoList = this.todoList.filter(todo => todo.id !== id);
-      if (isFinished) {
-        this.todoList.push(item);
-      } else {
-        this.todoList.unshift(item);
+    async handleCheck(item) {
+      const { id, status } = item;
+      const resp = await ApiToggleFinishTodo(id, status);
+      if (resp.code === 0) {
+        this.$toast.success(resp.message);
+        this.todoList = this.todoList.filter(todo => todo.id !== id);
       }
     },
     handleGoDetail(item) {
@@ -86,7 +85,7 @@ export default {
                 本周完成：<span>{taskData.finishCount}</span>
               </div>
               <div class={styles.reviewBoxItem}>
-                本周评分：{taskData.rate && <span>{taskData.rate}星</span>}
+                本周星级：{taskData.rate && <span>{taskData.rate}星</span>}
               </div>
               <div class={styles.reviewBoxItem}>
                 本周效率：{taskData.rate && <span>{this.ratioText}</span>}

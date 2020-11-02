@@ -27,7 +27,7 @@ export default {
   methods: {
     handleToggleCheck(event, item) {
       event.stopPropagation();
-      item.isFinished = !item.isFinished;
+      item.status = item.status === 1 ? 2 : 1;
       this.$emit("check", item);
     },
     goDetail(item) {
@@ -82,7 +82,7 @@ export default {
             </div>
             <div
               class={classNames(styles.cardContent, {
-                [styles.finished]: item.isFinished
+                [styles.finished]: item.status === 2
               })}
               onClick={() => this.goDetail(item)}
             >
@@ -95,7 +95,7 @@ export default {
                     <i
                       class={classNames("iconfont", styles.icon)}
                       domPropsInnerHTML={
-                        item.isFinished ? "&#xe606;" : "&#xe6ca;"
+                        item.status === 2 ? "&#xe606;" : "&#xe6ca;"
                       }
                     ></i>
                   </span>

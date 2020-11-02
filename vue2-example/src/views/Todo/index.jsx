@@ -1,5 +1,5 @@
 import Vue from "vue";
-import { ApiGetTodoList, ApiDeleteTodoToRecycle } from "@/api/todo";
+import { ApiGetTodoList, ApiDeleteTodoToRecycle, ApiToggleFinishTodo } from "@/api/todo";
 import styles from "./index.module.less";
 
 export default Vue.extend({
@@ -32,13 +32,12 @@ export default Vue.extend({
         this.total = total;
       }
     },
-    handleCheck(item) {
-      const { id, isFinished } = item;
-      this.todoList = this.todoList.filter(todo => todo.id !== id);
-      if (isFinished) {
-        this.todoList.push(item);
-      } else {
-        this.todoList.unshift(item);
+    async handleCheck(item) {
+      const { id, status } = item;
+      const resp = await ApiToggleFinishTodo(id, status);
+      if (resp.code === 0) {
+        this.$toast.success(resp.message);
+        this.todoList = this.todoList.filter(todo => todo.id !== id);
       }
     },
     handleGoDetail(item) {
@@ -53,12 +52,12 @@ export default Vue.extend({
       const { id } = item;
       const resp = await ApiDeleteTodoToRecycle(id);
       if (resp.code === 0) {
-        this.$toast.success("删除成功");
+        this.$toast.success(resp.message);
         this.todoList = this.todoList.filter(todo => todo.id !== id);
       }
     }
   },
-  mounted() {
+  created() {
     this.getTodoList();
   },
   render() {

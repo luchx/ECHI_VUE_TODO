@@ -99,3 +99,14 @@ export function ApiDeleteTodoToRecycle(id) {
 export function ApiRestoreTodoFromRecycle(id) {
   return service.put(`/api/todo/restoreToRecycle/${id}`);
 }
+
+/**
+ * 切换完成状态
+ * @param {String} id
+ */
+export function ApiToggleFinishTodo(id, status) {
+  return service.put(`/api/todo/finishTodo`, {
+    id,
+    status
+  });
+}

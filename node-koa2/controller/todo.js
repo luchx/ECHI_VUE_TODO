@@ -34,7 +34,7 @@ async function saveList(ctx) {
   const currentUser = ctx.currentUser;
 
   if (id) {
-    const todo = await TodoModel.update(
+    await TodoModel.update(
       {
         date,
         description,
@@ -58,7 +58,7 @@ async function saveList(ctx) {
       }
     );
 
-    return ctx.success("更新成功", todo[0]);
+    return ctx.success("更新成功", id);
   }
 
   const todo = await TodoModel.create(
@@ -145,7 +145,7 @@ async function getReviewList(ctx) {
   ctx.success("获取成功", {
     task: {
       finishCount: todo.count,
-      rate: (todo.count / total) * 5,
+      rate: Math.floor((todo.count / total) * 5),
       total: total,
     },
     list: todo.rows
@@ -273,16 +273,24 @@ async function restoreToRecycle(ctx) {
 }
 
 async function finishTodo(ctx) {
-  const { id } = ctx.params;
-  await TodoModel.update({
-    status: 2
-  }, {
-    where: {
-      id
-    }
-  });
+  const { id, status } = ctx.request.body;
 
-  ctx.success("任务已完成")
+  const currentUser = ctx.currentUser;
+  const todo = await TodoModel.findOne({
+    where: {
+      id,
+      userId: currentUser.userId,
+      deletedAt: null
+    }
+  })
+
+  if (!todo) {
+    return ctx.fail("没有找到待办记录")
+  } 
+
+  todo.status = status;
+  await todo.save();
+  ctx.success("操作成功")
 }
 
 module.exports = {

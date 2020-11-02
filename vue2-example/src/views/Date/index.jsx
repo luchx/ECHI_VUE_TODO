@@ -1,5 +1,5 @@
 import styles from "./index.module.less";
-import { ApiGetTodoListByDay, ApiDeleteTodoToRecycle } from "@/api/todo";
+import { ApiGetTodoListByDay, ApiDeleteTodoToRecycle, ApiToggleFinishTodo } from "@/api/todo";
 import { mapState } from "vuex";
 
 export default {
@@ -50,13 +50,11 @@ export default {
         this.todoList = resp.result;
       }
     },
-    handleCheck(item) {
-      const { id, isFinished } = item;
-      this.todoList = this.todoList.filter(todo => todo.id !== id);
-      if (isFinished) {
-        this.todoList.push(item);
-      } else {
-        this.todoList.unshift(item);
+    async handleCheck(item) {
+      const { id, status } = item;
+      const resp = await ApiToggleFinishTodo(id, status);
+      if (resp.code === 0) {
+        this.$toast.success(resp.message);
       }
     },
     handleGoDetail(item) {

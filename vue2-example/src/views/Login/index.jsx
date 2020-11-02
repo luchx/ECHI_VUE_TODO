@@ -4,7 +4,6 @@ import classNames from "classnames";
 import styles from "./index.module.less";
 import { ApiGetVerify, ApiLogin } from "@/api/user";
 import { TestPhone } from "@/utils/validate";
-import { local } from "@/utils/storage";
 import { setToken } from "@/utils";
 
 export default Vue.extend({
@@ -30,9 +29,6 @@ export default Vue.extend({
     // 验证码输入操作
     handleCodeChange(event) {
       this.code = event.target.value;
-      console.log({
-        event
-      });
     },
 
     // 输入框获取焦点

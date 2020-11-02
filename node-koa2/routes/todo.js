@@ -14,6 +14,6 @@ router.get("/getRecycleList", verifyToken, TodoController.getRecycleList);
 router.delete("/deleteTodo/:id", verifyToken, TodoController.deleteTodo);
 router.delete("/deleteToRecycle/:id", verifyToken, TodoController.deleteToRecycle);
 router.put("/restoreToRecycle/:id", verifyToken, TodoController.restoreToRecycle);
-router.put("/finishTodo/:id", verifyToken, TodoController.finishTodo);
+router.put("/finishTodo", verifyToken, TodoController.finishTodo);
 
 module.exports = router;
