@@ -3,6 +3,8 @@ const { getToken } = require("../helper/jwt");
 const { TestPhone } = require("../helper/validator");
 const UserModel = require("../models/user");
 
+const verifyCode = "1234";
+
 // 登录
 async function login(ctx) {
   const { phone, password = "", code = "" } = ctx.request.body;
@@ -11,7 +13,7 @@ async function login(ctx) {
     return ctx.fail("手机号码不正确", 400);
   }
 
-  if (password === "" && code !== "1234") {
+  if (password === "" && code !== verifyCode) {
     return ctx.fail("验证码不正确", 400);
   }
 
@@ -39,7 +41,7 @@ async function login(ctx) {
     phone: existUser.phone,
     avatar: existUser.avatar,
     description: existUser.description,
-    gender: Number(existUser.gender),
+    gender: existUser.gender,
   }
 
   const token = getToken({
@@ -73,7 +75,7 @@ async function verify(ctx) {
     return ctx.fail("手机号码不正确", 400);
   }
 
-  ctx.success("获取验证码成功", "1234");
+  ctx.success("获取验证码成功", verifyCode);
 }
 
 async function detail(ctx) {
@@ -87,7 +89,7 @@ async function detail(ctx) {
   });
 
   if (!user) {
-    throw ctx.fail("账号不存在");
+    return ctx.fail("账号不存在");
   }
 
   return ctx.success("获取用户成功", user);
