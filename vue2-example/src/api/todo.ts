@@ -97,5 +97,5 @@ export function ApiDeleteTodoToRecycle(id) {
  * @param {String} id
  */
 export function ApiRestoreTodoFromRecycle(id) {
-  return service.put(`/api/todo/rebackToRecycle/${id}`);
+  return service.put(`/api/todo/restoreToRecycle/${id}`);
 }

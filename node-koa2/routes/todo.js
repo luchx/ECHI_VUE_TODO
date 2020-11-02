@@ -12,6 +12,6 @@ router.get("/getFinishedList", TodoController.getFinishedList);
 router.get("/getRecycleList", TodoController.getRecycleList);
 router.delete("/deleteTodo/:id", TodoController.deleteTodo);
 router.delete("/deleteToRecycle/:id", TodoController.deleteToRecycle);
-router.put("/rebackToRecycle/:id", TodoController.rebackToRecycle);
+router.put("/restoreToRecycle/:id", TodoController.restoreToRecycle);
 
 module.exports = router;
