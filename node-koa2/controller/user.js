@@ -33,12 +33,12 @@ async function login(ctx) {
   // 返回格式化数据
   const userData = {
     id: existUser.id,
-    nickname: existUser.nickname || `代号：${10000 + Number(existUser.id)}`,
-    userName: existUser.userName || "",
-    email: existUser.email || "",
+    nickname: existUser.nickname,
+    userName: existUser.userName,
+    email: existUser.email,
     phone: existUser.phone,
-    avatar: existUser.avatar || "",
-    description: existUser.description || "记录生活的美好~",
+    avatar: existUser.avatar,
+    description: existUser.description,
     gender: Number(existUser.gender),
   }
 
@@ -56,7 +56,7 @@ async function login(ctx) {
   }
 
   // 对比已存在的密码，code 方式登录不校验
-  const correct = bcrypt.compareSync(password, userData.password);
+  const correct = bcrypt.compareSync(password, existUser.password);
   if (code === "" && !correct) {
     return ctx.fail("密码不正确");
   }
@@ -83,6 +83,7 @@ async function detail(ctx) {
       id,
       deletedAt: null
     },
+    attributes: ["id", "nickname", "userName", "email", "phone", "avatar", "description", "gender"]
   });
 
   if (!user) {
