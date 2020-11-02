@@ -43,11 +43,11 @@ export default {
     },
     async getTodoListByDay() {
       this.loading = true;
-      const day = this.currentDate;
-      const resp = await ApiGetTodoListByDay(day);
+      const date = this.$moment(this.currentDate).format("YYYY-MM-DD");
+      const resp = await ApiGetTodoListByDay(date);
       this.loading = false;
       if (resp.code === 0) {
-        this.todoList = resp.result.list;
+        this.todoList = resp.result;
       }
     },
     handleCheck(item) {

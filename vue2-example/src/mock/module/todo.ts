@@ -45,7 +45,7 @@ export default {
       }
     };
   },
-  "/api/todo/getTodoListByDay": () => {
+  "/api/todo/getListByDay": () => {
     return {
       code: 0,
       timestamp: +new Date(),
@@ -71,7 +71,7 @@ export default {
       }
     };
   },
-  "/api/todo/getReviewTodoList": () => {
+  "/api/todo/getReviewList": () => {
     return {
       code: 0,
       timestamp: +new Date(),

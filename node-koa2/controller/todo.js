@@ -1,4 +1,4 @@
-const { Op } = require("sequelize");
+const { Op, fn, where, col } = require("sequelize");
 const TodoModel = require("../models/todo");
 
 async function getList(ctx) {
@@ -102,23 +102,32 @@ async function getListByDay(ctx) {
   const currentUser = ctx.currentUser;
   const todo = await TodoModel.findAll({
     where: {
-      date: day,
-      status: 1,
+      [Op.and]: [
+        // 当天数据
+        where(fn('TO_DAYS', col('date')), '=', fn('TO_DAYS', day))
+      ],
       userId: currentUser.userId,
       deletedAt: null,
     },
     order: [["id", "desc"]],
     attributes: ["date", "description", "id", "priority", "status", "title"],
   });
-
-  ctx.success("获取成功", todo.rows);
+  
+  ctx.success("获取成功", todo);
 }
 
 async function getReviewList(ctx) {
   const currentUser = ctx.currentUser;
-  const todo = await TodoModel.findAll({
+  const todo = await TodoModel.findAndCountAll({
     where: {
-      status: 1,
+      [Op.and]: [
+        // 周数据
+        where(
+          fn('YEARWEEK', col('date')),
+          '=',
+          fn('YEARWEEK', fn('NOW'))
+        )
+      ],
       userId: currentUser.userId,
       deletedAt: null,
     },
@@ -126,7 +135,14 @@ async function getReviewList(ctx) {
     attributes: ["date", "description", "id", "priority", "status", "title"],
   });
 
-  ctx.success("获取成功", todo.rows);
+  ctx.success("获取成功", {
+    task: {
+      finishCount: 5,
+      rate: 3,
+      total: todo.count,
+    },
+    list: todo.rows
+  });
 }
 
 async function getFinishedList(ctx) {
