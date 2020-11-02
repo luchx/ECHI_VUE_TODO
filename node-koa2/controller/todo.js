@@ -118,18 +118,25 @@ async function getListByDay(ctx) {
 
 async function getReviewList(ctx) {
   const currentUser = ctx.currentUser;
+  const weekWhere = {
+    [Op.and]: [
+      // 周数据
+      where(
+        fn('YEARWEEK', col('date')),
+        '=',
+        fn('YEARWEEK', fn('NOW'))
+      )
+    ],
+    userId: currentUser.userId,
+    deletedAt: null,
+  }
+  const total = await TodoModel.count({
+    where: weekWhere,
+  })
   const todo = await TodoModel.findAndCountAll({
     where: {
-      [Op.and]: [
-        // 周数据
-        where(
-          fn('YEARWEEK', col('date')),
-          '=',
-          fn('YEARWEEK', fn('NOW'))
-        )
-      ],
-      userId: currentUser.userId,
-      deletedAt: null,
+      ...weekWhere,
+      status: 2,
     },
     order: [["id", "desc"]],
     attributes: ["date", "description", "id", "priority", "status", "title"],
@@ -137,9 +144,9 @@ async function getReviewList(ctx) {
 
   ctx.success("获取成功", {
     task: {
-      finishCount: 5,
-      rate: 3,
-      total: todo.count,
+      finishCount: todo.count,
+      rate: (todo.count / total) * 5,
+      total: total,
     },
     list: todo.rows
   });
