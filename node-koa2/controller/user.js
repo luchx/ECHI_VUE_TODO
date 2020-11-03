@@ -60,7 +60,7 @@ async function login(ctx) {
   // 对比已存在的密码，code 方式登录不校验
   const correct = bcrypt.compareSync(password, existUser.password);
   if (code === "" && !correct) {
-    return ctx.fail("密码不正确");
+    return ctx.fail("密码不正确", 400);
   }
   
   ctx.success("欢迎回来", {
