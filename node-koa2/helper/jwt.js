@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const { secretKey, whiteList, expired } = require("../config").secret;
+const { secretKey, whiteList, expiresIn } = require("../config").jwt;
 
 // jwt 错误处理方法
 function errorHandle(ctx, next) {
@@ -19,16 +19,15 @@ function errorHandle(ctx, next) {
 // 生成 token
 function getToken(payload) {
   return jwt.sign(payload, secretKey, {
-    expiresIn: expired,
+    expiresIn,
   });
 };
 
 // 校验 token
 async function verifyToken(ctx, next) {
   const { authorization } = ctx.header;
-  const auth = jwt.verify(authorization.split(" ")[1], secretKey);
-  ctx.currentUser = auth;
-  
+  jwt.verify(authorization.split(" ")[1], secretKey);
+
   await next();
 };
 

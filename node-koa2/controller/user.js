@@ -49,6 +49,9 @@ async function login(ctx) {
     phone: userData.phone,
   });
 
+  // 将用户信息存到全局对象中
+  ctx.currentUser = existUser;
+
   // 初次登录，创建用户
   if (created) {    
     return ctx.success("登录成功", {

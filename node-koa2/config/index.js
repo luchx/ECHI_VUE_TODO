@@ -14,13 +14,13 @@ const config = {
   },
 
   // jwt 校验
-  secret: {
+  jwt: {
     secretKey: "toto_jwt",
     whiteList: [
       /^\/api\/user\/login/,
       /^\/api\/user\/verify/,
     ],
-    expired: "4h",
+    expiresIn: "4h",
   }
 }
 
