@@ -29,7 +29,11 @@ export default class Http {
       // 关闭 loading
       toast.clear();
       const data = res.data as RespondData;
-      return Promise.resolve(data);
+      if(data.code === 0) {
+        return Promise.resolve(data);
+      }
+      Notify({ type: 'warning', message: data.message });
+      return Promise.reject(data);
     }catch (e) {
       console.error(e);
       // 关闭 loading
