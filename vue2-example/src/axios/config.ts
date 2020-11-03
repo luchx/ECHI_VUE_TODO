@@ -1,5 +1,5 @@
-import { local } from '@/utils/storage';
 import axios, { AxiosRequestConfig, AxiosError } from "axios";
+import { clearAuth } from '@/utils';
 
 // 超时重新请求配置
 const VUE_APP_URL = process.env.VUE_APP_URL;
@@ -36,7 +36,7 @@ service.interceptors.response.use(
     // 1001: token失效
     if (data.code === 1001) {
       // 需要重新获取token
-      local.remove("token");
+      clearAuth()
     }
     return response;
   },
@@ -53,7 +53,7 @@ service.interceptors.response.use(
         504: "网关超时",
         505: "HTTP版本不受支持"
       };
-      error.message = error.response.data?.message || RESPONSE_CODE[error.response.status] || "服务器开小差！！";
+      error.message = RESPONSE_CODE[error.response.status] || "服务器开小差！！";
     }
     return Promise.reject(error);
   }

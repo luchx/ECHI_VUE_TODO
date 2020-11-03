@@ -8,7 +8,6 @@ function success(message, result = null) {
     message,
     timestamp: +new Date(),
   };
-  this.status = 200;
 }
 
 /**
@@ -21,7 +20,6 @@ function fail(message, code = 500, result = null) {
     message,
     timestamp: +new Date(),
   };
-  this.status = 500
 }
 
 module.exports = async (ctx, next) => {
