@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosError } from "axios";
-import { clearAuth } from '@/utils';
+import { clearAuth } from "@/utils";
 
 // 超时重新请求配置
 const VUE_APP_URL = process.env.VUE_APP_URL;
@@ -12,8 +12,8 @@ const axiosConfig: AxiosRequestConfig = {
   headers: {
     "Content-Type": "application/json",
     "X-Requested-With": "XMLHttpRequest",
-    "If-Modified-Since": 0,                 // 防止get请求在IE下被缓存
-  },
+    "If-Modified-Since": 0 // 防止get请求在IE下被缓存
+  }
 };
 
 // 修改axios配置信息
@@ -36,7 +36,7 @@ service.interceptors.response.use(
     // 1001: token失效
     if (data.code === 1001) {
       // 需要重新获取token
-      clearAuth()
+      clearAuth();
     }
     return response;
   },
@@ -53,7 +53,8 @@ service.interceptors.response.use(
         504: "网关超时",
         505: "HTTP版本不受支持"
       };
-      error.message = RESPONSE_CODE[error.response.status] || "服务器开小差！！";
+      error.message =
+        RESPONSE_CODE[error.response.status] || "服务器开小差！！";
     }
     return Promise.reject(error);
   }

@@ -1,7 +1,7 @@
 import { AxiosRequestConfig } from "axios";
 import axios from "./config";
 import { Toast, Notify } from "vant";
-import { local } from '@/utils/storage';
+import { local } from "@/utils/storage";
 
 export interface RespondData {
   code: number;
@@ -23,24 +23,24 @@ export default class Http {
         headers: {
           authorization: local.get("token")
         },
-        ...params,
+        ...params
       });
       console.log("打印请求值 ☞", res.data);
       // 关闭 loading
       toast.clear();
       const data = res.data as RespondData;
-      if(data.code === 0) {
+      if (data.code === 0) {
         return Promise.resolve(data);
       }
-      Notify({ type: 'danger', message: data.message });
+      Notify({ type: "danger", message: data.message });
       return Promise.reject(data);
-    }catch (e) {
+    } catch (e) {
       console.error(e);
       // 关闭 loading
       toast.clear();
-      Notify({ type: 'danger', message: e.message });
+      Notify({ type: "danger", message: e.message });
       return Promise.reject(e);
-    } 
+    }
   }
 
   /**

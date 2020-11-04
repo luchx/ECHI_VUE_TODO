@@ -1,5 +1,9 @@
 import styles from "./index.module.less";
-import { ApiGetReviewTodoList, ApiDeleteTodoToRecycle, ApiToggleFinishTodo } from "@/api/todo";
+import {
+  ApiGetReviewTodoList,
+  ApiDeleteTodoToRecycle,
+  ApiToggleFinishTodo
+} from "@/api/todo";
 
 export default {
   name: "Review",

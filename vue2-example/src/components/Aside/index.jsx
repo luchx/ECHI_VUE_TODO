@@ -111,7 +111,8 @@ export default {
 
                 <div class={styles.asideUserInfo}>
                   <p class={styles.asideUserTitle}>
-                    {this.userInfo.nickname || `代号 ${10000 + this.userInfo.id}`}
+                    {this.userInfo.nickname ||
+                      `代号 ${10000 + this.userInfo.id}`}
                   </p>
                   <p class={styles.asideUserText}>
                     {this.userInfo.description || "记录生活的美好~"}

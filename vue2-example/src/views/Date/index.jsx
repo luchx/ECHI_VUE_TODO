@@ -1,5 +1,10 @@
 import styles from "./index.module.less";
-import { ApiGetTodoListByDay, ApiDeleteTodoToRecycle, ApiToggleFinishTodo, ApiGetTodoDate } from "@/api/todo";
+import {
+  ApiGetTodoListByDay,
+  ApiDeleteTodoToRecycle,
+  ApiToggleFinishTodo,
+  ApiGetTodoDate
+} from "@/api/todo";
 import { mapState } from "vuex";
 
 export default {
@@ -35,7 +40,9 @@ export default {
       this.weekDate = weekDate;
     },
     formatterCalender(item) {
-      const isTodo = this.dateList.some(date => this.$moment(date).isSame(item.date, "day"));
+      const isTodo = this.dateList.some(date =>
+        this.$moment(date).isSame(item.date, "day")
+      );
       if (isTodo) {
         item.bottomInfo = "待办";
       }

@@ -32,8 +32,8 @@ export default {
           if (this.todoData[key] === undefined) {
             this.todoData[key] = [];
           }
-          this.todoData[key].push(item)
-        })
+          this.todoData[key].push(item);
+        });
         this.total = total;
       }
     },

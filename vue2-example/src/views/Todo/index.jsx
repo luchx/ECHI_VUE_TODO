@@ -1,5 +1,9 @@
 import Vue from "vue";
-import { ApiGetTodoList, ApiDeleteTodoToRecycle, ApiToggleFinishTodo } from "@/api/todo";
+import {
+  ApiGetTodoList,
+  ApiDeleteTodoToRecycle,
+  ApiToggleFinishTodo
+} from "@/api/todo";
 import styles from "./index.module.less";
 
 export default Vue.extend({

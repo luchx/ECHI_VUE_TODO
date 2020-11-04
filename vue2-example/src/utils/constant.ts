@@ -19,4 +19,4 @@ export const priorityOption = [
     key: 4,
     color: "#f5222d"
   }
-]
+];

@@ -6,7 +6,7 @@ type TodoData = {
   description: string;
   date: Date;
   priority: number;
-}
+};
 
 /**
  * 新增/编辑待办

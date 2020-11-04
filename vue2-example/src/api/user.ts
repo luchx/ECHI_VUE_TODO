@@ -3,7 +3,7 @@ import service from "@/axios/service";
 type Login = {
   phone: number;
   verify: number;
-}
+};
 
 /**
  * 登录操作

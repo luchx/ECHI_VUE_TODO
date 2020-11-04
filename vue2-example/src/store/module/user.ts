@@ -1,4 +1,4 @@
-import { local } from '@/utils/storage';
+import { local } from "@/utils/storage";
 import { GetterTree, ActionTree, MutationTree } from "vuex";
 
 export interface State {

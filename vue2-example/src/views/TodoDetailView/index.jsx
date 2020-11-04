@@ -20,7 +20,8 @@ export default {
       if (resp.code === 0) {
         const data = resp.result;
         this.todoData = data;
-        this.statusData = priorityOption.find(item => item.key === data.priority) || {};
+        this.statusData =
+          priorityOption.find(item => item.key === data.priority) || {};
       }
     }
   },

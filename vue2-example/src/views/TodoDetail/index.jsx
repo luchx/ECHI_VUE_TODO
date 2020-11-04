@@ -34,7 +34,8 @@ export default {
         this.description = data.description;
         this.date = data.date;
         this.priority = data.priority;
-        this.statusData = priorityOption.find(item => item.key === data.priority) || {};
+        this.statusData =
+          priorityOption.find(item => item.key === data.priority) || {};
       }
     },
     handleOpenDate() {
@@ -158,9 +159,7 @@ export default {
               })}
             >
               {id && (
-                <span
-                  class={styles.todoDetailCheck}
-                >
+                <span class={styles.todoDetailCheck}>
                   <i
                     class={classNames("iconfont", styles.icon)}
                     domPropsInnerHTML={
