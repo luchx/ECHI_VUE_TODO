@@ -1,6 +1,6 @@
 const bcrypt = require("bcryptjs");
-const { getToken } = require("../helper/jwt");
-const { TestPhone } = require("../helper/validator");
+const { getToken } = require("../core/jwt");
+const { TestPhone } = require("../core/validator");
 const UserModel = require("../models/user");
 
 const verifyCode = "1234";

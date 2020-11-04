@@ -5,10 +5,10 @@ const json = require("koa-json");
 const onerror = require("koa-onerror");
 const koaBody = require("koa-body");
 const logger = require("koa-logger");
-const jwtKoa = require("koa-jwt");
+const koaJwt = require("koa-jwt");
 const cors = require("koa2-cors");
-const context = require("./helper/context");
-const { secret, errorHandle, whiteList } = require("./helper/jwt");
+const httpResponse = require("./middlewares/http-response");
+const { secretKey, whiteList } = require("./core/jwt");
 
 // error handler
 onerror(app);
@@ -31,9 +31,9 @@ app.use(
 );
 
 // jwt
-app.use(errorHandle).use(
-  jwtKoa({
-    secret,
+app.use(
+  koaJwt({
+    secret: secretKey,
   }).unless({
     path: whiteList,
   })
@@ -48,7 +48,7 @@ app.use(json());
 app.use(logger());
 
 // 添加执行上下文参数
-app.use(context);
+app.use(httpResponse);
 
 app.use(require("koa-static")(__dirname + "/public"));
 app.use(
