@@ -1,4 +1,5 @@
-require('module-alias/register')
+// 注册路径
+require("module-alias/register");
 
 const Koa = require("koa");
 const app = new Koa();
@@ -83,4 +84,7 @@ app.on("error", (err, ctx) => {
   console.error("server error", err, ctx);
 });
 
-module.exports = app;
+const { port } = require("@config");
+app.listen(port, () => {
+  console.log(`listening port ${port}`)
+})
