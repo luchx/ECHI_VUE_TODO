@@ -1,5 +1,5 @@
 const router = require("koa-router")();
-const UserController = require("../controller/user");
+const UserController = require("@controller/user");
 
 router.prefix("/api/user");
 

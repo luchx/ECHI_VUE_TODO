@@ -53,7 +53,7 @@ TodoModel.init({
     },
   },
 }, {
-  sequelize: require("../core/db"),
+  sequelize: require("@core/db"),
   modelName: "todo",
   tableName: "todo",
 });

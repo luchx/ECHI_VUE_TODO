@@ -23,6 +23,7 @@
     "koa-static": "^5.0.0",
     "koa-views": "^6.2.0",
     "koa2-cors": "^2.0.6",
+    "module-alias": "^2.2.2",
     "moment": "^2.29.1",
     "mysql2": "^2.2.5",
     "pug": "^2.0.3",
@@ -32,5 +33,16 @@
   },
   "devDependencies": {
     "nodemon": "^1.19.1"
+  },
+  "_moduleAliases": {
+    "@root": ".",
+    "@config": "config",
+    "@public": "public",
+    "@views": "views",
+    "@controller": "app/controller",
+    "@middlewares": "app/middlewares",
+    "@models": "app/models",
+    "@routes": "app/routes",
+    "@core": "app/core"
   }
 }

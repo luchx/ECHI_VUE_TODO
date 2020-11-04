@@ -67,7 +67,7 @@ UserModel.init(
     },
   },
   {
-    sequelize: require("../core/db"),
+    sequelize: require("@core/db"),
     modelName: "user",
     tableName: "user",
   }

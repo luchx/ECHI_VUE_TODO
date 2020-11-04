@@ -1,6 +1,6 @@
 const router = require("koa-router")();
-const TodoController = require("../controller/todo");
-const { authVerify } = require("../middlewares");
+const TodoController = require("@controller/todo");
+const { authVerify } = require("@middlewares");
 
 router.prefix("/api/todo");
 

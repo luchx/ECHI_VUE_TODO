@@ -1,3 +1,5 @@
+require('module-alias/register')
+
 const Koa = require("koa");
 const app = new Koa();
 const views = require("koa-views");
@@ -7,8 +9,8 @@ const koaBody = require("koa-body");
 const logger = require("koa-logger");
 const koaJwt = require("koa-jwt");
 const cors = require("koa2-cors");
-const httpResponse = require("./middlewares/http-response");
-const { secretKey, whiteList } = require("./core/jwt");
+const httpResponse = require("@middlewares/http-response");
+const { secretKey, whiteList } = require("@core/jwt");
 
 // error handler
 onerror(app);
@@ -66,10 +68,10 @@ app.use(async (ctx, next) => {
 });
 
 // routes
-const Index = require("./routes/index");
-const Basic = require("./routes/basic");
-const Users = require("./routes/users");
-const Todo = require("./routes/todo");
+const Index = require("@routes/index");
+const Basic = require("@routes/basic");
+const Users = require("@routes/users");
+const Todo = require("@routes/todo");
 
 app.use(Index.routes(), Index.allowedMethods());
 app.use(Basic.routes(), Basic.allowedMethods());

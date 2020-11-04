@@ -1,5 +1,5 @@
 const { Op, fn, where, col } = require("sequelize");
-const TodoModel = require("../models/todo");
+const TodoModel = require("@models/todo");
 
 async function getDateList(ctx) {
   const currentUser = ctx.currentUser;
