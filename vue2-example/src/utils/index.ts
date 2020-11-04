@@ -2,8 +2,8 @@ import { local } from "./storage";
 import router from "@/router";
 
 export function setToken(token: string): void {
-  const expired = 60 * 60 * 3;
-  local.set("token", `Bearer ${token}`, expired);
+  const three_Hours = 60 * 60 * 3;
+  local.set("token", `Bearer ${token}`, three_Hours);
 }
 
 export function getToken(): string {

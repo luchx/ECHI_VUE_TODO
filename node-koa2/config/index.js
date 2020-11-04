@@ -17,6 +17,7 @@ const config = {
   jwt: {
     secretKey: "toto_jwt",
     whiteList: [
+      /^\//,
       /^\/api\/user\/login/,
       /^\/api\/user\/verify/,
     ],
