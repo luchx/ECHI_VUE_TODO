@@ -22,9 +22,6 @@ async function authVerify(ctx, next) {
       }
 
       const user = await UserModel.findByPk(decode.userId);
-      console.log({
-        user,
-      });
       if (!user) {
         return ctx.fail("该用户不存在");
       }
@@ -42,6 +39,4 @@ async function authVerify(ctx, next) {
   ctx.fail("token效验错误3", 1001);
 }
 
-module.exports = {
-  authVerify,
-};
+module.exports = authVerify
