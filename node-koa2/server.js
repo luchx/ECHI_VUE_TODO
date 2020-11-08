@@ -10,6 +10,7 @@ const koaBody = require("koa-body");
 const logger = require("koa-logger");
 const koaJwt = require("koa-jwt");
 const cors = require("koa2-cors");
+const chalk = require("chalk");
 const httpResponse = require("@middlewares/http-response");
 const { secretKey, whiteList } = require("@core/jwt");
 
@@ -86,5 +87,9 @@ app.on("error", (err, ctx) => {
 
 const { port } = require("@config");
 app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`)
+  console.log(
+    process.env.NODE_ENV === 'development'
+      ? `Open ${chalk.green('http://localhost:' + port)}`
+      : `App listening on port ${port}`
+  )
 })
