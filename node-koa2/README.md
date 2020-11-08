@@ -1,4 +1,8 @@
-# 克隆项目代码
+# TodoList 后端应用
+
+> 使用 koa2 + mysql + sequelize + koa-router 搭建的后端应用，提供接口使用。
+
+## 克隆项目代码
 
 ```bash
 # 克隆项目代码
