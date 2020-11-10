@@ -1,7 +1,23 @@
 {
   "name": "node-koa2",
+  "description": "使用 koa2 + mysql + sequelize + koa-router 搭建的后端应用，提供接口使用",
   "version": "0.1.0",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:luchx/ECHI_VUE_TODO.git"
+  },
+  "keywords": [
+    "node",
+    "koa",
+    "koa2",
+    "mysql",
+    "sequelize"
+  ],
+  "author": {
+    "name": "Echi",
+    "email": "luchx1993@gmail.com"
+  },
   "scripts": {
     "start": "cross-env NODE_ENV=development node server.js",
     "dev": "cross-env NODE_ENV=development nodemon server.js",
@@ -28,7 +44,6 @@
     "mysql2": "^2.2.5",
     "pug": "^2.0.3",
     "sequelize": "^6.3.5",
-    "uuid": "^8.3.1",
     "validator": "^13.1.17"
   },
   "devDependencies": {
