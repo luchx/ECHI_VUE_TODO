@@ -5,7 +5,7 @@ const UserModel = require("@models/user");
 // jwt 错误处理方法
 async function authVerify(ctx, next) {
   if (!ctx.header || !ctx.header.authorization) {
-    return ctx.fail("token效验错误");
+    return ctx.fail("token效验错误", 1001);
   }
   const parts = ctx.header.authorization.split(" ");
   if (parts.length !== 2) {
@@ -39,4 +39,4 @@ async function authVerify(ctx, next) {
   }
 }
 
-module.exports = authVerify
+module.exports = authVerify;
