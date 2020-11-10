@@ -5,7 +5,7 @@ const UserModel = require("@models/user");
 // jwt 错误处理方法
 async function authVerify(ctx, next) {
   if (!ctx.header || !ctx.header.authorization) {
-    return ctx.fail("token效验错误1");
+    return ctx.fail("token效验错误");
   }
   const parts = ctx.header.authorization.split(" ");
   if (parts.length === 2) {
@@ -18,7 +18,7 @@ async function authVerify(ctx, next) {
       try {
         decode = jwt.verify(token, secretKey);
       } catch (err) {
-        return ctx.fail("token效验错误2", 1001);
+        return ctx.fail("token效验错误", 1001);
       }
 
       const user = await UserModel.findByPk(decode.userId);
@@ -36,7 +36,7 @@ async function authVerify(ctx, next) {
     }
   }
 
-  ctx.fail("token效验错误3", 1001);
+  ctx.fail("token效验错误", 1001);
 }
 
 module.exports = authVerify
