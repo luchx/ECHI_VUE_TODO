@@ -11,11 +11,14 @@ const logger = require("koa-logger");
 const koaJwt = require("koa-jwt");
 const cors = require("koa2-cors");
 const chalk = require("chalk");
-const httpResponse = require("@middlewares/http-response");
+const context = require("@extends/context");
 const { secretKey, whiteList } = require("@core/jwt");
 
 // error handler
 onerror(app);
+
+// 添加执行上下文参数
+app.use(context);
 
 app.use(
   cors({
@@ -50,9 +53,6 @@ app.use(
 );
 app.use(json());
 app.use(logger());
-
-// 添加执行上下文参数
-app.use(httpResponse);
 
 app.use(require("koa-static")(__dirname + "/public"));
 app.use(

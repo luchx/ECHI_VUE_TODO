@@ -42,6 +42,7 @@
     "@public": "public",
     "@views": "views",
     "@controller": "app/controller",
+    "@extends": "app/extends",
     "@middlewares": "app/middlewares",
     "@models": "app/models",
     "@routes": "app/routes",
