@@ -20,3 +20,7 @@ $ mysql -uroot -p密码
 # 创建 todo_sql 数据库
 $ CREATE DATABASE IF NOT EXISTS todo_sql DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ```
+
+## 接口文档地址
+
+[查看文档地址](./api.md)
