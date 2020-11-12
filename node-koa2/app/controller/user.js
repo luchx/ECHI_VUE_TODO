@@ -7,17 +7,17 @@ const verifyCode = "1234";
 
 // 登录
 async function login(ctx) {
-  const { phone, password = "", code = "" } = ctx.request.body;
+  const { phone, password, code } = ctx.request.body;
 
   if (!TestPhone(phone)) {
     return ctx.fail("手机号码不正确", 400);
   }
 
-  if (password === "" && code !== verifyCode) {
+  if (!password && code !== verifyCode) {
     return ctx.fail("验证码不正确", 400);
   }
 
-  if (password === "" && code === "") {
+  if (!password && !code) {
     return ctx.fail("请输入密码", 400);
   }
 
@@ -53,7 +53,7 @@ async function login(ctx) {
   ctx.currentUser = existUser;
 
   // 初次登录，创建用户
-  if (created) {    
+  if (created) {
     return ctx.success("登录成功", {
       token,
       user: userData,
@@ -62,7 +62,7 @@ async function login(ctx) {
 
   // 对比已存在的密码，code 方式登录不校验
   const correct = bcrypt.compareSync(password, existUser.password);
-  if (code === "" && !correct) {
+  if (!code && !correct) {
     return ctx.fail("密码不正确", 400);
   }
   
