@@ -36,13 +36,15 @@ UserModel.init(
     password: {
       type: Sequelize.STRING,
       set(val) {
+        if(!val) {
+          return;
+        }
         // 加密
         const salt = bcrypt.genSaltSync(10);
         // 生成加密密码
         const psw = bcrypt.hashSync(val, salt);
         this.setDataValue("password", psw);
       },
-      allowNull: false,
       comment: "用户密码",
     },
     avatar: {
