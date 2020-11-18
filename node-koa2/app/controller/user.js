@@ -7,7 +7,7 @@ const verifyCode = "1234";
 
 // 登录
 async function login(ctx) {
-  const { phone, password, code } = ctx.request.body;
+  const { phone, password = "123456", code } = ctx.request.body;
 
   if (!TestPhone(phone)) {
     return ctx.fail("手机号码不正确", 400);
