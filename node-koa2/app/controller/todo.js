@@ -1,3 +1,4 @@
+const moment = require("moment");
 const { Op, fn, where, col } = require("sequelize");
 const TodoModel = require("@models/todo");
 
@@ -11,7 +12,10 @@ async function getDateList(ctx) {
     attributes: ["date"]
   });
 
-  ctx.success("获取成功", todo.map(item => item.date));
+  const dateList = todo.map(item => moment(item.date).format("YYYY-MM-DD"));
+  const formatDate = [...new Set(dateList)]
+
+  ctx.success("获取成功", formatDate);
 }
 
 async function getList(ctx) {
