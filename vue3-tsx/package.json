@@ -13,7 +13,7 @@
     "lib-flexible": "^0.3.2",
     "moment": "^2.27.0",
     "normalize.css": "^8.0.1",
-    "vant": "^3.0.0-beta.6",
+    "vant": "^3.0.0-beta.10",
     "vue": "^v3.0.0-rc.4",
     "vue-router": "4.0.0-beta.2",
     "vuex": "4.0.0-beta.4"
@@ -33,7 +33,7 @@
     "postcss-px2rem": "^0.3.0",
     "prettier": "^2.0.5",
     "typescript": "^3.9.6",
-    "vite": "^1.0.0-rc.4",
+    "vite": "^1.0.0-rc.9",
     "vue-eslint-parser": "^7.1.0"
   }
 }

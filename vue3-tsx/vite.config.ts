@@ -1,11 +1,11 @@
-import { SharedConfig } from 'vite';
 import path from 'path';
 
 function resolve(dir) {
   return path.resolve(__dirname, dir);
 }
 
-const config: SharedConfig = {
+const config = {
+  port: 8000,
   alias: {
     "/@/": resolve("src"),
   },
