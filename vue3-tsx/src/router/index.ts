@@ -32,8 +32,7 @@ const routes: RouteRecordRaw[] = [
     meta: {
       title: "待办详情"
     },
-    component: () =>
-      import("/@/views/TodoDetail")
+    component: () => import("/@/views/TodoDetail")
   },
   {
     path: "/todo-detail-view/:id",
@@ -41,8 +40,7 @@ const routes: RouteRecordRaw[] = [
     meta: {
       title: "待办详情"
     },
-    component: () =>
-      import("/@/views/TodoDetailView")
+    component: () => import("/@/views/TodoDetailView")
   },
   {
     path: "/date",
@@ -66,8 +64,7 @@ const routes: RouteRecordRaw[] = [
     meta: {
       title: "历史事项"
     },
-    component: () =>
-      import("/@/views/Finished")
+    component: () => import("/@/views/Finished")
   },
   {
     path: "/recycle",
@@ -83,8 +80,7 @@ const routes: RouteRecordRaw[] = [
     meta: {
       title: "403"
     },
-    component: () =>
-      import("/@/views/Exception/403")
+    component: () => import("/@/views/Exception/403")
   },
   {
     path: "/exception/404",
@@ -92,8 +88,7 @@ const routes: RouteRecordRaw[] = [
     meta: {
       title: "404"
     },
-    component: () =>
-      import("/@/views/Exception/404")
+    component: () => import("/@/views/Exception/404")
   },
   {
     path: "/exception/500",
@@ -101,8 +96,7 @@ const routes: RouteRecordRaw[] = [
     meta: {
       title: "500"
     },
-    component: () =>
-      import("/@/views/Exception/500")
+    component: () => import("/@/views/Exception/500")
   }
 ];
 

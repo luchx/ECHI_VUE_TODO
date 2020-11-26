@@ -6,10 +6,9 @@ import EContent from '/@/components/Content';
 import EAside from '/@/components/Aside';
 import EFooter from '/@/components/Footer';
 import ETodoCard from '/@/components/TodoCard';
-import EButton from '/@/components/Button';
 import styles from "./index.module.less";
-import { useRouter, useRoute } from 'vue-router';
-import { Toast } from 'vant';
+import { useRouter, useRoute, RouterLink } from 'vue-router';
+import { Button, Toast } from 'vant';
 
 type TodoState = {
   currentPage: number;
@@ -100,15 +99,15 @@ export default defineComponent({
           title={route.meta.title}
           type="menu"
           extra={
-            <router-link
+            <RouterLink
               to={{
                 name: "TodoDetail"
               }}
             >
-              <EButton size="small" type="success" class={styles.addBtn}>
+              <Button plain type="primary" class={styles.addBtn}>
                 新增
-              </EButton>
-            </router-link>
+              </Button>
+            </RouterLink>
           }
         />
         <EAside />

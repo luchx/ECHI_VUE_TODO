@@ -43,8 +43,9 @@ export default defineComponent({
             to={item.path}
             router-link-active={styles.active}
             key={item.key}
+            class={styles.iconItem}
           >
-            <div class={styles.iconItem}>
+            <div>
               <i
                 class={classNames("iconfont", styles.icon)}
                 domPropsInnerHTML={item.icon}
