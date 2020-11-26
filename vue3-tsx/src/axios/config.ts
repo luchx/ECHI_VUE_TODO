@@ -1,24 +1,18 @@
 import axios, { AxiosRequestConfig, AxiosError } from "axios";
+import { clearAuth } from '/@/utils';
 
 // 超时重新请求配置
-const VITE_URL = process.env.VITE_URL;
+const VITE_URL = "http://localhost:3000";
 
 const axiosConfig: AxiosRequestConfig = {
   baseURL: VITE_URL,
-  // // 请求后的数据处理
-  // transformResponse: [
-  //   (data: AxiosResponse) => {
-  //     return data;
-  //   }
-  // ],
   // 超时设置20s
   timeout: 20000,
-  // 跨域是否带Token
-  withCredentials: true,
   responseType: "json",
   headers: {
     "Content-Type": "application/json",
-    "X-Requested-With": "XMLHttpRequest"
+    "X-Requested-With": "XMLHttpRequest",
+    "If-Modified-Since": 0 // 防止get请求在IE下被缓存
   }
 };
 
@@ -38,6 +32,12 @@ service.interceptors.request.use(
 // 返回状态判断(添加响应拦截器)
 service.interceptors.response.use(
   response => {
+    const data = response.data;
+    // 1001: token失效
+    if (data.code === 1001) {
+      // 需要重新获取token
+      clearAuth();
+    }
     return response;
   },
   (error: AxiosError) => {

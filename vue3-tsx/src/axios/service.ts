@@ -1,5 +1,7 @@
 import { AxiosRequestConfig } from "axios";
 import axios from "./config";
+import { Toast, Notify } from "vant";
+import { local } from "/@/utils/storage";
 
 export interface RespondData {
   code: number;
@@ -11,16 +13,34 @@ export interface RespondData {
 // HTTP工具类
 export default class Http {
   public static async request(params: AxiosRequestConfig) {
-    // const toast = Toast.loading({
-    //   duration: 0,
-    //   forbidClick: true,
-    //   message: "加载中..."
-    // });
-    const res = await axios(params);
-    console.log("打印请求值 ☞", res.data);
-    // 关闭 loading
-    // toast.clear();
-    return res.data as RespondData;
+    const toast = Toast.loading({
+      duration: 0,
+      forbidClick: true,
+      message: "加载中..."
+    });
+    try {
+      const res = await axios({
+        headers: {
+          authorization: local.get("token")
+        },
+        ...params
+      });
+      console.log("打印请求值 ☞", res.data);
+      // 关闭 loading
+      toast.clear();
+      const data = res.data as RespondData;
+      if (data.code === 0) {
+        return Promise.resolve(data);
+      }
+      Notify({ type: "danger", message: data.message });
+      return Promise.reject(data);
+    } catch (e) {
+      console.error(e);
+      // 关闭 loading
+      toast.clear();
+      Notify({ type: "danger", message: e.message });
+      return Promise.reject(e);
+    }
   }
 
   /**

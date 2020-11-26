@@ -113,13 +113,13 @@ export default defineComponent({
         />
         <EAside />
         <EContent>
-          {/* <ETodoCard
+          <ETodoCard
             loading={loading}
             todoList={todoList}
             onCheck={handleCheck}
             onGoDetail={handleGoDetail}
             onDel={handleDelete}
-          /> */}
+          />
         </EContent>
         <EFooter />
       </EContainer>

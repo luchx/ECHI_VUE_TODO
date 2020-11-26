@@ -25,6 +25,9 @@ import moment from "moment";
 moment.locale("zh-cn");
 app.config.globalProperties.$moment = moment;
 
+import vant from "/@/vant";
+app.use(vant)
+
 import component from "/@/components";
 app.use(component)
 

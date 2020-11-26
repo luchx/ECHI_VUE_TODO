@@ -4,9 +4,8 @@ import classNames from "classnames";
 import { useStore } from 'vuex';
 import { ApiGetVerify, ApiLogin } from "/@/api/user";
 import { TestPhone } from "/@/utils/validate";
-import { local } from "/@/utils/storage";
+import { setToken } from "/@/utils";
 import EContainer from '/@/components/Container';
-import EButton from '/@/components/Button';
 import Toast from '/@/components/Toast';
 import styles from "./index.module.less";
 import { useRouter } from 'vue-router';
@@ -96,8 +95,6 @@ export default defineComponent({
 
     // 发送验证码
     const handleSendCode = () => {
-      console.log(45456);
-      
       const { phone } = state;
       if (!validatePhone(phone)) {
         return;
@@ -112,7 +109,9 @@ export default defineComponent({
           }
         })
         .catch(err => {
-          console.log(err);
+          console.error(err);
+          clearInterval(state.handleTimer);
+          state.handleTimer = null;
         });
     }
 
@@ -130,8 +129,9 @@ export default defineComponent({
         .then(resp => {
           if (resp.code === 0) {
             Toast("欢迎回来!!!");
-            local.set("token", resp.result.token);
-            store.dispatch("updateUser", resp.result);
+            const { token, user } = resp.result;
+            setToken(token);
+            store.dispatch("updateUser", user);
             router.replace({ path: "/" });
           }
         })
@@ -203,26 +203,26 @@ export default defineComponent({
                   onBlur={handleInputBlur}
                 />
                 <div class={styles.checkBoxBtn}>
-                  <EButton
+                  <van-button
                     type="success"
                     block
                     onClick={handleSendCode}
                     disabled={state.sendingCodeStatus}
                   >
                     {state.sendingCodeStatus ? state.sendingCodeText : "发送验证码"}
-                  </EButton>
+                  </van-button>
                 </div>
               </div>
             </div>
-            <EButton
+            <van-button
               type="primary"
               block
               size="large"
-              on-click={handleSubmit}
+              onClick={handleSubmit}
               disabled={state.submitStatus}
             >
               提交
-            </EButton>
+            </van-button>
           </div>
         </div>
       </EContainer>
