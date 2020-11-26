@@ -2,6 +2,7 @@ import "lib-flexible";
 import "animate.css";
 import "normalize.css";
 import "/@/assets/styles/global.less";
+import 'vant/lib/index.css';
 import { createApp } from 'vue';
 import App from '/@/App';
 import router from '/@/router';
@@ -24,9 +25,6 @@ const app = createApp(App);
 import moment from "moment";
 moment.locale("zh-cn");
 app.config.globalProperties.$moment = moment;
-
-import vant from "/@/vant";
-app.use(vant)
 
 import component from "/@/components";
 app.use(component)

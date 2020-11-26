@@ -10,7 +10,7 @@ import service from "/@/axios/service";
  * @param {Number} data.priority
  */
 export function ApiSaveTodoList(data) {
-  return service.post("/api/todo/saveTodoList", data);
+  return service.post("/api/todo/saveList", data);
 }
 
 /**
@@ -20,7 +20,7 @@ export function ApiSaveTodoList(data) {
  * @param {Number} data.pageSize
  */
 export function ApiGetTodoList(data) {
-  return service.get("/api/todo/getTodoList", data);
+  return service.get("/api/todo/getList", data);
 }
 
 /**

@@ -6,9 +6,9 @@ import { ApiGetVerify, ApiLogin } from "/@/api/user";
 import { TestPhone } from "/@/utils/validate";
 import { setToken } from "/@/utils";
 import EContainer from '/@/components/Container';
-import Toast from '/@/components/Toast';
 import styles from "./index.module.less";
 import { useRouter } from 'vue-router';
+import { Button, Toast } from 'vant';
 
 type State = {
   focusName: string;
@@ -140,28 +140,7 @@ export default defineComponent({
         });
     }
 
-    return {
-      state,
-      handlePhoneChange,
-      handleInputFocus,
-      handleInputBlur,
-      handleCodeChange,
-      handleSendCode,
-      handleSubmit
-    }
-  },
-  render() {
-    const {
-      state,
-      handlePhoneChange,
-      handleInputFocus,
-      handleInputBlur,
-      handleCodeChange,
-      handleSendCode,
-      handleSubmit,
-    } = this;
-
-    return (
+    return () => (
       <EContainer>
         <div class={styles.loginWrapper}>
           <div class={styles.content}>
@@ -203,29 +182,29 @@ export default defineComponent({
                   onBlur={handleInputBlur}
                 />
                 <div class={styles.checkBoxBtn}>
-                  <van-button
+                  <Button
                     type="success"
+                    size="small"
                     block
                     onClick={handleSendCode}
                     disabled={state.sendingCodeStatus}
                   >
                     {state.sendingCodeStatus ? state.sendingCodeText : "发送验证码"}
-                  </van-button>
+                  </Button>
                 </div>
               </div>
             </div>
-            <van-button
+            <Button
               type="primary"
               block
-              size="large"
               onClick={handleSubmit}
               disabled={state.submitStatus}
             >
               提交
-            </van-button>
+            </Button>
           </div>
         </div>
       </EContainer>
-    );
+    )
   }
 });

@@ -8,8 +8,8 @@ import EFooter from '/@/components/Footer';
 import ETodoCard from '/@/components/TodoCard';
 import EButton from '/@/components/Button';
 import styles from "./index.module.less";
-import Toast from '/@/components/Toast';
 import { useRouter, useRoute } from 'vue-router';
+import { Toast } from 'vant';
 
 type TodoState = {
   currentPage: number;
@@ -81,7 +81,7 @@ export default defineComponent({
     }
 
     onMounted(() => {
-      // getTodoList()
+      getTodoList()
     });
 
     return {

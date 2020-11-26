@@ -22,10 +22,10 @@ export default defineComponent({
       default: 'normal'
     },
   },
-  render() {
-    const { block, size, disabled, type } = this.$props;
+  setup(props, { slots }) {
+    const { block, size, disabled, type } = props;
 
-    return (
+    return () => (
       <button
         class={classNames({
           [styles.button]: true,
@@ -35,7 +35,7 @@ export default defineComponent({
           [styles["button-disabled"]]: disabled,
         })}
         disabled={disabled}
-      >{this.$slots.default && this.$slots.default()}</button>
+      >{slots.default && slots.default()}</button>
     )
   }
 });
