@@ -1,11 +1,11 @@
 import axios, { AxiosRequestConfig, AxiosError } from "axios";
-import { clearAuth } from '/@/utils';
+import { clearAuth } from "/@/utils";
 
 // 超时重新请求配置
-const VITE_URL = "http://localhost:3000";
+const VUE_APP_URL = "http://localhost:3000";
 
 const axiosConfig: AxiosRequestConfig = {
-  baseURL: VITE_URL,
+  baseURL: VUE_APP_URL,
   // 超时设置20s
   timeout: 20000,
   responseType: "json",
