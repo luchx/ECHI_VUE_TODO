@@ -47,6 +47,7 @@ export default {
             },
             {
               name: "回收站",
+              key: "recycle",
               path: "/recycle",
               iconName: "underway",
               iconColor: "#f5222d"

@@ -1,30 +1,26 @@
 import styles from "./index.module.less";
-import { defineComponent, provide, ref } from 'vue';
-
-function useCollapsed() {
-  const collapsed = ref(true);
-
-  function setToggle(status) {
-    if (status !== undefined) {
-      collapsed.value = status;
-      return;
-    }
-    collapsed.value = !collapsed;
-  }
-  provide("parent", [
-    collapsed,
-    setToggle
-  ]);
-}
+import { computed, defineComponent, provide, ref } from 'vue';
 
 export default defineComponent({
   name: "Container",
-  setup() {
-    useCollapsed()
-  },
-  render() {
-    return (
-      <section class={styles.wrapper}>{this.$slots.default && this.$slots.default()}</section>
+  setup(props, { slots }) {
+    const collapsed = ref(false);
+
+    function setToggle(status) {
+      if (status !== undefined) {
+        collapsed.value = status;
+        return;
+      }
+      collapsed.value = !collapsed.value;
+    }
+
+    provide("parent", [
+      collapsed,
+      setToggle
+    ]);
+
+    return () => (
+      <section class={styles.wrapper}>{slots.default && slots.default()}</section>
     )
-  }
+  },
 });

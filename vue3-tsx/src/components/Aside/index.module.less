@@ -28,7 +28,13 @@
     overflow: hidden;
     overflow-y: auto;
     background-color: #fff;
-    opacity: 1;
+    opacity: 0;
+    transform: translateX(-100%);
+    transition: all ease 0.3s;
+    &.show {
+      transform: translateX(0);
+      opacity: 1;
+    }
   }
 }
 

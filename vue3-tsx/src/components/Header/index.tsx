@@ -36,18 +36,9 @@ export default defineComponent({
       router.back();
     }
 
-    return {
-      handleBack,
-      setToggle
-    }
-  },
-  render() {
-    const { handleBack, setToggle } = this;
-    const { type, title, extra } = this.$props;
-
-    return (
+    return () => (
       <header class={styles.header}>
-        {type === "back" ? (
+        {props.type === "back" ? (
           <i
             class={classNames("iconfont", styles.icon)}
             onClick={handleBack}
@@ -57,14 +48,14 @@ export default defineComponent({
         ) : (
             <i
               class={classNames("iconfont", styles.icon)}
-              onClick={setToggle}
+              onClick={() => setToggle()}
             >
               &#xe61f;
             </i>
           )}
-        <span class={styles.title}>{title}</span>
-        <span class={styles.extra}>{extra}</span>
+        <span class={styles.title}>{props.title}</span>
+        <span class={styles.extra}>{props.extra}</span>
       </header>
-    );
-  }
+    )
+  },
 });
