@@ -6,7 +6,7 @@ export interface State {
 }
 
 const state: State = {
-  userInfo: {}
+  userInfo: local.get("userInfo") || {}
 };
 
 const getters: GetterTree<State, any> = {};
