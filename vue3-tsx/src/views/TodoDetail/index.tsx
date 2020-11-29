@@ -1,149 +1,123 @@
-import styles from "./index.module.less";
+import { defineComponent, getCurrentInstance, onMounted, reactive } from 'vue';
 import classNames from "classnames";
-import { ApiGetTodoDetail, ApiSaveTodoList } from "@/api/todo";
-import { defineComponent } from 'vue';
+import router from '/@/router';
+import { useRoute } from 'vue-router';
+import { Button, Toast, Divider, Field, ActionSheet, Popup, DatetimePicker } from 'vant';
+import { ApiGetTodoDetail, ApiSaveTodoList } from "/@/api/todo";
+import EContainer from '/@/components/Container';
+import EHeader from '/@/components/Header';
+import EContent from '/@/components/Content';
+import { priorityOption } from "/@/utils/constant";
+import styles from "./index.module.less";
 
 export default defineComponent({
   name: "TodoDetail",
-  data() {
-    return {
-      id: null,
+  setup(){
+    const { ctx } = getCurrentInstance();
+    const state = reactive<any>({
+      id: undefined,
       statusVisible: false,
       statusData: {},
-      statusOptions: [
-        {
-          name: "低优先级",
-          key: 1,
-          color: "#1890ff"
-        },
-        {
-          name: "中优先级",
-          key: 2,
-          color: "#52c41a"
-        },
-        {
-          name: "高优先级",
-          key: 3,
-          color: "#faad14"
-        },
-        {
-          name: "最高优先级",
-          key: 4,
-          color: "#f5222d"
-        }
-      ],
       currentDate: new Date(),
       visibleDate: false,
       todoData: {},
       title: "",
       description: "",
       date: +new Date(),
-      priority: null
-    };
-  },
-  methods: {
-    async getTodoDetail(id) {
+      priority: undefined
+    });
+
+    async function getTodoDetail(id) {
       if (!id) {
         return;
       }
-      this.loading = true;
       const resp = await ApiGetTodoDetail(id);
-      this.loading = false;
       if (resp.code === 0) {
         const data = resp.result;
-        this.todoData = data;
-        this.title = data.title;
-        this.description = data.description;
-        this.date = data.date;
-        this.priority = data.priority;
-        this.statusData =
-          this.statusOptions.find(item => item.key === data.priority) || {};
+        state.todoData = data;
+        state.title = data.title;
+        state.description = data.description;
+        state.date = data.date;
+        state.priority = data.priority;
+        state.statusData = priorityOption.find(item => item.key === data.priority) || {};
       }
-    },
-    handleToggleCheck(item) {
-      item.isFinished = !item.isFinished;
-    },
-    handleOpenDate() {
-      this.visibleDate = true;
-    },
-    handleCloseDate() {
-      this.visibleDate = false;
-    },
-    handleConfirmDate(value) {
+    }
+
+    function handleOpenDate() {
+      state.visibleDate = true;
+    }
+
+    function handleCloseDate() {
+      state.visibleDate = false;
+    }
+
+    function handleConfirmDate(value) {
       console.log(value);
-      this.date = this.$moment(value);
-      this.handleCloseDate();
-    },
-    handleOpenStatus() {
-      this.statusVisible = true;
-    },
-    handleCloseStatus() {
-      this.statusVisible = false;
-    },
-    handleSelectStatus(value) {
-      this.statusData = value;
-      this.priority = value.key;
-      this.handleCloseStatus();
-    },
-    async handleSave() {
-      if (!this.title) {
-        this.$toast("请填写标题~");
+      state.date = ctx.$moment(value);
+      handleCloseDate();
+    }
+
+    function handleOpenStatus() {
+      state.statusVisible = true;
+    }
+
+    function handleCloseStatus() {
+      state.statusVisible = false;
+    }
+
+    function handleSelectStatus(value) {
+      state.statusData = value;
+      state.priority = value.key;
+      handleCloseStatus();
+    }
+
+    async function handleSave() {
+      if (!state.title) {
+        Toast("请填写标题~");
         return;
       }
 
       const data = {
-        title: this.title,
-        description: this.description,
-        date: this.date,
-        priority: this.priority
+        title: state.title,
+        description: state.description,
+        date: state.date,
+        priority: state.priority
       };
 
-      if (this.id) {
-        data["id"] = this.id;
+      if (state.id) {
+        data["id"] = state.id;
       }
       console.log(data);
       const resp = await ApiSaveTodoList(data);
       if (resp.code === 0) {
-        this.$toast.success("提交成功");
+        Toast.success("提交成功");
         setTimeout(() => {
-          this.$router.replace({
+          router.replace({
             name: "Todo"
           });
         }, 1500);
       }
     }
-  },
-  mounted() {
-    const { id } = this.$route.query;
-    this.id = id;
-    this.getTodoDetail(id);
-  },
-  render() {
-    const {
-      statusVisible,
-      statusData,
-      statusOptions,
-      currentDate,
-      visibleDate,
-      todoData,
-      id,
-      title,
-      description,
-      date
-    } = this.$data;
 
-    return (
+    onMounted(() => {
+      const { query } = useRoute();
+      const { id } = query;
+      state.id = id;
+      getTodoDetail(id);
+    });
+
+    return () => (
       <EContainer class={classNames(styles.todoDetail)}>
         <EHeader
           extra={
-            <van-button
+            <Button
               plain
-              type="info"
+              type="primary"
               class={styles.saveBtn}
-              onClick={this.handleSave}
+              onClick={handleSave}
             >
               保存
-            </van-button>
+            </Button>
           }
         />
         <EContent>
@@ -151,63 +125,65 @@ export default defineComponent({
             <div class={styles.todoDetailHeader}>
               <div
                 class={styles.todoDetailHeaderItem}
-                onClick={this.handleOpenStatus}
+                onClick={handleOpenStatus}
               >
                 <span
                   style={{
-                    color: statusData.color
+                    color: state.statusData.color
                   }}
                 >
-                  {statusData.name || "优先级"}
+                  {state.statusData.name || "优先级"}
                 </span>
               </div>
               <div class={styles.todoDetailHeaderItem}>
                 <div
                   class={styles.todoDetailClaim}
-                  onClick={this.handleOpenDate}
+                  onClick={handleOpenDate}
                 >
                   <i class={classNames("iconfont", styles.icon)}>&#xe668;</i>
                   <span>
-                    {this.$moment(date).calendar(null, {
+                    {ctx.$moment(state.date).calendar(undefined, {
+                      sameDay: "[今天]",
+                      nextDay: "[明天]",
+                      nextWeek: "MM-DD HH:mm",
+                      lastDay: "[昨天]",
+                      lastWeek: "MM-DD HH:mm",
                       sameElse: "MM-DD HH:mm"
                     })}
                   </span>
                 </div>
               </div>
             </div>
-            <van-divider />
+            <Divider />
             <div
               class={classNames(styles.todoDetailTitle, {
-                [styles.finished]: todoData.isFinished
+                [styles.finished]: state.todoData.status === 2
               })}
             >
-              {id && (
-                <span
-                  class={styles.todoDetailCheck}
-                  onClick={() => this.handleToggleCheck(todoData)}
-                >
+              {state.id && (
+                <span class={styles.todoDetailCheck}>
                   <i
                     class={classNames("iconfont", styles.icon)}
                     domPropsInnerHTML={
-                      todoData.isFinished ? "&#xe606;" : "&#xe6ca;"
+                      state.todoData.status === 2 ? "&#xe606;" : "&#xe6ca;"
                     }
                   ></i>
                 </span>
               )}
-              <van-field
+              <Field
                 class={classNames(styles.todoDetailInput)}
-                value={title}
-                onInput={value => (this.$data.title = value)}
+                value={state.title}
+                onInput={value => (state.title = value)}
                 placeholder="标题"
                 style={{
-                  paddingLeft: id ? "" : 0
+                  paddingLeft: state.id ? "" : 0
                 }}
               />
             </div>
-            <van-field
+            <Field
               class={classNames(styles.todoDetailInput, styles.textarea)}
-              value={description}
-              onInput={value => (this.$data.description = value)}
+              value={state.description}
+              onInput={value => (state.description = value)}
               showWordLimit={true}
               maxlength="200"
               type="textarea"
@@ -217,27 +193,27 @@ export default defineComponent({
             />
           </div>
         </EContent>
-        <van-action-sheet
-          value={statusVisible}
-          onInput={this.handleCloseStatus}
-          actions={statusOptions}
+        <ActionSheet
+          show={state.statusVisible}
+          onInput={handleCloseStatus}
+          actions={priorityOption}
           round={false}
-          onSelect={this.handleSelectStatus}
+          onSelect={handleSelectStatus}
         />
-        <van-popup
-          value={visibleDate}
-          onInput={this.handleCloseDate}
+        <Popup
+          show={state.visibleDate}
+          onInput={handleCloseDate}
           position="bottom"
         >
-          <van-datetime-picker
-            onCancel={this.handleCloseDate}
-            onConfirm={this.handleConfirmDate}
-            value={currentDate}
+          <DatetimePicker
+            onCancel={handleCloseDate}
+            onConfirm={handleConfirmDate}
+            value={new Date()}
             type="datetime"
             title="选择完整时间"
           />
-        </van-popup>
+        </Popup>
       </EContainer>
-    );
-  }
+    )
+  },
 });

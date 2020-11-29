@@ -1,7 +1,7 @@
 import service from "/@/axios/service";
 
 type TodoData = {
-  id: number;
+  id?: number;
   title: string;
   description: string;
   date: Date;
