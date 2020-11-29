@@ -132,7 +132,7 @@ export default defineComponent({
             const { token, user } = resp.result;
             setToken(token);
             store.dispatch("updateUser", user);
-            router.replace({ path: "/" });
+            router.replace({ path: "/todo" });
           }
         })
         .catch(err => {
