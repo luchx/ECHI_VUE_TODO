@@ -8,7 +8,9 @@ const routes: RouteRecordRaw[] = [
     meta: {
       title: "首页"
     },
-    component: () => import("/@/views/Todo")
+    redirect: {
+      name: "Todo"
+    }
   },
   {
     path: "/login",
