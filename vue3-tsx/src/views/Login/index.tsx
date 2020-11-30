@@ -128,7 +128,7 @@ export default defineComponent({
       ApiLogin({ phone, code })
         .then(resp => {
           if (resp.code === 0) {
-            Toast("欢迎回来!!!");
+            Toast(resp.message);
             const { token, user } = resp.result;
             setToken(token);
             store.dispatch("updateUser", user);

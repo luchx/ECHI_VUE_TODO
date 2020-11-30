@@ -3,6 +3,14 @@ import { local } from '/@/utils/storage';
 
 const routes: RouteRecordRaw[] = [
   {
+    path: "/",
+    name: "Home",
+    meta: {
+      title: "首页"
+    },
+    component: () => import("/@/views/Todo")
+  },
+  {
     path: "/login",
     name: "Login",
     meta: {
