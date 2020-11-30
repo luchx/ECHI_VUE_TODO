@@ -1,4 +1,4 @@
-import { RouteRecordRaw, createRouter, createWebHistory, Router } from 'vue-router';
+import { RouteRecordRaw, createRouter, Router, createWebHashHistory } from 'vue-router';
 import { local } from '/@/utils/storage';
 
 const routes: RouteRecordRaw[] = [
@@ -89,11 +89,19 @@ const routes: RouteRecordRaw[] = [
       title: "500"
     },
     component: () => import("/@/views/Exception/500")
-  }
+  },
+  {
+    path: "/:pathMatch(.*)*",
+    name: 'not-found', 
+    meta: {
+      title: "not-found"
+    },
+    component: () => import("/@/views/Exception/404")
+  },
 ];
 
 const router: Router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHashHistory(),
   routes,
 });
 
