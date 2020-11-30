@@ -10,7 +10,7 @@ import styles from "./index.module.less";
 import { useRouter, useRoute, RouterLink } from 'vue-router';
 import { Button, Toast } from 'vant';
 
-type TodoState = {
+interface TodoState {
   currentPage: number;
   pageSize: number;
   total: number;

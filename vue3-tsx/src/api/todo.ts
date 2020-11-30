@@ -4,7 +4,7 @@ type TodoData = {
   id?: number;
   title: string;
   description: string;
-  date: Date;
+  date: number;
   priority: number;
 };
 

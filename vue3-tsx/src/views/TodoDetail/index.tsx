@@ -10,12 +10,25 @@ import EContent from '/@/components/Content';
 import { priorityOption } from "/@/utils/constant";
 import styles from "./index.module.less";
 
+interface TodoDetailState {
+  id: any;
+  statusVisible: boolean;
+  statusData: any;
+  currentDate: Date;
+  visibleDate: boolean;
+  todoData: any;
+  title: string;
+  description: string;
+  date: number;
+  priority: number;
+}
+
 export default defineComponent({
   name: "TodoDetail",
-  setup(){
-    const { ctx } = getCurrentInstance();
-    const state = reactive<any>({
-      id: undefined,
+  setup() {
+    const { ctx } = getCurrentInstance() as any;
+    const state = reactive<TodoDetailState>({
+      id: null,
       statusVisible: false,
       statusData: {},
       currentDate: new Date(),
@@ -24,7 +37,7 @@ export default defineComponent({
       title: "",
       description: "",
       date: +new Date(),
-      priority: undefined
+      priority: 0
     });
 
     async function getTodoDetail(id) {
@@ -102,7 +115,7 @@ export default defineComponent({
     onMounted(() => {
       const { query } = useRoute();
       const { id } = query;
-      state.id = id;
+      state["id"] = id;
       getTodoDetail(id);
     });
 
@@ -162,18 +175,13 @@ export default defineComponent({
             >
               {state.id && (
                 <span class={styles.todoDetailCheck}>
-                  <i
-                    class={classNames("iconfont", styles.icon)}
-                    domPropsInnerHTML={
-                      state.todoData.status === 2 ? "&#xe606;" : "&#xe6ca;"
-                    }
-                  ></i>
+                  {state.todoData.status === 2 ? (<i class={classNames("iconfont", styles.icon)}>&#xe606;</i>) : (<i class={classNames("iconfont", styles.icon)}>&#xe6ca;</i>)}
                 </span>
               )}
               <Field
                 class={classNames(styles.todoDetailInput)}
-                value={state.title}
-                onInput={value => (state.title = value)}
+                modelValue={state.title}
+                onInput={event => (state.title = event.target.value)}
                 placeholder="标题"
                 style={{
                   paddingLeft: state.id ? "" : 0
@@ -182,8 +190,8 @@ export default defineComponent({
             </div>
             <Field
               class={classNames(styles.todoDetailInput, styles.textarea)}
-              value={state.description}
-              onInput={value => (state.description = value)}
+              modelValue={state.description}
+              onInput={event => (state.description = event.target.value)}
               showWordLimit={true}
               maxlength="200"
               type="textarea"
@@ -208,7 +216,7 @@ export default defineComponent({
           <DatetimePicker
             onCancel={handleCloseDate}
             onConfirm={handleConfirmDate}
-            value={new Date()}
+            modelValue={state.currentDate}
             type="datetime"
             title="选择完整时间"
           />
