@@ -28,10 +28,11 @@ export default defineComponent({
       default: true
     }
   },
+  emits: ["check", "goDetail", "del", "restore"],
   setup(props, { emit }) {
     function handleToggleCheck(event, item) {
       event.stopPropagation();
-      item.isFinished = !item.isFinished;
+      item.status = item.status === 2 ? 1 : 2;
       emit("check", item);
     }
 
@@ -82,45 +83,7 @@ export default defineComponent({
     return (
       <TransitionGroup name="list" tag="section" class={styles.cardWrapper}>
         {todoList.map((item: any) => (
-          <SwipeCell class={styles.cardCell} key={item.id} v-slots={{
-            default: () => (
-              <div
-                class={classNames(styles.cardContent, {
-                  [styles.finished]: item.status === 2
-                })}
-                onClick={() => goDetail(item)}
-              >
-                <div class={styles.cardInfo}>
-                  {!recycle && showCheck && (
-                    <span
-                      class={styles.cardCheck}
-                      onClick={event => handleToggleCheck(event, item)}
-                    >
-                      {item.status === 2 ? (<i class={classNames("iconfont", styles.icon)}>&#xe606;</i>) : (<i class={classNames("iconfont", styles.icon)}>&#xe6ca;</i>)}
-                    </span>
-                  )}
-                  <p class={styles.cardText}>{item.title}</p>
-                </div>
-                <div
-                  class={classNames(styles.cardClaim, {
-                    [styles.recycle]: recycle || !showCheck
-                  })}
-                >
-                  <i class={classNames("iconfont", styles.icon)}>&#xe611;</i>
-                  <span>
-                    {ctx.$moment(item.date).calendar(null, {
-                      sameDay: "[今天]",
-                      nextDay: "[明天]",
-                      nextWeek: "MM-DD HH:mm",
-                      lastDay: "[昨天]",
-                      lastWeek: "MM-DD HH:mm",
-                      sameElse: "MM-DD HH:mm"
-                    })}
-                  </span>
-                </div>
-              </div>
-            )
-          }}>
+          <SwipeCell class={styles.cardCell} key={item.id}>
             <div style={{ height: "100%" }}>
               {recycle && (
                 <Button
@@ -139,7 +102,41 @@ export default defineComponent({
                 onClick={() => handleDelete(item)}
               />
             </div>
-
+            <div
+              class={classNames(styles.cardContent, {
+                [styles.finished]: item.status === 2
+              })}
+              onClick={() => goDetail(item)}
+            >
+              <div class={styles.cardInfo}>
+                {!recycle && showCheck && (
+                  <span
+                    class={styles.cardCheck}
+                    onClick={event => handleToggleCheck(event, item)}
+                  >
+                    {item.status === 2 ? (<i class={classNames("iconfont", styles.icon)}>&#xe606;</i>) : (<i class={classNames("iconfont", styles.icon)}>&#xe6ca;</i>)}
+                  </span>
+                )}
+                <p class={styles.cardText}>{item.title}</p>
+              </div>
+              <div
+                class={classNames(styles.cardClaim, {
+                  [styles.recycle]: recycle || !showCheck
+                })}
+              >
+                <i class={classNames("iconfont", styles.icon)}>&#xe611;</i>
+                <span>
+                  {ctx.$moment(item.date).calendar(null, {
+                    sameDay: "[今天]",
+                    nextDay: "[明天]",
+                    nextWeek: "MM-DD HH:mm",
+                    lastDay: "[昨天]",
+                    lastWeek: "MM-DD HH:mm",
+                    sameElse: "MM-DD HH:mm"
+                  })}
+                </span>
+              </div>
+            </div>
           </SwipeCell>
         ))}
       </TransitionGroup>

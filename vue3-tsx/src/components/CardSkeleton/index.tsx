@@ -1,5 +1,6 @@
 import styles from "./index.module.less";
 import { defineComponent } from 'vue';
+import { Skeleton } from 'vant';
 
 export default defineComponent({
   name: "CardSkeleton",
@@ -22,10 +23,7 @@ export default defineComponent({
       loading && (
         <div class={styles.emptyCard}>
           {defaultList.map(() => (
-            <div class={styles.emptyCardItem}>
-              <p></p>
-              <div></div>
-            </div>
+            <Skeleton class={styles.emptyCardItem} row={2} />
           ))}
         </div>
       )
