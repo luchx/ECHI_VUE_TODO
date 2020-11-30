@@ -1,7 +1,10 @@
 import styles from "./index.module.less";
 import classNames from "classnames";
-import { ApiGetTodoDetail } from "@/api/todo";
+import { ApiGetTodoDetail } from "/@/api/todo";
 import { defineComponent } from 'vue';
+import EContainer from '/@/components/Container';
+import EHeader from '/@/components/Header';
+import EContent from '/@/components/Content';
 
 export default defineComponent({
   name: "TodoDetailView",

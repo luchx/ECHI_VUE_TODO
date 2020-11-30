@@ -1,7 +1,14 @@
 import styles from "./index.module.less";
-import { ApiGetTodoListByDay, ApiDeleteTodoToRecycle } from "@/api/todo";
+import { ApiGetTodoListByDay, ApiDeleteTodoToRecycle } from "/@/api/todo";
 import { mapState } from "vuex";
 import { defineComponent } from 'vue';
+import EContainer from '/@/components/Container';
+import EHeader from '/@/components/Header';
+import EContent from '/@/components/Content';
+import EAside from '/@/components/Aside';
+import EFooter from '/@/components/Footer';
+import EWeekCard from '/@/components/WeekCard';
+import ETodoCard from '/@/components/TodoCard';
 
 export default defineComponent({
   name: "Date",

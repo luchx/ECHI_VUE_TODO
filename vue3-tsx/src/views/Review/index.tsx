@@ -1,6 +1,12 @@
 import styles from "./index.module.less";
-import { ApiGetReviewTodoList, ApiDeleteTodoToRecycle } from "@/api/todo";
+import { ApiGetReviewTodoList, ApiDeleteTodoToRecycle } from "/@/api/todo";
 import { defineComponent } from 'vue';
+import EContainer from '/@/components/Container';
+import EHeader from '/@/components/Header';
+import EContent from '/@/components/Content';
+import EAside from '/@/components/Aside';
+import EFooter from '/@/components/Footer';
+import ETodoCard from '/@/components/TodoCard';
 
 export default defineComponent({
   name: "Review",

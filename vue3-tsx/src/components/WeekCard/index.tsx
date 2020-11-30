@@ -1,4 +1,4 @@
-import { defineComponent } from "vue";
+import { defineComponent, getCurrentInstance } from "vue";
 import styles from "./index.module.less";
 import classNames from "classnames";
 
@@ -32,6 +32,7 @@ export default defineComponent({
       handleShowCalender,
       handleChangeDate
     } = this
+    const { ctx } = getCurrentInstance() as any;
     const { weekDate, currentDate } = this.$props;
 
     return (
@@ -42,7 +43,7 @@ export default defineComponent({
               <div class={classNames(styles.dateBoxItem)} key={index}>
                 {
                   ["日", "一", "二", "三", "四", "五", "六"][
-                  this.$moment(date).day()
+                  ctx.$moment(date).day()
                   ]
                 }
               </div>
@@ -50,16 +51,16 @@ export default defineComponent({
           })}
         </div>
         <div class={styles.dateBoxContent}>
-          {weekDate.map(date => {
+          {weekDate.map((date: any) => {
             return (
               <div
                 class={classNames(styles.dayBoxItem, {
-                  [styles.active]: this.$moment(date).isSame(currentDate, "day")
+                  [styles.active]: ctx.$moment(date).isSame(currentDate, "day")
                 })}
                 onClick={() => handleChangeDate(date)}
                 key={date}
               >
-                <span>{this.$moment(date).date()}</span>
+                <span>{ctx.$moment(date).date()}</span>
               </div>
             );
           })}
