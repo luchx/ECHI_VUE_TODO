@@ -4,7 +4,7 @@ import styles from "./index.module.less";
 import classNames from "classnames";
 import DEFAULT_USER_Male from "/@/assets/image/male.jpg";
 import DEFAULT_USER_FEMale from "/@/assets/image/female.jpg";
-import { useRouter } from 'vue-router';
+import { RouterLink, useRouter } from 'vue-router';
 import { Icon } from 'vant';
 
 type CountData = {
@@ -166,9 +166,8 @@ export default defineComponent({
                 <div class={styles.asideGroup}>
                   <div class={styles.asideTitle}>{group.groupName}</div>
                   {group.children.map(child => (
-                    <router-link
+                    <RouterLink
                       to={child.path}
-                      tag="div"
                       class={styles.asideItem}
                     >
                       <span class={styles.asideItemLeft}>
@@ -182,7 +181,7 @@ export default defineComponent({
                       <span class={styles.asideItemRight}>
                         {countData[child.key]}
                       </span>
-                    </router-link>
+                    </RouterLink>
                   ))}
                 </div>
               ))}
