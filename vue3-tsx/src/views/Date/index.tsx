@@ -1,7 +1,7 @@
 import styles from "./index.module.less";
-import { ApiGetTodoListByDay, ApiDeleteTodoToRecycle } from "/@/api/todo";
-import { mapState } from "vuex";
-import { defineComponent } from 'vue';
+import { ApiGetTodoListByDay, ApiDeleteTodoToRecycle, ApiGetTodoDate, ApiToggleFinishTodo } from "/@/api/todo";
+import { useStore } from "vuex";
+import { defineComponent, getCurrentInstance, onMounted, reactive } from 'vue';
 import EContainer from '/@/components/Container';
 import EHeader from '/@/components/Header';
 import EContent from '/@/components/Content';
@@ -9,162 +9,181 @@ import EAside from '/@/components/Aside';
 import EFooter from '/@/components/Footer';
 import EWeekCard from '/@/components/WeekCard';
 import ETodoCard from '/@/components/TodoCard/index.vue';
+import { useRoute, useRouter } from 'vue-router';
+import { Calendar, Divider, Toast } from 'vant';
+
+interface DateState {
+  showCalender: boolean;
+  weekDate: number[];
+  currentDate: number;
+  todoList: object[];
+  dateList: number[];
+  loading: boolean
+}
 
 export default defineComponent({
   name: "Date",
-  data() {
-    return {
+  setup() {
+    const state = reactive<DateState>({
       showCalender: false,
       weekDate: [],
       currentDate: +new Date(),
       todoList: [],
+      dateList: [],
       loading: false
-    };
-  },
-  computed: {
-    ...mapState({
-      timestamp: state => state.timestamp
     })
-  },
-  methods: {
-    formatDate(timeStamp) {
-      const weekDate = []; // 日期周期
+    const { ctx } = getCurrentInstance() as any;
+    const store = useStore();
+    const router = useRouter()
+    const route = useRoute()
+
+    function formatDate(timeStamp) {
+      const weekDate: number[] = []; // 日期周期
       let count = 7; // 循环次数
       let day = 0; // 当前天数
       // 获取当前星期几
-      const currentDay = this.$moment(timeStamp).day();
+      const currentDay = ctx.$moment(timeStamp).day();
       const addNum = timeStamp - 86400000 * currentDay;
       while (count--) {
         const addDay = 86400000 * day; // 当前时间跨度(86400000为一天的间隔)
         weekDate.push(addNum + addDay);
         day++;
       }
-      this.weekDate = weekDate;
-    },
-    formatterCalender(day) {
-      const isTodo = this.$moment(this.currentDate).isSame(day.date, "day");
+      state.weekDate = weekDate;
+    }
+
+    function formatterCalender(item) {
+      const isTodo = state.dateList.some(date =>
+        ctx.$moment(date).isSame(item.date, "day")
+      );
       if (isTodo) {
-        day.bottomInfo = "待办";
+        item.bottomInfo = "待办";
       }
 
-      return day;
-    },
-    async getTodoListByDay() {
-      this.loading = true;
-      const date = this.$moment(this.currentDate).format("YYYY-MM-DD");
+      return item;
+    }
+
+    async function getTodoListByDay() {
+      state.loading = true;
+      const date = ctx.$moment(state.currentDate).format("YYYY-MM-DD");
       const resp = await ApiGetTodoListByDay(date);
-      this.loading = false;
+      state.loading = false;
       if (resp.code === 0) {
-        this.todoList = resp.result;
+        state.todoList = resp.result;
       }
-    },
-    handleCheck(item) {
-      const { id, isFinished } = item;
-      this.todoList = this.todoList.filter(todo => todo.id !== id);
-      if (isFinished) {
-        this.todoList.push(item);
-      } else {
-        this.todoList.unshift(item);
+    }
+
+    async function handleCheck(item) {
+      const { id, status } = item;
+      const resp = await ApiToggleFinishTodo(id, status);
+      if (resp.code === 0) {
+        Toast.success(resp.message);
       }
-    },
-    handleGoDetail(item) {
-      this.$router.push({
+    }
+
+    function handleGoDetail(item) {
+      router.push({
         name: "TodoDetail",
         query: {
           id: item.id
         }
       });
-    },
-    handleShowCalender() {
-      this.showCalender = true;
-    },
-    handleCloseCalender() {
-      this.showCalender = false;
-    },
-    handleConfirmCalender(value) {
+    }
+
+    function handleShowCalender() {
+      state.showCalender = true;
+    }
+
+    function handleCloseCalender() {
+      state.showCalender = false;
+    }
+
+    function handleConfirmCalender(value) {
       const times = +new Date(value);
-      const date = this.weekDate.find(date =>
-        this.$moment(date).isSame(value, "day")
+      const date = state.weekDate.find(date =>
+        ctx.$moment(date).isSame(value, "day")
       );
       if (!date) {
-        this.currentDate = times;
-        this.formatDate(times);
+        state.currentDate = times;
+        formatDate(times);
       } else {
-        this.currentDate = date;
+        state.currentDate = date;
       }
-      this.handleCloseCalender();
-      this.getTodoListByDay();
-    },
-    handleUpdateValue(date) {
-      this.currentDate = date;
-      this.getTodoListByDay();
-    },
-    async handleDelete(item) {
+      handleCloseCalender();
+      getTodoListByDay();
+    }
+
+    function handleUpdateValue(date) {
+      state.currentDate = date;
+      getTodoListByDay();
+    }
+
+    async function handleDelete(item) {
       const { id } = item;
       const resp = await ApiDeleteTodoToRecycle(id);
       if (resp.code === 0) {
-        this.$toast.success("删除成功");
-        this.todoList = this.todoList.filter(todo => todo.id !== id);
+        Toast.success("删除成功");
+        state.todoList = state.todoList.filter((todo: any) => todo.id !== id);
       }
     }
-  },
-  async mounted() {
-    this.loading = true;
-    this.formatDate(this.currentDate);
-    const times = await this.$store.dispatch("getTimes");
-    this.currentDate = times;
-    this.formatDate(times);
-    this.getTodoListByDay();
-  },
-  render() {
-    const {
-      showCalender,
-      weekDate,
-      currentDate,
-      todoList,
-      loading
-    } = this.$data;
 
-    return (
+    async function getTodoDate() {
+      const resp = await ApiGetTodoDate();
+      if (resp.code === 0) {
+        state.dateList = resp.result;
+      }
+    }
+
+    onMounted(async () => {
+      state.loading = true;
+      formatDate(state.currentDate);
+      const times = await store.dispatch("getTimes");
+      state.currentDate = times;
+      formatDate(times);
+      getTodoListByDay();
+      getTodoDate();
+    })
+
+    return () => (
       <EContainer>
-        <EHeader title={this.$route.meta.title} type="menu" />
+        <EHeader title={route.meta.title} type="menu" />
         <EAside />
         <EContent>
           <EWeekCard
-            weekDate={weekDate}
-            currentDate={currentDate}
-            onUpdateDate={this.handleUpdateValue}
-            onShowMore={this.handleShowCalender}
+            weekDate={state.weekDate}
+            currentDate={state.currentDate}
+            onUpdateDate={handleUpdateValue}
+            onShowMore={handleShowCalender}
           />
-          <van-calendar
+          <Calendar
             class={styles.calender}
-            value={showCalender}
-            defaultDate={new Date(currentDate)}
-            onInput={this.handleCloseCalender}
+            show={state.showCalender}
+            defaultDate={new Date(state.currentDate)}
+            onInput={handleCloseCalender}
             round={false}
             showTitle={false}
             showConfirm={false}
             minDate={new Date(2019, 0, 1)}
             maxDate={new Date(2099, 0, 1)}
-            formatter={this.formatterCalender}
-            onSelect={this.handleConfirmCalender}
+            formatter={formatterCalender}
+            onSelect={handleConfirmCalender}
             color="#f5222d"
           />
-          <van-divider class="divider">
-            {this.$moment(currentDate).isSame(new Date(), "day")
+          <Divider class="divider">
+            {ctx.$moment(state.currentDate).isSame(new Date(), "day")
               ? "今日任务"
-              : this.$moment(currentDate).format("YYYY-MM-DD")}
-          </van-divider>
+              : ctx.$moment(state.currentDate).format("YYYY-MM-DD")}
+          </Divider>
           <ETodoCard
-            loading={loading}
-            todoList={todoList}
-            onCheck={this.handleCheck}
-            onGoDetail={this.handleGoDetail}
-            onDel={this.handleDelete}
+            loading={state.loading}
+            todoList={state.todoList}
+            onCheck={handleCheck}
+            onGoDetail={handleGoDetail}
+            onDel={handleDelete}
           />
         </EContent>
         <EFooter />
       </EContainer>
-    );
-  }
+    )
+  },
 });

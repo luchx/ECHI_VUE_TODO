@@ -11,10 +11,13 @@ export default defineComponent({
     },
     currentDate: {
       type: Number,
-      default: new Date().getTime()
+      default: +new Date()
     }
   },
+  emits: ["showMore", "updateDate"],
   setup(props, { emit }) {
+    const { ctx } = getCurrentInstance() as any;
+
     function handleShowCalender() {
       emit("showMore");
     }
@@ -22,23 +25,11 @@ export default defineComponent({
     function handleChangeDate(date) {
       emit("updateDate", date);
     }
-    return {
-      handleShowCalender,
-      handleChangeDate
-    }
-  },
-  render() {
-    const {
-      handleShowCalender,
-      handleChangeDate
-    } = this
-    const { ctx } = getCurrentInstance() as any;
-    const { weekDate, currentDate } = this.$props;
 
-    return (
+    return () => (
       <div class={styles.dateBox}>
         <div class={styles.dateBoxContent}>
-          {weekDate.map((date, index) => {
+          {props.weekDate.map((date, index) => {
             return (
               <div class={classNames(styles.dateBoxItem)} key={index}>
                 {
@@ -51,11 +42,11 @@ export default defineComponent({
           })}
         </div>
         <div class={styles.dateBoxContent}>
-          {weekDate.map((date: any) => {
+          {props.weekDate.map((date: any) => {
             return (
               <div
                 class={classNames(styles.dayBoxItem, {
-                  [styles.active]: ctx.$moment(date).isSame(currentDate, "day")
+                  [styles.active]: ctx.$moment(date).isSame(props.currentDate, "day")
                 })}
                 onClick={() => handleChangeDate(date)}
                 key={date}
@@ -69,6 +60,6 @@ export default defineComponent({
           <i class="iconfont">&#xe756;</i>
         </div>
       </div>
-    );
-  }
+    )
+  },
 });

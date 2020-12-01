@@ -19,11 +19,6 @@ export default {
       loading: false
     };
   },
-  computed: {
-    ...mapState({
-      timestamp: state => state.timestamp
-    })
-  },
   methods: {
     formatDate(timeStamp) {
       const weekDate = []; // 日期周期
