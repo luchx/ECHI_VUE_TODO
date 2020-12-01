@@ -79,7 +79,6 @@ export default {
             recycle={true}
           />
         </EContent>
-        <EFooter />
       </EContainer>
     );
   }

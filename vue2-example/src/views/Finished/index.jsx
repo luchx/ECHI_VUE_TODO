@@ -83,7 +83,6 @@ export default {
             </div>
           ))}
         </EContent>
-        <EFooter />
       </EContainer>
     );
   }

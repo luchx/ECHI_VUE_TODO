@@ -1,13 +1,13 @@
-import styles from "./index.module.less";
-import { ApiGetReviewTodoList, ApiDeleteTodoToRecycle } from "/@/api/todo";
 import { defineComponent } from 'vue';
+import { Divider, Rate } from 'vant';
 import EContainer from '/@/components/Container';
 import EHeader from '/@/components/Header';
 import EContent from '/@/components/Content';
 import EAside from '/@/components/Aside';
 import EFooter from '/@/components/Footer';
 import ETodoCard from '/@/components/TodoCard/index.vue';
-import { Divider, Rate } from 'vant';
+import styles from "./index.module.less";
+import { ApiGetReviewTodoList, ApiDeleteTodoToRecycle } from "/@/api/todo";
 
 export default defineComponent({
   name: "Review",
@@ -94,7 +94,7 @@ export default defineComponent({
                 本周完成：<span>{taskData.finishCount}</span>
               </div>
               <div class={styles.reviewBoxItem}>
-                本周评分：{taskData.rate && <span>{taskData.rate}星</span>}
+                本周星级：{taskData.rate && <span>{taskData.rate}星</span>}
               </div>
               <div class={styles.reviewBoxItem}>
                 本周效率：{taskData.rate && <span>{this.ratioText}</span>}
