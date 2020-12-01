@@ -2,8 +2,14 @@ import {
   ApiGetRecycleTodoList,
   ApiDeleteTodo,
   ApiRestoreTodoFromRecycle
-} from "@/api/todo";
+} from "/@/api/todo";
 import { defineComponent } from 'vue';
+import EContainer from '/@/components/Container';
+import EHeader from '/@/components/Header';
+import EContent from '/@/components/Content';
+import EAside from '/@/components/Aside';
+import EFooter from '/@/components/Footer';
+import ETodoCard from '/@/components/TodoCard/index.vue';
 
 export default defineComponent({
   name: "Recycle",

@@ -7,6 +7,7 @@ import EContent from '/@/components/Content';
 import EAside from '/@/components/Aside';
 import EFooter from '/@/components/Footer';
 import ETodoCard from '/@/components/TodoCard/index.vue';
+import { Divider, Rate } from 'vant';
 
 export default defineComponent({
   name: "Review",
@@ -82,7 +83,7 @@ export default defineComponent({
         <EContent>
           <div class={styles.reviewHeader}>
             <div class={styles.rateBox}>
-              <van-rate
+              <Rate
                 value={taskData.rate}
                 color="#f5222d"
                 allowHalf={true}
@@ -100,7 +101,7 @@ export default defineComponent({
               </div>
             </div>
           </div>
-          <van-divider class="divider">完成任务</van-divider>
+          <Divider class="divider">完成任务</Divider>
           <ETodoCard
             loading={loading}
             todoList={todoList}
