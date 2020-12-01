@@ -9,7 +9,7 @@
       <div class="actions">
         <slot name="actions">
           <router-link to="/">
-            <van-button plain type="info" size="small">返回首页</van-button>
+            <van-button plain type="primary" size="small">返回首页</van-button>
           </router-link>
         </slot>
       </div>
@@ -19,9 +19,13 @@
 
 <script lang="ts">
 import { defineComponent, toRefs, computed } from "vue";
+import { Button } from "vant";
 import config from "./config";
 
 export default defineComponent({
+  components: {
+    [Button.name]: Button,
+  },
   props: {
     type: {
       type: String,
@@ -41,10 +45,10 @@ export default defineComponent({
     }
   },
   setup(props) {
-    const pageType = computed(() => props.type in config ? props.type : "404");
+    const pageType = props.type in config ? props.type : "500";
 
     return {
-      config: toRefs(config),
+      config,
       pageType,
     }
   },
@@ -57,6 +61,7 @@ export default defineComponent({
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  padding-top: 100px;
   height: 100%;
   width: 100%;
 
@@ -86,14 +91,14 @@ export default defineComponent({
     text-align: center;
     h1 {
       color: #434e59;
-      font-size: 26px; /*px*/
+      font-size: 18px; /*px*/
       font-weight: 600;
       margin-bottom: 24px;
     }
 
     .desc {
       color: @text-color-secondary;
-      font-size: 18px; /*px*/
+      font-size: 14px; /*px*/
       margin-bottom: 16px;
     }
 

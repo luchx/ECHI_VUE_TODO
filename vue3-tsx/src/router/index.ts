@@ -4,10 +4,6 @@ import { local } from '/@/utils/storage';
 const routes: RouteRecordRaw[] = [
   {
     path: "/",
-    name: "Home",
-    meta: {
-      title: "首页"
-    },
     redirect: {
       name: "Todo"
     }
@@ -102,11 +98,9 @@ const routes: RouteRecordRaw[] = [
   },
   {
     path: "/:pathMatch(.*)*",
-    name: 'not-found', 
-    meta: {
-      title: "not-found"
-    },
-    component: () => import("/@/views/Exception/404")
+    redirect: {
+      name: "404"
+    }
   },
 ];
 
