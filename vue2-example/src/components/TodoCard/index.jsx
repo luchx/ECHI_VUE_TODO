@@ -22,10 +22,15 @@ export default {
     showCheck: {
       type: Boolean,
       default: true
+    },
+    isReadonly: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {
     handleToggleCheck(event, item) {
+      if (this.isReadonly) return;
       event.stopPropagation();
       item.status = item.status === 1 ? 2 : 1;
       this.$emit("check", item);

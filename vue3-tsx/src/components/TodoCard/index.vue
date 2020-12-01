@@ -29,11 +29,11 @@
             class="cardCheck"
             @click="(event) => handleToggleCheck(event, item)"
           >
-            <i class="iconfont icon" v-html="item.status === 2 ? '&#xe606;' : '&#xe6ca;'"></i>
+            <i class="iconfont icon" v-html="item.status === 2 ? '&#xe606;' : '&#xe6ca;'" />
           </span>
           <p class="cardText">{{ item.title }}</p>
         </div>
-        <div :class="['cardClaim', { finished: recycle || !showCheck }]">
+        <div :class="['cardClaim', { recycle: recycle || !showCheck }]">
           <i class="iconfont icon">&#xe611;</i>
           <span>
             {{
@@ -87,12 +87,17 @@ export default defineComponent({
       type: Boolean,
       default: true,
     },
+    isReadonly: {
+      type: Boolean,
+      default: false,
+    },
   },
   emits: ['check', 'goDetail', 'del', 'restore'],
   setup(props, { emit }) {
     function handleToggleCheck(event, item) {
+      if(props.isReadonly) return;
       event.stopPropagation();
-      item.status = item.status === 2 ? 1 : 2;
+      item.status = item.status === 1 ? 2 : 1;
       emit('check', item);
     }
 

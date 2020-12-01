@@ -70,6 +70,7 @@ export default {
                 <van-divider class="divider">{date}</van-divider>
               </div>
               <ETodoCard
+                isReadonly
                 loading={loading}
                 todoList={todoData[date]}
                 onGoDetail={this.handleGoDetail}

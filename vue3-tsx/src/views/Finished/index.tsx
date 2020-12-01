@@ -5,8 +5,8 @@ import EContainer from '/@/components/Container';
 import EHeader from '/@/components/Header';
 import EContent from '/@/components/Content';
 import EAside from '/@/components/Aside';
-import EFooter from '/@/components/Footer';
 import ETodoCard from '/@/components/TodoCard/index.vue';
+import { Divider } from 'vant';
 
 export default defineComponent({
   name: "Finished",
@@ -34,7 +34,13 @@ export default defineComponent({
       if (resp.code === 0) {
         const { list, pagination } = resp.result;
         const { total } = pagination;
-        this.todoData = list;
+        list.forEach(item => {
+          const key = this.$moment(item.date).format("YYYY-MM-DD");
+          if (this.todoData[key] === undefined) {
+            this.todoData[key] = [];
+          }
+          this.todoData[key].push(item);
+        });
         this.total = total;
       }
     },
@@ -50,7 +56,7 @@ export default defineComponent({
       const { id } = item;
       const resp = await ApiDeleteTodoToRecycle(id);
       if (resp.code === 0) {
-        this.$toast.success("删除成功");
+        this.$toast.success(resp.message);
       }
     }
   },
@@ -65,14 +71,15 @@ export default defineComponent({
         <EHeader title={this.$route.meta.title} type="menu" />
         <EAside />
         <EContent class={styles.wrapper}>
-          {todoData.map(item => (
+          {Object.keys(todoData).map(date => (
             <div>
               <div class={styles.titleBar}>
-                <van-divider class="divider">{item.date}</van-divider>
+                <Divider class="divider">{date}</Divider>
               </div>
               <ETodoCard
+                isReadonly
                 loading={loading}
-                todoList={item.list}
+                todoList={todoData[date]}
                 onGoDetail={this.handleGoDetail}
                 onDel={this.handleDelete}
                 style={{
@@ -83,7 +90,6 @@ export default defineComponent({
             </div>
           ))}
         </EContent>
-        <EFooter />
       </EContainer>
     );
   }
