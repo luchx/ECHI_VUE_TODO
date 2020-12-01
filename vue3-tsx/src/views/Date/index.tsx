@@ -8,7 +8,7 @@ import EContent from '/@/components/Content';
 import EAside from '/@/components/Aside';
 import EFooter from '/@/components/Footer';
 import EWeekCard from '/@/components/WeekCard';
-import ETodoCard from '/@/components/TodoCard';
+import ETodoCard from '/@/components/TodoCard/index.vue';
 
 export default defineComponent({
   name: "Date",

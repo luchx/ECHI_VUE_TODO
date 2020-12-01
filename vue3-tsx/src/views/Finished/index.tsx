@@ -1,5 +1,5 @@
 import styles from "./index.module.less";
-import { ApiGetFinishedTodoList, ApiDeleteTodoToRecycle } from "@/api/todo";
+import { ApiGetFinishedTodoList, ApiDeleteTodoToRecycle } from "/@/api/todo";
 import { defineComponent } from 'vue';
 
 export default defineComponent({

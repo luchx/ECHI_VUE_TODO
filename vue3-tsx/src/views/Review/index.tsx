@@ -6,7 +6,7 @@ import EHeader from '/@/components/Header';
 import EContent from '/@/components/Content';
 import EAside from '/@/components/Aside';
 import EFooter from '/@/components/Footer';
-import ETodoCard from '/@/components/TodoCard';
+import ETodoCard from '/@/components/TodoCard/index.vue';
 
 export default defineComponent({
   name: "Review",

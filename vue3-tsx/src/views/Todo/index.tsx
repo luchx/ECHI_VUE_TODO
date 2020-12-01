@@ -5,7 +5,7 @@ import EHeader from '/@/components/Header';
 import EContent from '/@/components/Content';
 import EAside from '/@/components/Aside';
 import EFooter from '/@/components/Footer';
-import ETodoCard from '/@/components/TodoCard';
+import ETodoCard from '/@/components/TodoCard/index.vue';
 import styles from "./index.module.less";
 import { useRouter, useRoute, RouterLink } from 'vue-router';
 import { Button, Toast } from 'vant';

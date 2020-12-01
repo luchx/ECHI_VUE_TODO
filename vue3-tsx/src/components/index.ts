@@ -5,7 +5,7 @@ import Content from "./Content";
 import Aside from "./Aside";
 import Footer from "./Footer";
 import Empty from "./Empty";
-import TodoCard from "./TodoCard";
+import TodoCard from "./TodoCard/index.vue";
 import WeekCard from "./WeekCard";
 import Button from "./Button";
 import CardSkeleton from "./CardSkeleton";
