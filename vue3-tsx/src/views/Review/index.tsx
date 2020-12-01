@@ -84,7 +84,7 @@ export default defineComponent({
           <div class={styles.reviewHeader}>
             <div class={styles.rateBox}>
               <Rate
-                value={taskData.rate}
+                modelValue={taskData.rate}
                 color="#f5222d"
                 allowHalf={true}
               />
