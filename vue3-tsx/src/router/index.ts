@@ -12,7 +12,8 @@ const routes: RouteRecordRaw[] = [
     path: "/login",
     name: "Login",
     meta: {
-      title: "登录"
+      title: "登录",
+      level: 0
     },
     component: () => import("/@/views/Login")
   },
@@ -20,7 +21,8 @@ const routes: RouteRecordRaw[] = [
     path: "/todo",
     name: "Todo",
     meta: {
-      title: "待办"
+      title: "待办",
+      level: 0
     },
     component: () => import("/@/views/Todo")
   },
@@ -28,7 +30,8 @@ const routes: RouteRecordRaw[] = [
     path: "/todo-detail",
     name: "TodoDetail",
     meta: {
-      title: "待办详情"
+      title: "待办详情",
+      level: 1
     },
     component: () => import("/@/views/TodoDetail")
   },
@@ -36,7 +39,8 @@ const routes: RouteRecordRaw[] = [
     path: "/todo-detail-view/:id",
     name: "TodoDetailView",
     meta: {
-      title: "待办详情"
+      title: "待办详情",
+      level: 1
     },
     component: () => import("/@/views/TodoDetailView")
   },
@@ -44,7 +48,8 @@ const routes: RouteRecordRaw[] = [
     path: "/date",
     name: "Date",
     meta: {
-      title: "日程"
+      title: "日程",
+      level: 0
     },
     component: () => import("/@/views/Date")
   },
@@ -52,7 +57,8 @@ const routes: RouteRecordRaw[] = [
     path: "/review",
     name: "Review",
     meta: {
-      title: "本周回顾"
+      title: "本周回顾",
+      level: 0
     },
     component: () => import("/@/views/Review")
   },
@@ -60,7 +66,8 @@ const routes: RouteRecordRaw[] = [
     path: "/finished",
     name: "Finished",
     meta: {
-      title: "历史事项"
+      title: "历史事项",
+      level: 0
     },
     component: () => import("/@/views/Finished")
   },
@@ -68,7 +75,8 @@ const routes: RouteRecordRaw[] = [
     path: "/recycle",
     name: "Recycle",
     meta: {
-      title: "回收站"
+      title: "回收站",
+      level: 0
     },
     component: () => import("/@/views/Recycle")
   },
@@ -76,7 +84,8 @@ const routes: RouteRecordRaw[] = [
     path: "/exception/403",
     name: "403",
     meta: {
-      title: "403"
+      title: "403",
+      level: 1
     },
     component: () => import("/@/views/Exception/403")
   },
@@ -84,7 +93,8 @@ const routes: RouteRecordRaw[] = [
     path: "/exception/404",
     name: "404",
     meta: {
-      title: "404"
+      title: "404",
+      level: 1
     },
     component: () => import("/@/views/Exception/404")
   },
@@ -92,7 +102,8 @@ const routes: RouteRecordRaw[] = [
     path: "/exception/500",
     name: "500",
     meta: {
-      title: "500"
+      title: "500",
+      level: 1
     },
     component: () => import("/@/views/Exception/500")
   },
@@ -104,14 +115,14 @@ const routes: RouteRecordRaw[] = [
   },
 ];
 
-const router: Router = createRouter({
+const router = createRouter({
   history: createWebHashHistory(),
   routes,
 });
 
-router.beforeEach((to: any, from, next) => {
+router.beforeEach((to, from, next) => {
   // 不需要校验路由，防止死循环
-  const whiteList: (string | null | undefined)[] = [
+  const whiteList: string[] = [
     "403",
     "404",
     "500",
@@ -127,6 +138,16 @@ router.beforeEach((to: any, from, next) => {
 
   next();
 });
+
+router.afterEach((to, from) => {
+  const toDepth = to.meta.level || 0;
+  const fromDepth = from.meta.level || 0;
+  if (toDepth === fromDepth) {
+    to.meta.transition = ""
+  } else {
+    to.meta.transition = toDepth < fromDepth ? 'slide-right' : 'slide-left';
+  }
+})
 
 router.afterEach(route => {
   // 从路由的元信息中获取 title 属性

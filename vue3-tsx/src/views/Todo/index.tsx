@@ -1,5 +1,5 @@
 import { defineComponent, onMounted, reactive } from "vue";
-import { ApiGetTodoList, ApiDeleteTodoToRecycle } from "/@/api/todo";
+import { ApiGetTodoList, ApiDeleteTodoToRecycle, ApiToggleFinishTodo } from "/@/api/todo";
 import EContainer from '/@/components/Container';
 import EHeader from '/@/components/Header';
 import EContent from '/@/components/Content';
@@ -51,13 +51,12 @@ export default defineComponent({
       }
     }
 
-    function handleCheck(item) {
-      const { id, isFinished } = item;
-      state.todoList = state.todoList.filter(todo => todo.id !== id);
-      if (isFinished) {
-        state.todoList.push(item);
-      } else {
-        state.todoList.unshift(item);
+    async function handleCheck(item) {
+      const { id, status } = item;
+      const resp = await ApiToggleFinishTodo(id, status);
+      if (resp.code === 0) {
+        Toast.success(resp.message);
+        state.todoList = state.todoList.filter(todo => todo.id !== id);
       }
     }
 
@@ -86,7 +85,9 @@ export default defineComponent({
     return {
       state,
       route,
-      handleCheck, handleGoDetail, handleDelete
+      handleCheck, 
+      handleGoDetail, 
+      handleDelete
     }
   },
   render() {
