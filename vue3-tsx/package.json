@@ -2,7 +2,7 @@
   "name": "echi-todo",
   "version": "1.0.1",
   "scripts": {
-    "serve": "vite serve",
+    "serve": "vite serve --mode dev",
     "build": "vite build"
   },
   "dependencies": {

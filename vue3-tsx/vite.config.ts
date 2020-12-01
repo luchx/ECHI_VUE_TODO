@@ -6,6 +6,7 @@ function resolve(dir) {
 
 const config = {
   port: 8000,
+  jsx: "vue",
   alias: {
     "/@/": resolve("src"),
   },
@@ -15,6 +16,10 @@ const config = {
         hack: `true; @import '${resolve("src/assets/styles/theme.less")}'`
       }
     }
+  },
+  // 引入第三方的配置
+  optimizeDeps: {
+    include: ["moment", "axios", "vant"]
   }
 };
 
