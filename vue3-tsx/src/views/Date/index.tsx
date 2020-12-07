@@ -1,7 +1,8 @@
 import styles from "./index.module.less";
 import { ApiGetTodoListByDay, ApiDeleteTodoToRecycle, ApiGetTodoDate, ApiToggleFinishTodo } from "/@/api/todo";
 import { useStore } from "vuex";
-import { defineComponent, getCurrentInstance, onMounted, reactive } from 'vue';
+import { defineComponent, onMounted, reactive } from 'vue';
+import moment from "moment";
 import EContainer from '/@/components/Container';
 import EHeader from '/@/components/Header';
 import EContent from '/@/components/Content';
@@ -32,7 +33,6 @@ export default defineComponent({
       dateList: [],
       loading: false
     })
-    const { ctx } = getCurrentInstance() as any;
     const store = useStore();
     const router = useRouter()
     const route = useRoute()
@@ -42,7 +42,7 @@ export default defineComponent({
       let count = 7; // 循环次数
       let day = 0; // 当前天数
       // 获取当前星期几
-      const currentDay = ctx.$moment(timeStamp).day();
+      const currentDay = moment(timeStamp).day();
       const addNum = timeStamp - 86400000 * currentDay;
       while (count--) {
         const addDay = 86400000 * day; // 当前时间跨度(86400000为一天的间隔)
@@ -54,7 +54,7 @@ export default defineComponent({
 
     function formatterCalender(item) {
       const isTodo = state.dateList.some(date =>
-        ctx.$moment(date).isSame(item.date, "day")
+        moment(date).isSame(item.date, "day")
       );
       if (isTodo) {
         item.bottomInfo = "待办";
@@ -65,7 +65,7 @@ export default defineComponent({
 
     async function getTodoListByDay() {
       state.loading = true;
-      const date = ctx.$moment(state.currentDate).format("YYYY-MM-DD");
+      const date = moment(state.currentDate).format("YYYY-MM-DD");
       const resp = await ApiGetTodoListByDay(date);
       state.loading = false;
       if (resp.code === 0) {
@@ -101,7 +101,7 @@ export default defineComponent({
     function handleConfirmCalender(value) {
       const times = +new Date(value);
       const date = state.weekDate.find(date =>
-        ctx.$moment(date).isSame(value, "day")
+        moment(date).isSame(value, "day")
       );
       if (!date) {
         state.currentDate = times;
@@ -170,9 +170,9 @@ export default defineComponent({
             color="#f5222d"
           />
           <Divider class="divider">
-            {ctx.$moment(state.currentDate).isSame(new Date(), "day")
+            {moment(state.currentDate).isSame(new Date(), "day")
               ? "今日任务"
-              : ctx.$moment(state.currentDate).format("YYYY-MM-DD")}
+              : moment(state.currentDate).format("YYYY-MM-DD")}
           </Divider>
           <ETodoCard
             loading={state.loading}

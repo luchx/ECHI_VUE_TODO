@@ -1,5 +1,6 @@
-import { defineComponent, getCurrentInstance, onMounted, reactive } from 'vue';
+import { defineComponent, onMounted, reactive } from 'vue';
 import classNames from "classnames";
+import moment, { Moment } from "moment";
 import router from '/@/router';
 import { useRoute } from 'vue-router';
 import { Button, Toast, Divider, Field, ActionSheet, Popup, DatetimePicker } from 'vant';
@@ -19,14 +20,13 @@ interface TodoDetailState {
   todoData: any;
   title: string;
   description: string;
-  date: number;
+  date: Moment;
   priority: number;
 }
 
 export default defineComponent({
   name: "TodoDetail",
   setup() {
-    const { ctx } = getCurrentInstance() as any;
     const state = reactive<TodoDetailState>({
       id: null,
       statusVisible: false,
@@ -36,7 +36,7 @@ export default defineComponent({
       todoData: {},
       title: "",
       description: "",
-      date: +new Date(),
+      date: moment(),
       priority: 0
     });
 
@@ -51,6 +51,7 @@ export default defineComponent({
         state.title = data.title;
         state.description = data.description;
         state.date = data.date;
+        state.currentDate = new Date(data.date);
         state.priority = data.priority;
         state.statusData = priorityOption.find(item => item.key === data.priority) || {};
       }
@@ -66,7 +67,7 @@ export default defineComponent({
 
     function handleConfirmDate(value) {
       console.log(value);
-      state.date = ctx.$moment(value);
+      state.date = moment(value);
       handleCloseDate();
     }
 
@@ -93,7 +94,7 @@ export default defineComponent({
       const data = {
         title: state.title,
         description: state.description,
-        date: state.date,
+        date: moment(state.date).valueOf(),
         priority: state.priority
       };
 
@@ -155,7 +156,7 @@ export default defineComponent({
                 >
                   <i class={classNames("iconfont", styles.icon)}>&#xe668;</i>
                   <span>
-                    {ctx.$moment(state.date).calendar(undefined, {
+                    {moment(state.date).calendar(undefined, {
                       sameDay: "[今天]",
                       nextDay: "[明天]",
                       nextWeek: "MM-DD HH:mm",

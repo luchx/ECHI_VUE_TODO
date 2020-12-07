@@ -1,4 +1,5 @@
-import { defineComponent, getCurrentInstance } from "vue";
+import { defineComponent } from "vue";
+import moment from "moment";
 import styles from "./index.module.less";
 import classNames from "classnames";
 
@@ -16,8 +17,6 @@ export default defineComponent({
   },
   emits: ["showMore", "updateDate"],
   setup(props, { emit }) {
-    const { ctx } = getCurrentInstance() as any;
-
     function handleShowCalender() {
       emit("showMore");
     }
@@ -34,7 +33,7 @@ export default defineComponent({
               <div class={classNames(styles.dateBoxItem)} key={index}>
                 {
                   ["日", "一", "二", "三", "四", "五", "六"][
-                  ctx.$moment(date).day()
+                  moment(date).day()
                   ]
                 }
               </div>
@@ -46,12 +45,12 @@ export default defineComponent({
             return (
               <div
                 class={classNames(styles.dayBoxItem, {
-                  [styles.active]: ctx.$moment(date).isSame(props.currentDate, "day")
+                  [styles.active]: moment(date).isSame(props.currentDate, "day")
                 })}
                 onClick={() => handleChangeDate(date)}
                 key={date}
               >
-                <span>{ctx.$moment(date).date()}</span>
+                <span>{moment(date).date()}</span>
               </div>
             );
           })}
