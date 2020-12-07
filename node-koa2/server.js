@@ -17,6 +17,14 @@ const { secretKey, whiteList } = require("@core/jwt");
 // error handler
 onerror(app);
 
+// 处理前端 history 模式
+const { historyApiFallback } = require("koa2-connect-history-api-fallback");
+app.use(
+  historyApiFallback({
+    whiteList: ["/api"],
+  })
+);
+
 // 添加执行上下文参数
 app.use(context);
 
@@ -88,8 +96,8 @@ app.on("error", (err, ctx) => {
 const { port } = require("@config");
 app.listen(port, () => {
   console.log(
-    process.env.NODE_ENV === 'development'
-      ? `Open ${chalk.green('http://localhost:' + port)}`
+    process.env.NODE_ENV === "development"
+      ? `Open ${chalk.green("http://localhost:" + port)}`
       : `App listening on port ${port}`
-  )
-})
+  );
+});
