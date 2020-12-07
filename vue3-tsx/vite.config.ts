@@ -1,10 +1,11 @@
 import path from 'path';
+import { ServerConfig } from "vite";
 
 function resolve(dir) {
   return path.resolve(__dirname, dir);
 }
 
-const config = {
+const config: ServerConfig = {
   port: 8000,
   jsx: "vue",
   alias: {

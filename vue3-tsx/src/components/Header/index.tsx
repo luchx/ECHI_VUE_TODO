@@ -2,6 +2,7 @@ import { defineComponent, inject } from 'vue';
 import { useRouter } from 'vue-router';
 import classNames from "classnames";
 import styles from "./index.module.less";
+import { ProvideCollapsed } from '/@/utils/constant';
 
 export default defineComponent({
   name: "Header",
@@ -24,7 +25,7 @@ export default defineComponent({
     }
   },
   setup(props) {
-    const [, setToggle] = inject<any>("parent");
+    const [, setToggle] = inject<any>(ProvideCollapsed);
     const router = useRouter();
 
     function handleBack() {

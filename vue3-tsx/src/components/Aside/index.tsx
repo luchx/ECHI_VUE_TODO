@@ -1,11 +1,12 @@
-import { defineComponent, reactive, computed, inject, Transition, watchEffect } from 'vue';
+import { defineComponent, reactive, computed, inject, Transition } from "vue";
 import { useStore } from "vuex";
 import styles from "./index.module.less";
 import classNames from "classnames";
 import DEFAULT_USER_Male from "/@/assets/image/male.jpg";
 import DEFAULT_USER_FEMale from "/@/assets/image/female.jpg";
-import { RouterLink, useRouter } from 'vue-router';
-import { Icon } from 'vant';
+import { RouterLink, useRouter } from "vue-router";
+import { Icon } from "vant";
+import { ProvideCollapsed } from '/@/utils/constant';
 
 type CountData = {
   todo: number;
@@ -37,7 +38,7 @@ export default defineComponent({
   setup() {
     const store = useStore();
     const router = useRouter();
-    const [collapsed, setToggle] = inject<any>("parent");
+    const [collapsed, setToggle] = inject<any>(ProvideCollapsed);
 
     const state = reactive<AsideState>({
       show: false,

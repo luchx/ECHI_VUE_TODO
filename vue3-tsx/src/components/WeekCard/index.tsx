@@ -1,4 +1,4 @@
-import { defineComponent } from "vue";
+import { defineComponent, PropType } from "vue";
 import moment from "moment";
 import styles from "./index.module.less";
 import classNames from "classnames";
@@ -7,7 +7,7 @@ export default defineComponent({
   name: "WeekCard",
   props: {
     weekDate: {
-      type: Array,
+      type: Array as PropType<Array<number>>,
       default: () => []
     },
     currentDate: {
@@ -28,7 +28,7 @@ export default defineComponent({
     return () => (
       <div class={styles.dateBox}>
         <div class={styles.dateBoxContent}>
-          {props.weekDate.map((date, index) => {
+          {props.weekDate.map((date: number, index) => {
             return (
               <div class={classNames(styles.dateBoxItem)} key={index}>
                 {
@@ -41,7 +41,7 @@ export default defineComponent({
           })}
         </div>
         <div class={styles.dateBoxContent}>
-          {props.weekDate.map((date: any) => {
+          {props.weekDate.map((date: number) => {
             return (
               <div
                 class={classNames(styles.dayBoxItem, {

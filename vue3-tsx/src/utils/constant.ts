@@ -20,3 +20,5 @@ export const priorityOption = [
     color: "#f5222d"
   }
 ];
+
+export const ProvideCollapsed = Symbol("parent");

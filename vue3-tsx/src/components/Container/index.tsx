@@ -1,10 +1,11 @@
 import styles from "./index.module.less";
-import { computed, defineComponent, provide, ref } from 'vue';
+import { defineComponent, provide, ref } from 'vue';
+import { ProvideCollapsed } from '/@/utils/constant';
 
 export default defineComponent({
   name: "Container",
   setup(props, { slots }) {
-    const collapsed = ref(false);
+    const collapsed = ref<boolean>(false);
 
     function setToggle(status) {
       if (status !== undefined) {
@@ -14,7 +15,7 @@ export default defineComponent({
       collapsed.value = !collapsed.value;
     }
 
-    provide("parent", [
+    provide(ProvideCollapsed, [
       collapsed,
       setToggle
     ]);
