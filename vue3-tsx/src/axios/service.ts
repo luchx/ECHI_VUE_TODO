@@ -94,7 +94,7 @@ export default class Http {
    * @param [params] 数据
    * @returns Promise
    */
-  public static delete(url: string, params?: object, ...axiosConfig) {
+  public static delete(url: string, params?: object, axiosConfig = {}) {
     return this.request({
       method: "DELETE",
       url,
