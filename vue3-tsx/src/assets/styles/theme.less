@@ -2,17 +2,16 @@
 @icon-color: rgba(0, 0, 0, 0.45);
 
 @primary-color: #1890ff; // 全局主色
-@link-color: #1890ff; // 链接色
+@link-color: @primary-color; // 链接色
 @success-color: #52c41a; // 成功色
 @warning-color: #faad14; // 警告色
 @error-color: #f5222d; // 错误色
 @header-color: #fff; // 标题色
-@header-bg-color: #1890ff; // 标题背景色
+@header-bg-color: @primary-color; // 标题背景色
 @text-color: rgba(0, 0, 0, 0.65); // 主文本色
 @text-color-secondary: rgba(0, 0, 0, 0.45); // 次文本色
 @disabled-color: rgba(0, 0, 0, 0.25); // 失效色
 
-@border-color-base: #ebedf0; // 边框色
 @box-shadow-base: 0 2px 8px rgba(0, 0, 0, 0.05); // 浮层阴影
 
 @bg-color: #f7f8fa; // 灰色背景
@@ -30,52 +29,3 @@
 @font-size-tiny: 12px; // 小字号
 
 @border-radius-base: 2px; // 组件/浮层圆角
-
-// Color Palette
-@black: #000;
-@white: #fff;
-@gray-1: #f7f8fa;
-@gray-2: #f2f3f5;
-@gray-3: #ebedf0;
-@gray-4: #dcdee0;
-@gray-5: #c8c9cc;
-@gray-6: #969799;
-@gray-7: #646566;
-@gray-8: #323233;
-@red: @error-color;
-@blue: @primary-color;
-@orange-dark: #ed6a0c;
-@orange-light: #fffbe8;
-
-// Gradient Colors
-@gradient-red: linear-gradient(to right, #ff6034, #ee0a24);
-@gradient-orange: linear-gradient(to right, #ffd01e, #ff8917);
-
-// Component Colors
-@text-color: @gray-8;
-@active-color: @gray-2;
-@active-opacity: 0.7;
-@disabled-opacity: 0.5;
-@background-color: @gray-1;
-@background-color-light: #fafafa;
-@text-link-color: #576b95;
-
-// Padding
-@padding-base: 4px;
-@padding-xs: @padding-base * 2;
-@padding-sm: @padding-base * 3;
-@padding-md: @padding-base * 4;
-@padding-lg: @padding-base * 6;
-@padding-xl: @padding-base * 8;
-
-// Font
-@font-size-xs: 10px;
-@font-size-sm: 12px;
-@font-size-md: 14px;
-@font-size-lg: 16px;
-@font-weight-bold: 500;
-@base-font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue',
-  Helvetica, Segoe UI, Arial, Roboto, 'PingFang SC', 'Hiragino Sans GB',
-  'Microsoft Yahei', sans-serif;
-@price-integer-font-family: Avenir-Heavy, PingFang SC, Helvetica Neue, Arial,
-  sans-serif;
