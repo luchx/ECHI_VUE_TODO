@@ -5,21 +5,23 @@
     <van-swipe-cell class="cardCell" v-for="item in todoList" :key="item.id">
       <template #right>
         <div :style="{ height: '100%' }">
-          <van-button
+          <EButton
             v-if="recycle"
             :style="{ height: '100%' }"
             square
-            text="还原"
             type="primary"
             @click="() => handleRestore(item)"
-          />
-          <van-button
+          >
+          还原
+          </EButton>
+          <EButton
             :style="{ height: '100%' }"
             square
-            text="删除"
             type="danger"
             @click="() => handleDelete(item)"
-          />
+          >
+          删除
+          </EButton>
         </div>
       </template>
       <div :class="['cardContent', { finished: item.status === 2 }]" @click="() => goDetail(item)">
@@ -54,18 +56,19 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, toRefs, computed } from 'vue';
+import { defineComponent} from 'vue';
 import ECardSkeleton from '/@/components/CardSkeleton';
 import EEmpty from '/@/components/Empty';
-import { Button, Dialog, SwipeCell } from 'vant';
+import EButton from '/@/components/Button';
+import { Dialog, SwipeCell } from 'vant';
 
 export default defineComponent({
   name: 'TodoCard',
   components: {
     ECardSkeleton,
     EEmpty,
+    EButton,
     [SwipeCell.name]: SwipeCell,
-    [Button.name]: Button,
   },
   props: {
     loading: {
@@ -184,7 +187,7 @@ export default defineComponent({
   .cardClaim {
     font-size: 12px;
     /*px*/
-    color: @error-color;
+    color: @danger-color;
     &:not(.recycle) {
       margin-left: 30px;
     }

@@ -9,7 +9,7 @@
       <div class="actions">
         <slot name="actions">
           <router-link to="/">
-            <van-button plain type="info" size="small">返回首页</van-button>
+            <e-button plain type="info" size="small">返回首页</e-button>
           </router-link>
         </slot>
       </div>
@@ -25,31 +25,31 @@ export default Vue.extend({
   props: {
     type: {
       type: String,
-      default: "404"
+      default: "404",
     },
     title: {
       type: String,
-      default: null
+      default: null,
     },
     desc: {
       type: String,
-      default: null
+      default: null,
     },
     img: {
       type: String,
-      default: null
-    }
+      default: null,
+    },
   },
   data() {
     return {
-      config
+      config,
     };
   },
   computed: {
     pageType(): string {
       return this.type in this.config ? this.type : "404";
-    }
-  }
+    },
+  },
 });
 </script>
 

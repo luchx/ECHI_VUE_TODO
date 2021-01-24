@@ -9,7 +9,7 @@
       <div class="actions">
         <slot name="actions">
           <router-link to="/">
-            <van-button plain type="primary" size="small">返回首页</van-button>
+            <e-button plain type="primary" size="small">返回首页</e-button>
           </router-link>
         </slot>
       </div>
@@ -17,14 +17,14 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, toRefs, computed } from "vue";
-import { Button } from "vant";
+<script>
+import { defineComponent } from "vue";
+import EButton from '/@/components/Button';
 import config from "./config";
 
 export default defineComponent({
   components: {
-    [Button.name]: Button,
+    EButton
   },
   props: {
     type: {

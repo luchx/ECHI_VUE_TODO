@@ -108,14 +108,14 @@ export default {
       <EContainer class={classNames(styles.todoDetail)}>
         <EHeader
           extra={
-            <van-button
+            <EButton
               plain
-              type="info"
+              type="primary"
               class={styles.saveBtn}
               onClick={this.handleSave}
             >
               保存
-            </van-button>
+            </EButton>
           }
         />
         <EContent>

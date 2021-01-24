@@ -78,9 +78,9 @@ export default Vue.extend({
                 name: "TodoDetail"
               }}
             >
-              <van-button plain type="info" class={styles.addBtn}>
+              <EButton plain type="primary" class={styles.addBtn}>
                 新增
-              </van-button>
+              </EButton>
             </router-link>
           }
         />

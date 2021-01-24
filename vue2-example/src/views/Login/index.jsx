@@ -172,26 +172,26 @@ export default Vue.extend({
                   onBlur={this.handleInputBlur}
                 />
                 <div class={styles.checkBoxBtn}>
-                  <van-button
-                    type="primary"
+                  <EButton
+                    type="success"
                     size="small"
                     block
                     onClick={() => this.handleSendCode()}
                     disabled={sendingCodeStatus}
                   >
                     {sendingCodeStatus ? sendingCodeText : "发送验证码"}
-                  </van-button>
+                  </EButton>
                 </div>
               </div>
             </div>
-            <van-button
-              type="info"
+            <EButton
+              type="primary"
               block
               onClick={this.handleSubmit}
               disabled={submitStatus}
             >
               提交
-            </van-button>
+            </EButton>
           </div>
         </div>
       </EContainer>

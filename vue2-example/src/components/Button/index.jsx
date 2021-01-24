@@ -1,39 +1,38 @@
 import styles from "./index.module.less";
-import { defineComponent } from 'vue';
-import classNames from 'classnames';
+import classNames from "classnames";
 
-export default defineComponent({
+export default {
   name: "Button",
   props: {
     type: {
       type: String,
-      default: "default"
+      default: "default",
     },
     disabled: {
       type: Boolean,
-      default: false
+      default: false,
     },
     block: {
       type: Boolean,
-      default: false
+      default: false,
     },
     size: {
       type: String,
-      default: 'normal'
+      default: "normal",
     },
     plain: {
       type: Boolean,
-      default: false
+      default: false,
     },
     square: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
-  setup(props, { slots }) {
-    const { block, size, disabled, type, plain, square } = props;
+  render() {
+    const { block, size, disabled, type, plain, square } = this.$props;
 
-    return () => (
+    return (
       <button
         class={classNames({
           [styles.button]: true,
@@ -45,7 +44,10 @@ export default defineComponent({
           [styles["button-square"]]: square,
         })}
         disabled={disabled}
-      >{slots.default && slots.default()}</button>
-    )
-  }
-});
+        onClick={event => this.$emit("click", event)}
+      >
+        {this.$slots.default}
+      </button>
+    );
+  },
+};
