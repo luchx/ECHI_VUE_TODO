@@ -1,7 +1,6 @@
 import Vue from "vue";
 
 import {
-  Button,
   SwipeCell,
   Dialog,
   Toast,
@@ -16,7 +15,7 @@ import {
   Skeleton,
   Empty
 } from "vant";
-Vue.use(Button);
+
 Vue.use(SwipeCell);
 Vue.use(Dialog);
 Vue.use(Toast);

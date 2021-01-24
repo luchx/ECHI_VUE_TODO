@@ -186,6 +186,7 @@ export default Vue.extend({
             </div>
             <EButton
               type="primary"
+              size="large"
               block
               onClick={this.handleSubmit}
               disabled={submitStatus}
