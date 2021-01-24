@@ -5,7 +5,6 @@ import {
   ApiToggleFinishTodo,
   ApiGetTodoDate
 } from "@/api/todo";
-import { mapState } from "vuex";
 
 export default {
   name: "Date",
