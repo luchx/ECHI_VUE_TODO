@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_todo/Login/index.dart';
 import 'package:flutter_todo/global_config.dart';
+import 'package:flutter_todo/pages/Home/index.dart';
 
-class Index extends StatefulWidget {
+class Index extends StatelessWidget {
   const Index({super.key});
 
-  @override
-  IndexState createState() => IndexState();
-}
-
-class IndexState extends State<Index> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -17,9 +12,10 @@ class IndexState extends State<Index> {
         theme: GlobalConfig.themeData,
         title: "首页",
         routes: GlobalConfig.routes,
-        home: const Login(),
+        home: const Home(),
         //传入当前路由对象
-        onGenerateRoute: routeBeforeHook);
+        onGenerateRoute: routeBeforeHook
+    );
   }
 }
 
