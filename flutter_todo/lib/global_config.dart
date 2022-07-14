@@ -7,6 +7,7 @@ class GlobalConfig {
   static ThemeData themeData = ThemeData(
     brightness: Brightness.light,
     primarySwatch: Colors.blue,
+    fontFamily: "Avenir,Helvetica,Arial,sans-serif",
     visualDensity: VisualDensity.adaptivePlatformDensity,
   );
 

@@ -225,7 +225,7 @@ packages:
       name: test_api
       url: "https://mirrors.tuna.tsinghua.edu.cn/dart-pub/"
     source: hosted
-    version: "0.4.11"
+    version: "0.4.12"
   vector_math:
     dependency: transitive
     description:
