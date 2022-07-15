@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_todo/pages/Date/index.dart';
+import 'package:flutter_todo/pages/Home/index.dart';
 import 'package:flutter_todo/pages/Login/index.dart';
 
 class GlobalConfig {
@@ -11,7 +13,11 @@ class GlobalConfig {
     visualDensity: VisualDensity.adaptivePlatformDensity,
   );
 
+  static int currentIndex = 0;
+
   static final Map<String, WidgetBuilder> routes = {
     '/login': (BuildContext context) => const Login(),
+    '/home': (BuildContext context) => const Home(),
+    '/date': (BuildContext context) => const Date(),
   };
 }

@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
 class Footer extends StatelessWidget {
-  const Footer({super.key, this.currentIndex = 0, this.onBottomTap});
+  const Footer({super.key, required this.currentIndex, this.onBottomTap});
 
   final int currentIndex;
-  final ValueChanged<int>? onBottomTap;
+  final void Function(int)? onBottomTap;
 
   @override
   Widget build(BuildContext context) {
     const List<BottomNavigationBarItem> bottomNavList =
         <BottomNavigationBarItem>[
-      BottomNavigationBarItem(icon: Icon(Icons.edit), label: "待办"),
-      BottomNavigationBarItem(icon: Icon(Icons.date_range), label: "日程"),
+      BottomNavigationBarItem(icon: Icon(Icons.favorite), label: "待办"),
+      BottomNavigationBarItem(icon: Icon(Icons.audiotrack), label: "日程"),
       BottomNavigationBarItem(icon: Icon(Icons.history_sharp), label: "回顾"),
     ];
 

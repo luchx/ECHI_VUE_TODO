@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
 class Aside extends StatelessWidget {
-  const Aside({super.key});
+  const Aside({super.key, required this.onItemTap, this.autoClose = true});
+
+  final bool autoClose;
+  final void Function(String key, Function callback) onItemTap;
 
   Widget itemTitle(String title) {
     return Padding(
@@ -10,45 +13,54 @@ class Aside extends StatelessWidget {
             style: const TextStyle(fontSize: 14.0, color: Color(0xFF999999))));
   }
 
-  Widget itemCell(int iconType, {required String title, String count = ""}) {
-    List<Map> iconList = [
-      {
+  Widget itemCell(String type, {required String title, String count = ""}) {
+    Map<String, dynamic> iconList = {
+      "todo": {
         'icon': Icons.favorite,
         'color': Colors.red,
       },
-      {
+      "date": {
         'icon': Icons.audiotrack,
         'color': Colors.green,
       },
-      {
+      "finished": {
         'icon': Icons.beach_access,
         'color': Colors.blue,
       },
-      {
+      "recycle": {
         'icon': Icons.recycling_sharp,
         'color': Colors.purple,
       }
-    ];
+    };
     return Padding(
         padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 16.0),
-        child: Row(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(right: 8.0),
-              child: Icon(
-                iconList[iconType]["icon"],
-                color: iconList[iconType]["color"],
-                size: 16.0,
-              ),
-            ),
-            Expanded(
-                child: Text(title,
-                    style: const TextStyle(
-                        fontSize: 14.0, color: Color(0xFF333333)))),
-            Text(count,
-                style:
-                    const TextStyle(fontSize: 14.0, color: Color(0xFF333333)))
-          ],
+        child: Builder(
+          builder: (context) => GestureDetector(
+              onTap: () {
+                if (autoClose) {
+                  Scaffold.of(context).closeDrawer();
+                }
+                onItemTap(type, () => {Scaffold.of(context).closeDrawer()});
+              },
+              child: Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 8.0),
+                    child: Icon(
+                      iconList[type]["icon"],
+                      color: iconList[type]["color"],
+                      size: 16.0,
+                    ),
+                  ),
+                  Expanded(
+                      child: Text(title,
+                          style: const TextStyle(
+                              fontSize: 14.0, color: Color(0xFF333333)))),
+                  Text(count,
+                      style: const TextStyle(
+                          fontSize: 14.0, color: Color(0xFF333333)))
+                ],
+              )),
         ));
   }
 
@@ -90,11 +102,11 @@ class Aside extends StatelessWidget {
             ]),
           ),
           itemTitle("聚焦"),
-          itemCell(0, title: '待办', count: "5"),
-          itemCell(1, title: "日程", count: "3"),
+          itemCell("todo", title: '待办', count: "5"),
+          itemCell("date", title: "日程", count: "3"),
           itemTitle("历史"),
-          itemCell(2, title: "已完成", count: "8"),
-          itemCell(3, title: "回收站"),
+          itemCell("finished", title: "已完成", count: "8"),
+          itemCell("recycle", title: "回收站"),
         ],
       ),
     );
