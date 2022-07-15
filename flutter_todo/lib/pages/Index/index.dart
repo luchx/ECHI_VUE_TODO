@@ -9,14 +9,22 @@ import 'package:flutter_todo/widget/Footer/index.dart';
 import 'package:flutter_todo/widget/header/index.dart';
 
 class Index extends StatefulWidget {
-  const Index({super.key});
+  const Index({super.key, this.activeIndex = 0});
+
+  final int activeIndex;
 
   @override
   IndexState createState() => IndexState();
 }
 
 class IndexState extends State<Index> {
-  int currentIndex = 0;
+  late int currentIndex;
+
+  @override
+  void initState() {
+    super.initState();
+    currentIndex = widget.activeIndex;
+  }
 
   void handleItemTap(String key, Function done) {
     switch (key) {
