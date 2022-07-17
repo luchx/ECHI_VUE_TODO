@@ -54,7 +54,7 @@ class HomeState extends State<Home> {
               }
             }
             //显示单词列表项
-            return const TodoCard();
+            return const TodoCard(data: '',);
           },
           separatorBuilder: (context, index) => const SizedBox(height: 16.0),
         ));
