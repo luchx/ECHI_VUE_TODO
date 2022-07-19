@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_todo/global_config.dart';
 import 'package:flutter_todo/pages/Date/index.dart';
 import 'package:flutter_todo/pages/Home/index.dart';
+import 'package:flutter_todo/pages/Login/index.dart';
 import 'package:flutter_todo/pages/Review/index.dart';
 import 'package:flutter_todo/widget/Aside/index.dart';
 import 'package:flutter_todo/widget/Button/index.dart';
@@ -65,21 +66,22 @@ class IndexState extends State<Index> {
         theme: GlobalConfig.themeData,
         title: currentPage["title"],
         routes: GlobalConfig.routes,
-        home: Scaffold(
-          appBar: Header(
-            title: currentPage["title"],
-            actions: currentPage["actions"],
-          ),
-          body: pageState[currentIndex]["page"],
-          bottomNavigationBar: Footer(
-              currentIndex: currentIndex,
-              onBottomTap: (int index) {
-                setState(() {
-                  currentIndex = index;
-                });
-              }),
-          drawer: Aside(onItemTap: handleItemTap),
-        ),
+        home: const Login(),
+        // home: Scaffold(
+        //   appBar: Header(
+        //     title: currentPage["title"],
+        //     actions: currentPage["actions"],
+        //   ),
+        //   body: pageState[currentIndex]["page"],
+        //   bottomNavigationBar: Footer(
+        //       currentIndex: currentIndex,
+        //       onBottomTap: (int index) {
+        //         setState(() {
+        //           currentIndex = index;
+        //         });
+        //       }),
+        //   drawer: Aside(onItemTap: handleItemTap),
+        // ),
         //传入当前路由对象
         onGenerateRoute: routeBeforeHook);
   }

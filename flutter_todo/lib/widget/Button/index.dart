@@ -22,6 +22,7 @@ class EButton extends StatelessWidget {
             foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
             // 背景颜色
             backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+            minimumSize: MaterialStateProperty.all(const Size(100.0, 36.0)),
             side: MaterialStateProperty.all<BorderSide>(side),
             shape: MaterialStateProperty.all<OutlinedBorder>(
                 RoundedRectangleBorder(
