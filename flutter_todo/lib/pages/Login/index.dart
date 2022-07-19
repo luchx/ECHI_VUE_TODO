@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_todo/global_config.dart';
+import 'package:flutter_todo/pages/Index/index.dart';
 import 'package:flutter_todo/utils/index.dart';
 import 'package:flutter_todo/widget/Button/index.dart';
 
@@ -24,6 +25,7 @@ class LoginState extends State<Login> {
   @override
   void dispose() {
     super.dispose();
+
     ///取消计时器
     if (codeTimer != null) {
       codeTimer!.cancel();
@@ -173,7 +175,7 @@ class LoginState extends State<Login> {
       Utils.toast("请输入验证码");
       return;
     }
-    // Navigator.pushNamed(context, "/");
+    Navigator.of(context).pushNamed("/", arguments: {"activeIndex": 0});
   }
 
   bool validatePhone(String phone) {

@@ -4,7 +4,8 @@ class Aside extends StatelessWidget {
   const Aside({super.key, required this.onItemTap, this.autoClose = true});
 
   final bool autoClose;
-  final void Function(String key, Function callback) onItemTap;
+  final void Function(BuildContext context, String key, Function callback)
+      onItemTap;
 
   Widget itemTitle(String title) {
     return Padding(
@@ -35,12 +36,13 @@ class Aside extends StatelessWidget {
     return Padding(
         padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 16.0),
         child: Builder(
-          builder: (context) => GestureDetector(
+          builder: (BuildContext context) => GestureDetector(
               onTap: () {
                 if (autoClose) {
                   Scaffold.of(context).closeDrawer();
                 }
-                onItemTap(type, () => {Scaffold.of(context).closeDrawer()});
+                onItemTap(
+                    context, type, () => {Scaffold.of(context).closeDrawer()});
               },
               child: Row(
                 children: [

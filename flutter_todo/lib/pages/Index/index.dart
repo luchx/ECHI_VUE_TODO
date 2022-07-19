@@ -27,7 +27,7 @@ class IndexState extends State<Index> {
     currentIndex = widget.activeIndex;
   }
 
-  void handleItemTap(String key, Function done) {
+  void handleItemTap(BuildContext context, String key, Function done) {
     switch (key) {
       case "todo":
         currentIndex = 0;
@@ -68,7 +68,8 @@ class IndexState extends State<Index> {
       navigatorObservers: [BotToastNavigatorObserver()],
       theme: GlobalConfig.themeData,
       title: currentPage["title"],
-      // routes: GlobalConfig.routes,
+      initialRoute: '/',
+      routes: GlobalConfig.routes,
       // home: const Login(),
       home: Scaffold(
         appBar: Header(
