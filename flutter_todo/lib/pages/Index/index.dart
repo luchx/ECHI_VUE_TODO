@@ -1,8 +1,8 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_todo/global_config.dart';
 import 'package:flutter_todo/pages/Date/index.dart';
 import 'package:flutter_todo/pages/Home/index.dart';
-import 'package:flutter_todo/pages/Login/index.dart';
 import 'package:flutter_todo/pages/Review/index.dart';
 import 'package:flutter_todo/widget/Aside/index.dart';
 import 'package:flutter_todo/widget/Button/index.dart';
@@ -62,34 +62,40 @@ class IndexState extends State<Index> {
     final currentPage = pageState[currentIndex];
 
     return MaterialApp(
-        debugShowCheckedModeBanner: GlobalConfig.debugBanner,
-        theme: GlobalConfig.themeData,
-        title: currentPage["title"],
-        routes: GlobalConfig.routes,
-        home: const Login(),
-        // home: Scaffold(
-        //   appBar: Header(
-        //     title: currentPage["title"],
-        //     actions: currentPage["actions"],
-        //   ),
-        //   body: pageState[currentIndex]["page"],
-        //   bottomNavigationBar: Footer(
-        //       currentIndex: currentIndex,
-        //       onBottomTap: (int index) {
-        //         setState(() {
-        //           currentIndex = index;
-        //         });
-        //       }),
-        //   drawer: Aside(onItemTap: handleItemTap),
-        // ),
-        //传入当前路由对象
-        onGenerateRoute: routeBeforeHook);
+      debugShowCheckedModeBanner: GlobalConfig.debugBanner,
+      // 注册 Toast 全局实例
+      builder: BotToastInit(),
+      navigatorObservers: [BotToastNavigatorObserver()],
+      theme: GlobalConfig.themeData,
+      title: currentPage["title"],
+      // routes: GlobalConfig.routes,
+      // home: const Login(),
+      home: Scaffold(
+        appBar: Header(
+          title: currentPage["title"],
+          actions: currentPage["actions"],
+        ),
+        body: pageState[currentIndex]["page"],
+        bottomNavigationBar: Footer(
+            currentIndex: currentIndex,
+            onBottomTap: (int index) {
+              setState(() {
+                currentIndex = index;
+              });
+            }),
+        drawer: Aside(onItemTap: handleItemTap),
+      ),
+      //传入当前路由对象
+      // onGenerateRoute: routeBeforeHook
+    );
   }
 }
 
 Route routeBeforeHook(RouteSettings settings) {
   final name = settings.name;
   var builder = GlobalConfig.routes[name];
+
+  print("luchx ==> $name");
 
   // 处理 404 场景
   builder ??= (BuildContext context) => const Center(child: Text('404'));

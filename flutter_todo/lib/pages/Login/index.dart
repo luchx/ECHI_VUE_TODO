@@ -1,7 +1,7 @@
 import 'dart:async';
-import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_todo/global_config.dart';
+import 'package:flutter_todo/utils/index.dart';
 import 'package:flutter_todo/widget/Button/index.dart';
 
 class Login extends StatefulWidget {
@@ -22,23 +22,12 @@ class LoginState extends State<Login> {
   final TextEditingController codeController = TextEditingController();
 
   @override
-  void initState() {
-    super.initState();
-    phoneController.addListener(() {
-      print('input ${phoneController.text}');
-    });
-    codeController.addListener(() {
-      print('input ${codeController.text}');
-    });
-  }
-
-  @override
   void dispose() {
+    super.dispose();
     ///取消计时器
     if (codeTimer != null) {
       codeTimer!.cancel();
     }
-    super.dispose();
   }
 
   @override
@@ -127,7 +116,7 @@ class LoginState extends State<Login> {
                           EButton(
                               text: codeText,
                               fontSize: 12.0,
-                              onPressed: () => handleSendCode(phoneController)),
+                              onPressed: handleSendCode),
                         ],
                       ),
                     )
@@ -140,12 +129,12 @@ class LoginState extends State<Login> {
                     children: <Widget>[
                       Expanded(
                         child: ElevatedButton(
+                          onPressed: handleSubmit,
                           child: const Padding(
                             padding: EdgeInsets.symmetric(
                                 vertical: 10.0, horizontal: 16.0),
                             child: Text("登录"),
                           ),
-                          onPressed: () {},
                         ),
                       ),
                     ],
@@ -159,33 +148,51 @@ class LoginState extends State<Login> {
     );
   }
 
-  bool validatePhone(String phone) {
-    if (phone == "") {
-      // BotToast.showText(text: "请输入您的手机号码");
-      return false;
-    }
-    // if (!TestPhone(phone)) {
-    //   this.$toast("您的号码输入错误");
-    //   return false;
-    // }
-    return true;
-  }
-
-  void handleSendCode(phoneController) {
+  void handleSendCode() {
     if (sendingCodeStatus) {
       return;
     }
-
-    if (!validatePhone(phoneController.text)) {
+    String phone = phoneController.text;
+    if (!validatePhone(phone)) {
       return;
     }
 
+    sendingCodeStatus = true;
+
+    Utils.toast("验证码为： 1234");
+    getLeftTime();
+  }
+
+  void handleSubmit() {
+    String phone = phoneController.text;
+    String code = codeController.text;
+    if (!validatePhone(phone)) {
+      return;
+    }
+    if (code.isEmpty) {
+      Utils.toast("请输入验证码");
+      return;
+    }
+    // Navigator.pushNamed(context, "/");
+  }
+
+  bool validatePhone(String phone) {
+    if (phone == "") {
+      Utils.toast("请输入您的手机号码");
+      return false;
+    }
+    if (!Utils.testPhone(phone)) {
+      Utils.toast("您的号码输入错误");
+      return false;
+    }
+    return true;
+  }
+
+  void getLeftTime() {
     ///取消计时器
     if (codeTimer != null) {
       codeTimer!.cancel();
     }
-
-    sendingCodeStatus = true;
 
     ///间隔1秒
     codeTimer = Timer.periodic(const Duration(milliseconds: 1000), (timer) {
