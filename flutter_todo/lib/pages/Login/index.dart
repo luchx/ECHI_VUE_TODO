@@ -1,8 +1,10 @@
 import 'dart:async';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_todo/global_config.dart';
 import 'package:flutter_todo/pages/Index/index.dart';
 import 'package:flutter_todo/utils/index.dart';
+import 'package:flutter_todo/utils/request.dart';
 import 'package:flutter_todo/widget/Button/index.dart';
 
 class Login extends StatefulWidget {
@@ -150,7 +152,8 @@ class LoginState extends State<Login> {
     );
   }
 
-  void handleSendCode() {
+  CancelToken _cancelToken = CancelToken();
+  void handleSendCode() async {
     if (sendingCodeStatus) {
       return;
     }
@@ -159,10 +162,18 @@ class LoginState extends State<Login> {
       return;
     }
 
-    sendingCodeStatus = true;
+    try {
+      sendingCodeStatus = true;
 
-    Utils.toast("验证码为： 1234");
+    Service.getInstance()?.openLog();
+    Map<String, dynamic> result = await Service().request("/api/user/verify", method: DioMethod.get, params: { "phone": phone }, cancelToken: _cancelToken);
+
+    Utils.toast("验证码为： ${result['result']}");
+    print("验证码为： ${result['result']}");
     getLeftTime();
+    }catch(error) {
+      print("error: $error");
+    }
   }
 
   void handleSubmit() {
