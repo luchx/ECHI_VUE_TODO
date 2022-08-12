@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_todo/global_config.dart';
-import 'package:flutter_todo/pages/Index/index.dart';
 import 'package:flutter_todo/utils/index.dart';
 import 'package:flutter_todo/utils/request.dart';
 import 'package:flutter_todo/widget/Button/index.dart';
@@ -152,7 +151,6 @@ class LoginState extends State<Login> {
     );
   }
 
-  CancelToken _cancelToken = CancelToken();
   void handleSendCode() async {
     if (sendingCodeStatus) {
       return;
@@ -165,18 +163,19 @@ class LoginState extends State<Login> {
     try {
       sendingCodeStatus = true;
 
-    Service.getInstance()?.openLog();
-    Map<String, dynamic> result = await Service().request("/api/user/verify", method: DioMethod.get, params: { "phone": phone }, cancelToken: _cancelToken);
+      Service.getInstance()?.openLog();
+      Map<String, dynamic> result = await Service().request("/api/user/verify",
+          method: DioMethod.get, params: {"phone": phone});
 
-    Utils.toast("验证码为： ${result['result']}");
-    print("验证码为： ${result['result']}");
-    getLeftTime();
-    }catch(error) {
-      print("error: $error");
+      sendingCodeStatus = false;
+      Utils.toast("验证码为： ${result['result']}");
+      getLeftTime();
+    } catch (error) {
+      sendingCodeStatus = false;
     }
   }
 
-  void handleSubmit() {
+  void handleSubmit() async {
     String phone = phoneController.text;
     String code = codeController.text;
     if (!validatePhone(phone)) {
@@ -186,6 +185,11 @@ class LoginState extends State<Login> {
       Utils.toast("请输入验证码");
       return;
     }
+    Service.getInstance()?.openLog();
+    Map<String, dynamic> result = await Service().request("/api/user/login",
+        method: DioMethod.post, data: {"phone": phone, "code": code});
+
+    Utils.toast("欢迎回来!!!");
     Navigator.of(context).pushNamed("/", arguments: {"activeIndex": 0});
   }
 
