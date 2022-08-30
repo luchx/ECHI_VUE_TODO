@@ -34,7 +34,7 @@
     "postcss-px2rem": "^0.3.0",
     "prettier": "^2.0.5",
     "typescript": "^3.9.6",
-    "vite": "^1.0.0-rc.13",
+    "vite": "^2.9.13",
     "vue-eslint-parser": "^7.1.0"
   }
 }
